@@ -6,32 +6,29 @@ module.exports = {
     es6: true,
     // "jquery": true
     jest: true,
-    'jsx-control-statements/jsx-control-statements': true, // 能够在jsx中使用if，需要配合另外的babel插件使用
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'module',
+    ecmaVersion: 2020,
+    jsxPragma: 'React',
     ecmaFeatures: {
       jsx: true,
       experimentalObjectRestSpread: true,
     },
   },
-  global: {
-    Recordable: true,
-  },
   extends: [
-    'eslint:recommended',
     'prettier',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
-    'plugin:jsx-control-statements/recommended', // 需要另外配合babel插件使用
+    'plugin:@typescript-eslint/recommended',
   ],
   settings: {
     react: {
       version: 'detect', // 自动读取已安装的react版本
     },
   },
-  plugins: ['@typescript-eslint', 'react', 'jsx-control-statements'],
+  plugins: ['@typescript-eslint', 'react'],
   rules: {
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
