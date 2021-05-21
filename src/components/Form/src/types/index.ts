@@ -1,3 +1,33 @@
+export type ComponentType =
+  | 'Input'
+  | 'InputGroup'
+  | 'InputPassword'
+  | 'InputSearch'
+  | 'InputTextArea'
+  | 'InputNumber'
+  | 'InputCountDown'
+  | 'Select'
+  | 'ApiSelect'
+  | 'SelectOptGroup'
+  | 'TreeSelect'
+  | 'Transfer'
+  | 'RadioButtonGroup'
+  | 'RadioGroup'
+  | 'Checkbox'
+  | 'CheckboxGroup'
+  | 'AutoComplete'
+  | 'Cascader'
+  | 'DatePicker'
+  | 'MonthPicker'
+  | 'RangePicker'
+  | 'WeekPicker'
+  | 'TimePicker'
+  | 'Switch'
+  | 'StrengthMeter'
+  | 'Upload'
+  | 'IconPicker'
+  | 'Render';
+
 type ColSpanType = number | string;
 export interface ColEx {
   style?: any;
@@ -79,33 +109,3 @@ export interface ColEx {
    */
   xxl?: { span: ColSpanType; offset: ColSpanType } | ColSpanType;
 }
-
-export type ComponentType =
-  | 'Input'
-  | 'InputGroup'
-  | 'InputPassword'
-  | 'InputSearch'
-  | 'InputTextArea'
-  | 'InputNumber'
-  | 'InputCountDown'
-  | 'Select'
-  | 'ApiSelect'
-  | 'SelectOptGroup'
-  | 'TreeSelect'
-  | 'Transfer'
-  | 'RadioButtonGroup'
-  | 'RadioGroup'
-  | 'Checkbox'
-  | 'CheckboxGroup'
-  | 'AutoComplete'
-  | 'Cascader'
-  | 'DatePicker'
-  | 'MonthPicker'
-  | 'RangePicker'
-  | 'WeekPicker'
-  | 'TimePicker'
-  | 'Switch'
-  | 'StrengthMeter'
-  | 'Upload'
-  | 'IconPicker'
-  | 'Render';

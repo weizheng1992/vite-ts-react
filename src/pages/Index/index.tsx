@@ -1,220 +1,131 @@
 import React, { useEffect } from 'react';
-import { Button } from 'antd';
+import { BasicForm, FormProps, useForm } from '/@/components/Form';
+import { Form, Input, Select, Button } from 'antd';
 
-// import { Tinymce } from '/@/components/Tinymce';
-import { BasicForm, FormSchema, useForm } from '/@/components/Form';
-const schemas: FormSchema[] = [
-  {
-    field: 'field1',
-    component: 'Input',
-    defaultValue: '333',
-    label: '字段1',
-    required: true,
-    colProps: {
-      span: 24,
-    },
-    // componentProps:{},
-    // can func
-    componentProps: ({ schema, formModel, formActionType }) => {
-      return {
-        placeholder: '自定义placeholder',
-        onChange: async (e: any) => {
-          console.log('4444444444444444444', e, schema, formModel, formActionType);
-          const { updateSchema } = formActionType;
-          console.log(updateSchema);
-          await updateSchema({ field: 'field2', label: '哈哈哈 ' });
-        },
-      };
-    },
-  },
-  {
-    field: 'field2',
-    component: 'Input',
-    label: '带后缀',
-    defaultValue: '111',
-    colProps: {
-      span: 8,
-    },
-    componentProps: {
-      onChange: (e: any) => {
-        console.log('000000000000000000', e);
-      },
-    },
-    suffix: '天',
-  },
-  {
-    field: 'field3',
-    component: 'DatePicker',
-    label: '字段3',
-    colProps: {
-      span: 8,
-    },
-  },
-  {
-    field: 'field4',
-    component: 'Select',
-    label: '字段4',
-    colProps: {
-      span: 8,
-    },
-    componentProps: {
-      options: [
-        {
-          label: '选项1',
-          value: '1',
-          key: '1',
-        },
-        {
-          label: '选项2',
-          value: '2',
-          key: '2',
-        },
-      ],
-    },
-  },
-  {
-    field: 'field5',
-    component: 'CheckboxGroup',
-    label: '字段5',
-    colProps: {
-      span: 8,
-    },
-    componentProps: {
-      options: [
-        {
-          label: '选项1',
-          value: '1',
-        },
-        {
-          label: '选项2',
-          value: '2',
-        },
-      ],
-    },
-  },
-  {
-    field: 'field7',
-    component: 'RadioGroup',
-    label: '字段7',
-    colProps: {
-      span: 8,
-    },
-    componentProps: {
-      options: [
-        {
-          label: '选项1',
-          value: '1',
-        },
-        {
-          label: '选项2',
-          value: '2',
-        },
-      ],
-    },
-  },
-  {
-    field: 'field8',
-    component: 'Checkbox',
-    label: '字段8',
-    required: true,
-    colProps: {
-      span: 8,
-    },
-    valuePropName: 'checked',
-    renderComponentContent: 'Check',
-  },
-  {
-    field: 'field9',
-    component: 'Switch',
-    label: '字段9',
-    colProps: {
-      span: 8,
-    },
-  },
-  {
-    field: 'field11',
-    component: 'Cascader',
-    label: '字段11',
-    colProps: {
-      span: 8,
-    },
-    componentProps: {
-      options: [
-        {
-          value: 'zhejiang',
-          label: 'Zhejiang',
-          children: [
-            {
-              value: 'hangzhou',
-              label: 'Hangzhou',
-              children: [
-                {
-                  value: 'xihu',
-                  label: 'West Lake',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          value: 'jiangsu',
-          label: 'Jiangsu',
-          children: [
-            {
-              value: 'nanjing',
-              label: 'Nanjing',
-              children: [
-                {
-                  value: 'zhonghuamen',
-                  label: 'Zhong Hua Men',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  },
-];
+const Option = Select.Option;
 const Index: React.FC = () => {
-  // const childRef = useRef<any>();
-  // const formElRef = useRef<any>(null);
+  const formProps: FormProps = {
+    showAdvancedButton: true,
+    schemas: [
+      {
+        field: 'Input',
+        label: '文本框',
+        component: 'Input',
+        componentprops: ({ formActionType }) => {
+          return {
+            onChange: async (e) => {
+              const { setFieldsValue } = formActionType;
+              console.log('sss', e);
+              await setFieldsValue({ Input2: e.target.value });
+            },
+          };
+        },
+      },
+      {
+        field: 'Input2',
+        label: '文本框',
+        component: 'Input',
+      },
+      {
+        field: 'Select',
+        label: '下拉',
+        component: 'Select',
+        componentprops: {
+          options: [
+            { label: 'label', value: 1 },
+            { label: 'label2', value: 2 },
+          ],
+        },
+      },
+      {
+        field: 'Checkbox',
+        label: '多选',
+        component: 'Checkbox',
+        valuePropName: 'checked',
+        renderComponentContent: 'Check',
+      },
+      {
+        field: 'CheckboxGroup',
+        label: '多选组',
+        component: 'CheckboxGroup',
+        componentprops: {
+          options: [
+            { label: 'label', value: 1 },
+            { label: 'label2', value: 2 },
+          ],
+        },
+      },
+      {
+        field: 'render',
+        label: '自定义',
+        component: 'Input',
+        render: () => {
+          return (
+            <Input.Group compact>
+              <Form.Item
+                name={['render', 'province']}
+                noStyle
+                rules={[{ required: true, message: 'Province is required' }]}
+              >
+                <Select placeholder="Select province" style={{ width: '50%' }}>
+                  <Option value="Zhejiang">Zhejiang</Option>
+                  <Option value="Jiangsu">Jiangsu</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                name={['render', 'street']}
+                noStyle
+                rules={[{ required: true, message: 'Street is required' }]}
+              >
+                <Input style={{ width: '50%' }} placeholder="Input street" />
+              </Form.Item>
+            </Input.Group>
+          );
+        },
+      },
+    ],
+    formItemProps: {
+      labelCol: { span: 8 },
+    },
+    formActionProps: {
+      actionColOpt: { span: 24 },
+      colStyle: { textAlign: 'center' },
+      resetButtonOptions: {
+        text: '重置',
+      },
+      submitButtonOptions: {
+        text: '确定',
+      },
+      advancedButtonOptions: { style: { fontSize: 12 } },
+    },
+  };
+
+  const [register, { setFieldsValue, getFieldsValue, setProps, updateSchema }] = useForm();
 
   useEffect(() => {
-    // console.log(formElRef?.current);
-    // formElRef?.current.setFieldsValue({
-    //   field3: 'sdsds',
-    //   field4: '1',
-    //   field5: '1',
-    //   field11: ['zhejiang', 'hangzhou', 'xihu'],
-    // });
+    async function load() {
+      const aaa = await getFieldsValue();
+
+      console.log(setFieldsValue({ Input: '3' }), aaa);
+    }
+    load();
   }, []);
-  const handleGetData = async () => {
-    // console.log(childRef.current.getValue());
-    // await formElRef?.current.handleSubmit();
-    setProps({ formActionProps: { showResetButton: false } });
-  };
-  // const handleSubmit = async (value: string) => {
-  //   console.log(formElRef);
-  //   console.log('7777777', value);
-  // };
-  const [register, { setProps }] = useForm({
-    schemas: schemas,
-    formItemProps: { labelWidth: 100 },
-  });
-  const handleGetData2 = () => {
-    setProps({ formItemProps: { labelWidth: 50 } });
+
+  const onTest = async () => {
+    await setProps({
+      formItemProps: {
+        labelCol: { span: 3 },
+      },
+    });
+    await updateSchema({ field: 'Input2', label: 'updateSchema' });
   };
   return (
-    <div className="py-4">
-      {/* <Tinymce modelValue="wwwwww" ediRef={childRef} onChange={handleEditor} /> */}
-      <BasicForm onRegister={register} />
-      <Button type="primary" className="mx-4" onClick={handleGetData}>
-        Index
-      </Button>
-      <Button type="primary" className="mx-4" onClick={handleGetData2}>
-        Index2
-      </Button>
+    <div>
+      About
+      <Button onClick={onTest}>test</Button>
+      <div>
+        <BasicForm {...formProps} onRegister={register} />
+      </div>
     </div>
   );
 };

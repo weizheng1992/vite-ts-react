@@ -1,185 +1,136 @@
-import React, { useMemo, useState, useEffect, createRef, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Row } from 'antd';
+import { FormProps, FormActionType, FormSchema } from './types/form';
 import FormItem from './components/FormItem';
 import FormAction from './components/FormAction';
 
-import type { FormActionType, FormSchema, FormProps } from './types/form';
-import { FormInstance } from 'antd/lib/form';
-
-import type { BasicProps } from './types/formProps';
-import { dateItemType } from './helper';
-import { useFormValues } from './hooks/useFormValues';
-import { useImperativeHandles } from './hooks/useImperativeHandles';
-
-import { isNullOrUnDef } from '/@/utils/is';
-import { dateUtil } from '/@/utils/dateUtil';
 import { deepMerge } from '/@/utils';
-import './index.less';
+import { dateItemType } from './helper';
+import { dateUtil } from '/@/utils/dateUtil';
 
-const prefixCls = 'basic-form';
+import { useFormEvents } from './hooks/useFormEvents';
 
-const BasicFormCom: React.FC<BasicProps> = (props) => {
-  const [formModel, setFormModelState] = useState<Recordable>({});
-  const [defaultValue, setDefaultValue] = useState<Recordable>({});
-  const [propsState, setPropsState] = useState<Partial<BasicProps>>({});
-  const [schema, setSchema] = useState<FormSchema[]>([]);
-  const formElRef = createRef<FormInstance>();
+const BasicForm: React.FC<FormProps> = (props) => {
+  const [isAdvanced, setAsAdvanced] = useState<boolean>(false);
+  const [schemaState, setSchemaState] = useState<Nullable<FormSchema[]>>(null);
+  const [allProps, setAllprops] = useState<FormProps>({});
   const [form] = Form.useForm();
+  const {
+    scrollToField,
+    submit,
+    setFieldsValue,
+    resetFields,
+    getFieldValue,
+    getFieldsValue,
+    validateFields,
+  } = form;
 
   useEffect(() => {
-    const { onRegister } = props;
     onRegister && onRegister(formActionType);
   }, []);
 
-  async function setProps(formProps: Partial<FormProps>): Promise<void> {
-    const setProps = deepMerge(propsState, formProps);
-    setPropsState({ ...setProps });
-  }
-
-  const getProps = useMemo((): BasicProps => {
-    return { ...props, ...propsState } as BasicProps;
-  }, [propsState]);
-
-  const getFormClass = useMemo(() => {
-    let compact = '';
-    if (getProps.compact) {
-      compact = `${prefixCls}--compact`;
-    }
-    return `${prefixCls} ${compact}`;
-  }, [getProps.compact]);
-
-  useEffect(() => {
-    const schemas: FormSchema[] = propsState.schemas || schema;
-    if (schemas && schemas.length > 0) {
-      for (const schema of schemas) {
-        const { defaultValue, component } = schema;
-        // handle date type
-        if (defaultValue && dateItemType.includes(component)) {
-          if (!Array.isArray(defaultValue)) {
-            schema.defaultValue = dateUtil(defaultValue);
-          } else {
-            const def: moment.Moment[] = [];
-            defaultValue.forEach((item) => {
-              def.push(dateUtil(item));
-            });
-            schema.defaultValue = def;
-          }
-        }
-      }
-      setSchema(schemas);
-    }
-  }, [propsState.schemas]);
-
-  useEffect(() => {
-    const obj: Recordable = {};
-    schema.forEach((item) => {
-      const { defaultValue } = item;
-      if (!isNullOrUnDef(defaultValue)) {
-        obj[item.field] = defaultValue;
-      }
-    });
-    setFormModelState(obj);
-    setDefaultValue(obj);
-  }, [schema]);
-  const {
-    transformDateFunc = (date: any) => {
-      return date._isAMomentObject ? date?.format('YYYY-MM-DD HH:mm:ss') : date;
-    },
-    fieldMapToTime = [],
-    // autoFocusFirstItem,
-  } = props;
-  const {
-    handleFormValues,
-    // initDefault
-  } = useFormValues({
-    transformDateFunc,
-    fieldMapToTime,
-    setDefaultValue,
-    schema,
-    formModel,
-  });
-
-  const {
-    resetFields,
-    setFieldsValue,
-    removeSchemaByFiled,
-    appendSchemaByField,
-    getFieldsValue,
-    validateFields,
-    scrollToField,
-    handleSubmit,
-    updateSchema,
-  } = useImperativeHandles({
-    getProps,
-    formModel,
-    setFormModel,
-    schema,
-    defaultValue,
-    formElRef,
-    ref: getProps.fref,
-    setSchema,
-    handleFormValues,
-  });
-
-  const formActionType: Partial<FormActionType> = {
-    resetFields,
-    setFieldsValue,
-    removeSchemaByFiled,
-    appendSchemaByField,
-    getFieldsValue,
-    validateFields,
-    scrollToField,
-    submit: handleSubmit,
-    updateSchema,
-    setProps,
+  const setProps = async (formProps: FormProps): Promise<void> => {
+    const obj = deepMerge(allProps, formProps);
+    setAllprops({ ...obj });
   };
 
-  function setFormModel(key: string, value: any) {
-    const obj = Object.assign({}, formModel, { [key]: value });
-    setFormModelState(obj);
-  }
+  const getProps = useMemo((): FormProps => {
+    return { ...props, ...allProps } as FormProps;
+  }, [allProps]);
 
-  const onSubmit = useCallback(async () => {
-    try {
-      const values = await form.validateFields();
-      const { submitFunc } = props;
-      submitFunc && submitFunc(values);
-      console.log('Success:', values);
-    } catch (errorInfo) {
-      console.log('Failed:', errorInfo);
+  const { schemas = [], onRegister, actionSpan = 3, showAdvancedButton } = getProps;
+
+  const getSchema = useMemo(() => {
+    const schemas: FormSchema[] = schemaState || (getProps.schemas as any);
+    let count = 0;
+    if (showAdvancedButton) {
+      const spanLength = schemas.length < actionSpan ? schemas.length : actionSpan;
+      count = isAdvanced ? schemas.length : spanLength;
     }
-  }, []);
+    const schemasList = schemas.map((schema, index) => {
+      const { defaultValue, component } = schema;
+      if (count && index >= count) {
+        schema.isAdvanced = true;
+      }
+      // handle date type
+      if (defaultValue && dateItemType.includes(component)) {
+        if (!Array.isArray(defaultValue)) {
+          schema.defaultValue = dateUtil(defaultValue);
+        } else {
+          const def: moment.Moment[] = [];
+          defaultValue.forEach((item) => {
+            def.push(dateUtil(item));
+          });
+          schema.defaultValue = def;
+        }
+      }
+      return schema;
+    });
+    return schemasList as FormSchema[];
+  }, [schemas, schemaState]);
 
-  const handleReset = useCallback(async () => {
+  const { updateSchema, removeSchemaByFiled, appendSchemaByField } = useFormEvents({
+    getSchema,
+    setSchemaState,
+  });
+  const formActionType: FormActionType = {
+    scrollToField,
+    submit,
+    setFieldsValue,
+    resetFields,
+    getFieldValue,
+    getFieldsValue,
+    validateFields,
+    setProps,
+    updateSchema,
+    removeSchemaByFiled,
+    appendSchemaByField,
+  };
+  const renderItem = () => {
+    const { formItemProps } = getProps;
+    const children: any = [];
+    getSchema.map((schema) => {
+      children.push(
+        <FormItem
+          key={schema.field}
+          itemProps={formItemProps}
+          labelCol={formItemProps ? formItemProps.labelCol : {}}
+          schema={schema}
+          formActionType={formActionType}
+          showAdvancedButton={showAdvancedButton}
+          isAdvancedAction={isAdvanced}
+        />
+      );
+    });
+    return children;
+  };
+  //折叠按钮
+  const advancedAction = (): void => {
+    setAsAdvanced(!isAdvanced);
+  };
+  //提交按钮
+  const onFinish = (value: any) => {
+    console.log(value);
+  };
+  //重置按钮
+  const resetAction = () => {
     form.resetFields();
-  }, []);
-
+  };
+  console.log('getSchema', getSchema);
   return (
-    <Form {...getProps.formProps} form={form} className={getFormClass} ref={formElRef}>
-      <Row>
-        {schema.map((schemaItem) => (
-          <FormItem
-            schema={schemaItem}
-            formProps={getProps.formItemProps ? getProps.formItemProps : {}}
-            formModel={formModel}
-            allDefaultValues={defaultValue}
-            key={schemaItem.field}
-            setFormModel={setFormModel}
-            formActionType={formActionType}
-          />
-        ))}
+    <Form {...getProps.formProps} form={form} onFinish={onFinish}>
+      <Row gutter={24}>
+        {getSchema.length > 0 && renderItem()}
         <FormAction
           {...getProps.formActionProps}
-          resetAction={handleReset}
-          submitAction={onSubmit}
+          advancedAction={advancedAction}
+          showAdvancedButton={getSchema.length < actionSpan ? false : getProps.showAdvancedButton}
+          isAdvanced={isAdvanced}
+          resetAction={resetAction}
         />
       </Row>
     </Form>
   );
 };
-
-const BasicForm = React.forwardRef<React.Ref<FormInstance>, BasicProps>((props, ref) => (
-  <BasicFormCom {...props} fref={ref} />
-));
 
 export default BasicForm;
