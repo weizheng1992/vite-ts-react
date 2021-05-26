@@ -5,10 +5,10 @@ const index: MenuModule = {
   menu: {
     path: 'about',
     name: '关于我的',
-    breadcrumbName: '关于我的',
     children: [
-      { path: 'index', name: '我的', breadcrumbName: '我的' },
-      { path: 'home', name: 'shsss', breadcrumbName: 'sssss' },
+      { path: 'index', name: '我的' },
+      { path: 'home', name: 'shsss' },
+      { path: 'table', name: '表格' },
     ],
   },
 };

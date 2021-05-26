@@ -7,6 +7,7 @@ import LayoutPage from '/@/layouts';
 import Login from '/@/pages/login';
 const Index = lazy(() => import('/@/pages/Index'));
 const About = lazy(() => import('/@/pages/About'));
+const Table = lazy(() => import('/@/pages/Table'));
 
 const routeList: PartialRouteObject[] = [
   {
@@ -17,8 +18,9 @@ const routeList: PartialRouteObject[] = [
     path: '/',
     element: <LayoutPage />,
     children: [
-      { path: 'index', element: <WrapperRouteAuth element={<Index />} title="首页"  /> },
+      { path: 'index', element: <WrapperRouteAuth element={<Index />} title="首页" /> },
       { path: 'about/index', element: <WrapperRouteAuth element={<About />} title="我的" /> },
+      { path: 'about/table', element: <WrapperRouteAuth element={<Table />} title="表格" /> },
     ],
   },
 ];

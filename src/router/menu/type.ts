@@ -12,8 +12,6 @@ export interface MenuItem {
   path: string;
   /** 子菜单 */
   children?: MenuItem[];
-  /**面包屑名字 */
-  breadcrumbName:string;
 }
 export interface MenuModule {
   orderNo?: number;
