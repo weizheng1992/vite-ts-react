@@ -1,6 +1,11 @@
 import React from 'react';
 import { BasicTable } from '/@/components/Table';
 import { ColumnsType } from 'antd/es/table';
+import { TablePaginationConfig } from 'antd/es/table';
+const title = () => 'Here is title';
+const showHeader = true;
+const footer = () => 'Here is footer';
+const pagination: TablePaginationConfig = { position: ['bottomRight'] };
 const Test = () => {
   const data = [
     {
@@ -96,9 +101,13 @@ const Test = () => {
   return (
     <BasicTable
       tableProps={{
-        columns: columns,
         dataSource: data,
+        footer: footer,
+        title: title,
+        showHeader: showHeader,
+        pagination: { ...pagination },
       }}
+      columns={columns}
       actions={[
         {
           label: '编辑',

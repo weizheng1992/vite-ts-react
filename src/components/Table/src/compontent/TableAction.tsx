@@ -1,29 +1,24 @@
 import React from 'react';
-import { Table, Space } from 'antd';
+import { Space } from 'antd';
 import { ActionItem } from '../types/tableAction';
-const { Column } = Table;
 
 interface Props {
   actions: ActionItem[];
+  params: any[];
 }
 
-const TableAction: React.FC<Props> = ({ actions }) => {
+const TableAction: React.FC<Props> = ({ actions, params }) => {
+  console.log(actions);
   return (
-    <Column
-      title="Action"
-      key="action"
-      render={(...params) => (
-        <Space size="middle">
-          {actions.map((item) => {
-            return (
-              <a key={item.label} onClick={() => item.onClick && item.onClick(...params)}>
-                Invite {item.label}
-              </a>
-            );
-          })}
-        </Space>
-      )}
-    />
+    <Space size="middle">
+      {actions.map((item) => {
+        return (
+          <a key={item.label} onClick={() => item.onClick && item.onClick(...params)}>
+            Invite {item.label}
+          </a>
+        );
+      })}
+    </Space>
   );
 };
 export default TableAction;
