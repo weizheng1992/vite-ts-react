@@ -122,7 +122,7 @@ const Index: React.FC = () => {
   return (
     <div>
       About
-      <Button onClick={onTest}>改变布局</Button>
+      <Button onClick={onTest}>改变布局1</Button>
       <div>
         <BasicForm {...formProps} onRegister={register} />
       </div>
