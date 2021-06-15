@@ -2,7 +2,7 @@
 
 - [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
 - [Vite](https://vitejs.dev/) - 熟悉 vite 特性
-- [React](https://reactjs.bootcss.com/docs/hooks-intro.html) - 熟悉 Vue 基础语法
+- [React](https://reactjs.bootcss.com/docs/hooks-intro.html) - 熟悉 React 基础语法
 - [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
 - [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
 - [React-Router](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) 熟悉 React-router 基本使用
