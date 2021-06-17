@@ -12,8 +12,8 @@ const { Column, ColumnGroup } = Table;
 
 const BasicTable: React.FC<BasicTableProps> = (props) => {
   const { actions, columns, tableProps, sortFn, filterFn } = props;
-  const [pagination, setPagination] = useState<false | TablePaginationConfig | undefined>(
-    tableProps.pagination
+  const [pagination, setPagination] = useState<false | TablePaginationConfig>(
+    tableProps.pagination || false
   );
 
   const handleChange = (
