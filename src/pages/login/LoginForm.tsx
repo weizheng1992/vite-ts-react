@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Checkbox, Form, Input, Row, Col, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginRequest } from '/@/store/actions/login';
+
 const FormItem = Form.Item;
 const InputPassword = Input.Password;
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-    navigate('/index');
-  };
+  const dispatch = useDispatch();
+  const onFinish = useCallback(
+    (values: any) => {
+      console.log('Success:', values);
+      console.log(dispatch);
+      dispatch(loginRequest(values));
+      // const data = useSelector((state) => {
+      //   console.log('ssssssssssssssss', state);
+      //   return 1;
+      // });
+      // console.log(data);
+      // if (data) {
+      navigate('/index');
+      // }
+    },
+    [dispatch]
+  );
   return (
     <>
       <h2 className="font-bold text-2xl xl:text-3xl enter-x text-center xl:text-left mb-6">登录</h2>
