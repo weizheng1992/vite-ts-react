@@ -14,8 +14,8 @@ const login: Reducer<LoginState> = (state = initState, action: ActionTypes) => {
       case LoginActionTypes.loginSucces:
         const userInfo: LoginResultModel = action.payload;
         draft.userInfo = userInfo;
+        break;
       case LoginActionTypes.loginFailure:
-        console.log('failure', action.payload);
         draft.error = 'error';
         break;
       default: {
