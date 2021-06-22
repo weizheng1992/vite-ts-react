@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import { Checkbox, Form, Input, Row, Col, Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginRequest } from '/@/store/actions/login';
 
 const FormItem = Form.Item;
 const InputPassword = Input.Password;
 const LoginForm: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const onFinish = useCallback(
     (values: any) => {
@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
       // });
       // console.log(data);
       // if (data) {
-      navigate('/index');
+      // navigate('/index');
       // }
     },
     [dispatch]
