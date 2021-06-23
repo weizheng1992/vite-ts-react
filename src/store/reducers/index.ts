@@ -1,4 +1,4 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
 // import login from './modules/login';
 const modules = import.meta.globEager('./modules/**/*.ts');
 const reducerModules: any = {};

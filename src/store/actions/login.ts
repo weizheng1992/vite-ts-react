@@ -5,6 +5,7 @@ import {
   LoginActionTypes,
   loginFailureAction,
   loginRequestAction,
+  logoutAction,
 } from '../types/login';
 
 export const loginRequest = (payload: LoginParams, callback: () => void): loginAction => ({
@@ -19,4 +20,8 @@ export const loginSucces = (payload: LoginResultModel): loginRequestAction => ({
 export const loginFailure = (payload: string): loginFailureAction => ({
   type: LoginActionTypes.loginFailure,
   payload,
+});
+export const logOut = (callback: () => void): logoutAction => ({
+  type: LoginActionTypes.logout,
+  onSuccess: callback || null,
 });

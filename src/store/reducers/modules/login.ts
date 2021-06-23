@@ -12,12 +12,14 @@ const login: Reducer<LoginState> = (state = initState, action: ActionTypes) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case LoginActionTypes.loginSucces:
-        console.log(action);
         const userInfo: LoginResultModel = action.payload;
         draft.userInfo = userInfo;
         break;
       case LoginActionTypes.loginFailure:
         draft.error = 'error';
+        break;
+      case LoginActionTypes.logout:
+        draft.userInfo = {} as LoginResultModel;
         break;
       default: {
         return draft;

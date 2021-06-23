@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Layout, Dropdown, Menu } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logOut } from '/@/store/actions/login';
 
 const { Header } = Layout;
 
@@ -12,11 +14,15 @@ interface HeaderProps {
 
 const LayoutHeader: React.FC<HeaderProps> = ({ collapsed, toggle }) => {
   const navigate = useNavigate();
-  const handleMenu = ({ key }: { key: any }) => {
-    if (key === 'logout') {
-      navigate('/login');
-    }
-  };
+  const dispatch = useDispatch();
+  const handleMenu = useCallback(
+    ({ key }: { key: any }) => {
+      if (key === 'logout') {
+        dispatch(logOut(() => navigate('/login')));
+      }
+    },
+    [dispatch]
+  );
   return (
     <Header className="site-layout-background layout-page-header px-2">
       <div className="flex justify-between">
