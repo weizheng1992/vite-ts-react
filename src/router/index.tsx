@@ -4,10 +4,11 @@ import { PartialRouteObject } from 'react-router';
 import WrapperRouteAuth from './RouteAuth';
 
 import LayoutPage from '/@/layouts';
-import Login from '/@/pages/login';
-const Index = lazy(() => import('/@/pages/Index'));
-const About = lazy(() => import('/@/pages/About'));
-const Table = lazy(() => import('/@/pages/Table'));
+import Login from '../pages/sys/login';
+const Home = lazy(() => import('/@/pages/Index'));
+const Form = lazy(() => import('/@/pages/demo/form'));
+const Table = lazy(() => import('../pages/demo/Table'));
+const NotFound = lazy(() => import('/@/pages/sys/404'));
 
 const routeList: PartialRouteObject[] = [
   {
@@ -18,9 +19,24 @@ const routeList: PartialRouteObject[] = [
     path: '/',
     element: <LayoutPage />,
     children: [
-      { path: 'index', element: <WrapperRouteAuth element={<Index />} title="首页" /> },
-      { path: 'about/index', element: <WrapperRouteAuth element={<About />} title="我的" /> },
-      { path: 'about/table', element: <WrapperRouteAuth element={<Table />} title="表格" /> },
+      { path: 'index', element: <WrapperRouteAuth element={<Home />} auth={true} title="首页" /> },
+      {
+        path: 'comp',
+        children: [
+          {
+            path: 'form',
+            element: <WrapperRouteAuth element={<Form />} auth={true} title="表单" />,
+          },
+          {
+            path: 'table',
+            element: <WrapperRouteAuth element={<Table />} auth={true} title="表格" />,
+          },
+        ],
+      },
+      {
+        path: '*',
+        element: <WrapperRouteAuth element={<NotFound />} title="404" />,
+      },
     ],
   },
 ];

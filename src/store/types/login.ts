@@ -9,7 +9,11 @@ export enum LoginActionTypes {
 
 export { LoginParams, LoginResultModel };
 
-export type loginAction = Action<LoginActionTypes.loginRequest, LoginParams>;
+export type loginAction = {
+  type: LoginActionTypes.loginRequest;
+  payload: LoginParams;
+  onSuccess?: () => void;
+};
 export type loginRequestAction = Action<LoginActionTypes.loginSucces, LoginResultModel>;
 export type loginFailureAction = Action<LoginActionTypes.loginFailure, string>;
 

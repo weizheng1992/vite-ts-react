@@ -5,12 +5,13 @@ import { loginRequest, loginSucces, loginFailure } from '../../actions/login';
 
 type CheckLoginRequest = ReturnType<typeof loginRequest>;
 
-function* checkLoginRequest({ payload }: CheckLoginRequest) {
+function* checkLoginRequest({ payload, onSuccess }: CheckLoginRequest) {
   const { username, password } = payload;
-
   try {
     const data = yield loginApi({ username, password });
     yield put(loginSucces(data));
+    localStorage.setItem('token', data.token);
+    onSuccess && onSuccess();
   } catch (error) {
     yield put(loginFailure(`${error}`));
   }

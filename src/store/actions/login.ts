@@ -7,9 +7,10 @@ import {
   loginRequestAction,
 } from '../types/login';
 
-export const loginRequest = (payload: LoginParams): loginAction => ({
+export const loginRequest = (payload: LoginParams, callback: () => void): loginAction => ({
   type: LoginActionTypes.loginRequest,
   payload,
+  onSuccess: callback || null,
 });
 export const loginSucces = (payload: LoginResultModel): loginRequestAction => ({
   type: LoginActionTypes.loginSucces,

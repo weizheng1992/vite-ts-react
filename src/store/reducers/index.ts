@@ -1,10 +1,9 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from '@reduxjs/toolkit';
 // import login from './modules/login';
 const modules = import.meta.globEager('./modules/**/*.ts');
 const reducerModules: any = {};
 
 Object.keys(modules).forEach((key) => {
-  console.log(key);
   const mod = modules[key].default || {};
   const objKey = key && key.match(/modules\/(\S*).ts/);
   if (objKey && objKey.length > 0) {

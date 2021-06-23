@@ -1,34 +1,24 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Checkbox, Form, Input, Row, Col, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginRequest } from '/@/store/actions/login';
-// import { useShallowEqualSelector } from '/@/hooks/useRedux';
-import RootState from '/@/store/types/rootState';
-import { LoginResultModel } from '/@/store/types/login';
 
 const FormItem = Form.Item;
 const InputPassword = Input.Password;
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const data: LoginResultModel = useSelector<RootState, LoginResultModel>(
-    (state: RootState) => state.login.userInfo,
-    shallowEqual
-  );
-  // const data = useShallowEqualSelector((state: RootState) => state.login.userInfo);
-  console.log(data);
+  // const { userId }: LoginResultModel = useSelector<RootState, LoginResultModel>(
+  //   (state: RootState) => state.login.userInfo,
+  //   shallowEqual
+  // );
   const onFinish = useCallback(
     (values: any) => {
-      dispatch(loginRequest(values));
+      dispatch(loginRequest(values, () => navigate('/index')));
     },
     [dispatch]
   );
-  useEffect(() => {
-    if (data.userId) {
-      navigate('/index');
-    }
-  }, [data.userId]);
   return (
     <>
       <h2 className="font-bold text-2xl xl:text-3xl enter-x text-center xl:text-left mb-6">登录</h2>

@@ -3,11 +3,10 @@ import { MenuModule } from '../type';
 const index: MenuModule = {
   orderNo: 112,
   menu: {
-    path: 'about',
-    name: '关于我的',
+    path: 'comp',
+    name: 'demo',
     children: [
-      { path: 'index', name: '我的' },
-      { path: 'home', name: 'shsss' },
+      { path: 'form', name: '表单' },
       { path: 'table', name: '表格' },
     ],
   },
