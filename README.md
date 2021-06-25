@@ -9,6 +9,10 @@
 - [Ant-Design](https://ant.design/components/overview-cn/) - ui 基本使用
 - [Windicss](https://windicss.org/) - css 基本使用
 
+## 预览
+
+- [线上地址](http://8.142.136.225/) - 还在部署
+
 ## 安装使用
 
 - 获取项目代码
