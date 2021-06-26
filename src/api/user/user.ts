@@ -12,3 +12,12 @@ export const loginApi = (params: LoginParams) =>
     url: Api.Login,
     params,
   });
+
+/**
+ * @description: 用户注册
+ */
+export const registerApi = (params: LoginParams) =>
+  defHttp.post<LoginResultModel>({
+    url: Api.Login,
+    params,
+  });
