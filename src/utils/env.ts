@@ -14,7 +14,7 @@ export function getAppEnvConfig() {
   // const ENV_NAME = getConfigFileName(import.meta.env);
 
   const ENV = import.meta.env;
-
+  console.log('________________', ENV);
   const {
     VITE_GLOB_APP_TITLE,
     VITE_GLOB_API_URL,

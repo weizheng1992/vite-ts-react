@@ -33,7 +33,7 @@ function createFakeUserList() {
   ];
 }
 
-mock.mock('/basic-api/login', 'post', ({ body }) => {
+mock.mock('/api/login', 'post', ({ body }) => {
   const { username, password } = JSON.parse(body);
   const checkUser = createFakeUserList().find(
     (item) => item.username === username && password === item.password
@@ -52,7 +52,7 @@ mock.mock('/basic-api/login', 'post', ({ body }) => {
   });
 });
 
-mock.mock('/basic-api/token/refresh', 'post', () => {
+mock.mock('/api/token/refresh', 'post', () => {
   return resultSuccess({
     userId: '1',
     username: 'admin',

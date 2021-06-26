@@ -24,7 +24,7 @@ const demoList = (() => {
   return result;
 })();
 
-mock.mock('/basic-api/table/getDemoList', 'post', (body) => {
+mock.mock('/api/table/getDemoList', 'post', (body) => {
   const { page = 1, pageSize = 20 } = body;
   return resultPageSuccess(page, pageSize, demoList);
 });
