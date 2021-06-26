@@ -15,7 +15,7 @@ const Login: React.FC = () => {
             <div className="my-auto">
               <img src="/@/assets/svg/login-box-bg.svg" className="-mt-16 w-1/2 -enter-x" />
               <div className="font-medium mt-10 text-white -enter-x">
-                <span className="mt-4 text-3xl inline-block"> 啊啊啊啊啊啊</span>
+                <span className="mt-4 text-3xl inline-block"> 啊你个头</span>
               </div>
               <div className="font-normal mt-5 text-md text-white dark:text-gray-500 -enter-x">
                 三生三世

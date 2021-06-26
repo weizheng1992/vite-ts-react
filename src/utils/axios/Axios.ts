@@ -55,12 +55,12 @@ export class VAxios {
   /**
    * @description: Set general header
    */
-  setHeader(headers: any): void {
-    if (!this.axiosInstance) {
-      return;
-    }
-    Object.assign(this.axiosInstance.defaults.headers, headers);
-  }
+  // setHeader(headers: any): void {
+  //   if (!this.axiosInstance) {
+  //     return;
+  //   }
+  //   Object.assign(this.axiosInstance.defaults.headers, headers);
+  // }
 
   /**
    * @description: Interceptor configuration
