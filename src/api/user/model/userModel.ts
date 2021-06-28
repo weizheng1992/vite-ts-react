@@ -19,3 +19,11 @@ export interface LoginResultModel {
   token: string;
   role?: RoleInfo;
 }
+
+/**
+ * @description: Register interface return value
+ */
+export interface RegisterParams {
+  username: string;
+  password: string;
+}

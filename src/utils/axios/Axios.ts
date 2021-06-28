@@ -55,12 +55,12 @@ export class VAxios {
   /**
    * @description: Set general header
    */
-  setHeader(headers: any): void {
-    if (!this.axiosInstance) {
-      return;
-    }
-    Object.assign(this.axiosInstance.defaults.headers, headers);
-  }
+  // setHeader(headers: any): void {
+  //   if (!this.axiosInstance) {
+  //     return;
+  //   }
+  //   Object.assign(this.axiosInstance.defaults.headers, headers);
+  // }
 
   /**
    * @description: Interceptor configuration
@@ -211,7 +211,7 @@ export class VAxios {
             ret !== errorResult ? resolve(ret) : reject(new Error('request error!'));
             return;
           }
-          resolve((res as unknown) as Promise<T>);
+          resolve(res as unknown as Promise<T>);
         })
         .catch((e: Error) => {
           if (requestCatchHook && isFunction(requestCatchHook)) {
