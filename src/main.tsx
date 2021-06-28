@@ -7,7 +7,7 @@ import App from './App';
 
 if (import.meta.env.DEV) {
   import('antd/dist/antd.less');
-  import('../mock');
+  // import('../mock');
 }
 
 ReactDOM.render(
