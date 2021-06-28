@@ -3,7 +3,7 @@ import { Layout, Dropdown, Menu } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logOut } from '/@/store/actions/login';
+import { logOut } from '../../store/actions/user';
 
 const { Header } = Layout;
 

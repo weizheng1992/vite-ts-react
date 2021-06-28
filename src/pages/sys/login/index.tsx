@@ -1,8 +1,19 @@
-import React from 'react';
+/*
+ * @Author: weizheng
+ * @Date: 2021-06-28 16:26:00
+ * @LastEditors: weizheng
+ * @LastEditTime: 2021-06-28 17:22:58
+ */
+import React, { useState } from 'react';
 import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import './index.less';
 
 const Login: React.FC = () => {
+  const [loginPage, setLoginPage] = useState<boolean>(true);
+  const handleToReg = () => {
+    setLoginPage(!loginPage);
+  };
   return (
     <div className={`login relative w-full h-full px-4`}>
       <div className="container h-full mx-auto py-2 relative sm:px-10">
@@ -26,7 +37,8 @@ const Login: React.FC = () => {
             <div
               className={`login-form my-auto mx-auto xl:ml-20 xl:bg-transparent px-5 py-8 sm:px-8 xl:p-4 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto enter-x relative`}
             >
-              <LoginForm />
+              <LoginForm handleToReg={handleToReg} show={loginPage} />
+              <RegisterForm handleToReg={handleToReg} show={loginPage} />
             </div>
           </div>
         </div>

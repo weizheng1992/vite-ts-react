@@ -1,5 +1,5 @@
-import { LoginState } from './login';
+import { UserState } from './user';
 
-type RootState = { login: LoginState };
+type RootState = { user: UserState };
 
 export default RootState;

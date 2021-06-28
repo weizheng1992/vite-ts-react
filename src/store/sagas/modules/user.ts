@@ -1,13 +1,13 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
 import { loginApi, registerApi } from '/@/api/user/user';
-import { LoginActionTypes } from '../../types/login';
+import { UserActionTypes } from '../../types/user';
 import {
   loginRequest,
   registerRequest,
   loginSucces,
   loginFailure,
   logOut,
-} from '../../actions/login';
+} from '../../actions/user';
 
 type CheckLoginRequest = ReturnType<typeof loginRequest>;
 type ChecklogOut = ReturnType<typeof logOut>;
@@ -43,7 +43,7 @@ function* checkLogout({ onSuccess }: ChecklogOut) {
 }
 
 export default all([
-  takeLatest(LoginActionTypes.loginRequest, checkLoginRequest),
-  takeLatest(LoginActionTypes.registerRequest, checkRegisterRequest),
-  takeLatest(LoginActionTypes.logout, checkLogout),
+  takeLatest(UserActionTypes.loginRequest, checkLoginRequest),
+  takeLatest(UserActionTypes.registerRequest, checkRegisterRequest),
+  takeLatest(UserActionTypes.logout, checkLogout),
 ]);

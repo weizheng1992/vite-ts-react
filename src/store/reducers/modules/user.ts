@@ -2,31 +2,34 @@
 import { Reducer } from 'redux';
 import produce from 'immer';
 
-import { LoginState, LoginResultModel, ActionTypes, LoginActionTypes } from '../../types/login';
+import { UserState, LoginResultModel, ActionTypes, UserActionTypes } from '../../types/user';
 
-const initState: LoginState = {
+const initState: UserState = {
   userInfo: {} as LoginResultModel,
   error: '',
 };
 
-const login: Reducer<LoginState> = (state = initState, action: ActionTypes) => {
+const login: Reducer<UserState> = (state = initState, action: ActionTypes) => {
   console.log('state :>> ', state);
   console.log('action :>> ', action);
   return produce(state, (draft) => {
     switch (action.type) {
-      case LoginActionTypes.loginSucces:
-        // const userInfo: LoginResultModel = action.payload;
-        // draft.userInfo = userInfo;
+      case UserActionTypes.loginSucces:
+        const userInfo: LoginResultModel = action.payload;
+        draft.userInfo = userInfo;
         break;
-      case LoginActionTypes.loginFailure:
+      case UserActionTypes.loginFailure:
         draft.error = 'error';
         break;
-      case LoginActionTypes.logout:
+      case UserActionTypes.logout:
         draft.userInfo = {} as LoginResultModel;
         break;
-      case LoginActionTypes.registerSuccess:
+      case UserActionTypes.registerSuccess:
         const user: LoginResultModel = action.payload;
         draft.user = user;
+        break;
+      case UserActionTypes.registerFailure:
+        draft.error = 'error';
         break;
       default: {
         return draft;

@@ -1,35 +1,39 @@
 import { Action } from './common';
 import type { LoginParams, LoginResultModel, RegisterParams } from '/@/api/user/model/userModel';
 
-export enum LoginActionTypes {
+export enum UserActionTypes {
   loginRequest = 'LOGIN_REQUEST',
-  registerRequest = 'REGISTER_REQUEST',
   loginSucces = 'LOGIN_SUCCESS',
-  registerSuccess = 'REGISTER_SUCESS',
   loginFailure = 'LOGIN_FAILURE',
+  registerSuccess = 'REGISTER_SUCESS',
+  registerRequest = 'REGISTER_REQUEST',
+  registerFailure = 'REGISTER_FAILURE',
   logout = 'LOGOUT',
 }
 
 export { LoginParams, LoginResultModel, RegisterParams };
 
 export type loginAction = {
-  type: LoginActionTypes.loginRequest;
+  type: UserActionTypes.loginRequest;
   payload: LoginParams;
   onSuccess?: () => void;
 };
 
+export type loginRequestAction = Action<UserActionTypes.loginSucces, LoginResultModel>;
+export type loginFailureAction = Action<UserActionTypes.loginFailure, string>;
+
 export type registerAction = {
-  type: LoginActionTypes.registerRequest;
+  type: UserActionTypes.registerRequest;
   payload: RegisterParams;
   onSuccess?: () => void;
 };
 
-export type loginRequestAction = Action<LoginActionTypes.loginSucces, LoginResultModel>;
-export type registerRequestAction = Action<LoginActionTypes.registerSuccess, LoginResultModel>;
-export type loginFailureAction = Action<LoginActionTypes.loginFailure, string>;
+export type registerRequestAction = Action<UserActionTypes.registerSuccess, LoginResultModel>;
+
+export type registerFailureAction = Action<UserActionTypes.registerFailure, string>;
 
 export type logoutAction = {
-  type: LoginActionTypes.logout;
+  type: UserActionTypes.logout;
   onSuccess?: () => void;
 };
 
@@ -39,9 +43,10 @@ export type ActionTypes =
   | loginRequestAction
   | registerRequestAction
   | loginFailureAction
+  | registerFailureAction
   | logoutAction;
 
-export type LoginState = {
+export type UserState = {
   userInfo: LoginResultModel;
   error: string;
   user?: LoginResultModel;
