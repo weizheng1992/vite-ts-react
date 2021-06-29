@@ -2,6 +2,7 @@ import React from 'react';
 import { BasicTable } from '/@/components/Table';
 import { ColumnsType } from 'antd/es/table';
 import { TablePaginationConfig } from 'antd/es/table';
+import { Tag } from 'antd';
 const title = () => 'Here is title';
 const showHeader = true;
 const footer = () => 'Here is footer';
@@ -39,13 +40,13 @@ const Test = () => {
   const columns: ColumnsType<Recordable> = [
     {
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: 'key',
       fixed: 'left',
       width: 200,
     },
     {
       title: '姓名',
-      dataIndex: 'name',
+      dataIndex: 'firstName',
       width: 150,
       filters: [
         { text: 'Male', value: 'male' },
@@ -81,21 +82,23 @@ const Test = () => {
     },
     {
       title: '编号',
-      dataIndex: 'no',
+      dataIndex: 'lastName',
       width: 150,
       sorter: true,
     },
     {
-      title: '开始时间',
+      title: 'tags',
       width: 120,
-      sorter: true,
-      dataIndex: 'beginTime',
-    },
-    {
-      title: '结束时间',
-      width: 120,
-      sorter: true,
-      dataIndex: 'endTime',
+      dataIndex: 'tags',
+      render: (tags) => (
+        <>
+          {tags.map((tag: string) => (
+            <Tag color="blue" key={tag}>
+              {tag}
+            </Tag>
+          ))}
+        </>
+      ),
     },
   ];
   return (
