@@ -1,8 +1,8 @@
 /*
  * @Author: zz
  * @Date: 2021-06-28 17:22:48
- * @LastEditors: zz
- * @LastEditTime: 2021-07-02 18:06:56
+ * @LastEditors: weizheng
+ * @LastEditTime: 2021-07-02 18:28:05
  */
 import React from 'react';
 import { Col, Form, Button } from 'antd';
@@ -37,7 +37,7 @@ const FormAction: React.FC<FormActionProps> = (props) => {
     <Col {...actionColOpt} style={colStyle}>
       <Form.Item>
         {showResetButton && (
-          <Button type="default" className="mr-2" {...resetButtonOptions} onClick={resetAction}>
+          <Button type="default" className="mr-2" onClick={resetAction} {...resetButtonOptions}>
             {resetButtonOptions && resetButtonOptions.text}
           </Button>
         )}

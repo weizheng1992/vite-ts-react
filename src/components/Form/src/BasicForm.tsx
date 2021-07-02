@@ -113,8 +113,13 @@ const BasicForm: React.FC<FormProps> = (props) => {
     console.log(value);
   };
   //重置按钮
-  const resetAction = () => {
-    form.resetFields();
+  const onResetAction = () => {
+    const resetAction = getProps.formActionProps?.resetAction;
+    if (resetAction) {
+      resetAction();
+    } else {
+      form.resetFields();
+    }
   };
   console.log('getSchema', getSchema);
   return (
@@ -126,7 +131,7 @@ const BasicForm: React.FC<FormProps> = (props) => {
           advancedAction={advancedAction}
           showAdvancedButton={getSchema.length < actionSpan ? false : getProps.showAdvancedButton}
           isAdvanced={isAdvanced}
-          resetAction={resetAction}
+          resetAction={onResetAction}
         />
       </Row>
     </Form>
