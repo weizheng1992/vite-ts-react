@@ -2,7 +2,7 @@
  * @Author: weizheng
  * @Date: 2021-06-22 20:30:54
  * @LastEditors: weizheng
- * @LastEditTime: 2021-06-29 17:09:57
+ * @LastEditTime: 2021-07-02 14:56:43
  */
 import React, { useState } from 'react';
 import { Table, Space } from 'antd';
@@ -25,27 +25,28 @@ const BasicTable: React.FC<BasicTableProps> = (props) => {
     tableProps.pagination || false
   );
 
-  const { handleTableChange, dataSource } = useDataSource(props, {
+  const { handleTableChange, dataSource, getRowKey } = useDataSource(props, {
     paginationInfo: pagination,
     setPagination,
     setLoading,
   });
-
+  console.log('9999999999', dataSource.data);
   return (
     <Table
       {...tableProps}
       pagination={pagination}
       onChange={handleTableChange}
       loading={loading}
-      dataSource={dataSource}
+      dataSource={dataSource.data}
+      rowKey={getRowKey()}
     >
       {columns?.map((item: ColumnProps<Recordable>, index: number) => {
         if (item.children) {
           const list: ColumnType<Recordable>[] = item.children;
           return (
             <ColumnGroup title={item.title} key={index}>
-              {list.map((child, index) => (
-                <Column {...child} key={index} />
+              {list.map((child: ColumnType<Recordable>, key) => (
+                <Column {...child} key={key} />
               ))}
             </ColumnGroup>
           );

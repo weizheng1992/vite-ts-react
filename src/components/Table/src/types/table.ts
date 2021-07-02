@@ -2,7 +2,7 @@
  * @Author: weizheng
  * @Date: 2021-06-15 20:27:04
  * @LastEditors: weizheng
- * @LastEditTime: 2021-06-29 16:40:42
+ * @LastEditTime: 2021-07-02 14:56:11
  */
 import { TableProps, ColumnsType } from 'antd/es/table';
 import { ActionItem } from './tableAction';
@@ -20,6 +20,7 @@ export interface FetchSetting {
 export interface BasicTableProps {
   columns: ColumnsType<Recordable>;
   actions: ActionItem[];
+  rowKey?: string | ((record: Recordable) => string);
   // 接口请求对象
   api?: (...arg: any) => Promise<any>;
   // 请求之前处理参数

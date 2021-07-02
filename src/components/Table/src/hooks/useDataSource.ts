@@ -2,17 +2,18 @@
  * @Author: weizheng
  * @Date: 2021-06-29 16:02:24
  * @LastEditors: weizheng
- * @LastEditTime: 2021-06-29 17:09:32
+ * @LastEditTime: 2021-07-02 14:56:28
  */
-
+import { useEffect } from 'react';
 import { BasicTableProps, FetchParams } from '../types/table';
 import { FilterValue, SorterResult } from 'antd/es/table/interface';
 import { TablePaginationConfig } from 'antd/es/table';
 import { useImmer, Updater } from 'use-immer';
+import { produce } from 'immer';
 
 import { get } from 'lodash-es';
 import { isFunction, isBoolean } from '/@/utils/is';
-import { FETCH_SETTING, PAGE_SIZE } from '../const';
+import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 
 interface ActionType {
   paginationInfo: TablePaginationConfig | boolean;
@@ -33,14 +34,20 @@ export function useDataSource(
     sortInfo: {},
     filterInfo: {},
   });
-  const [dataSource, setDataSource] = useImmer<Recordable[]>([]);
-
+  const [dataSource, setDataSource] = useImmer<{ data: Recordable[] }>({ data: [] });
+  const getRowKey = () => {
+    const { rowKey } = props;
+    return rowKey || ROW_KEY;
+  };
   const handleTableChange = (
     pagination: TablePaginationConfig,
     filters: Record<string, FilterValue | null>,
     sorter: SorterResult<Recordable> | SorterResult<Recordable>[]
   ) => {
-    setPagination(pagination);
+    setPagination((draft) => {
+      draft = Object.assign({}, draft, pagination);
+      return draft;
+    });
     const params: Recordable = {};
     if (sorter && isFunction(sortFn)) {
       const sortInfo = sortFn(sorter);
@@ -96,7 +103,6 @@ export function useDataSource(
       }
 
       const res = await api(params);
-
       const isArrayResult = Array.isArray(res);
 
       let resultItems: Recordable[] = isArrayResult ? res : get(res, listField);
@@ -116,29 +122,36 @@ export function useDataSource(
       if (afterFetch && isFunction(afterFetch)) {
         resultItems = afterFetch(resultItems) || resultItems;
       }
-      setDataSource(() => {
-        return resultItems;
-      });
-      setPagination({
-        total: resultTotal || 0,
+      setDataSource(
+        produce(dataSource, (draft) => {
+          console.log('((((((((((', draft);
+          draft.data = resultItems;
+        })
+      );
+      setPagination((draft) => {
+        draft.total = resultTotal || 0;
       });
       if (opt && opt.page) {
-        setPagination({
-          current: opt.page || 1,
+        setPagination((draft) => {
+          draft.current = opt.page || 1;
         });
       }
     } catch (error) {
-      setDataSource([]);
-      setPagination({
-        total: 0,
+      setDataSource({ data: [] });
+      setPagination((draft) => {
+        draft.total = 0;
       });
     } finally {
       setLoading(false);
     }
   }
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return {
     dataSource,
     handleTableChange,
+    getRowKey,
   };
 }

@@ -63,7 +63,7 @@ const transform: AxiosTransform = {
     // 接口请求错误，统一提示错误信息
     if (code === ResultEnum.ERROR) {
       if (message) {
-        $message.error(data.message);
+        $message.error(data.msg);
         Promise.reject(new Error(message));
       } else {
         $message.error('请求错误');
@@ -73,8 +73,8 @@ const transform: AxiosTransform = {
     }
     // 登录超时
     if (code === ResultEnum.TIMEOUT) {
-      $message.error('登录超市');
-      Promise.reject(new Error('登录超市'));
+      $message.error('登录超时');
+      Promise.reject(new Error('登录超时'));
       return errorResult;
     }
     return errorResult;
@@ -141,7 +141,7 @@ const transform: AxiosTransform = {
       if (err?.includes('Network Error')) {
         $message.error('网络异常');
       }
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error);
     }
     // checkStatus(error?.response?.status, msg);
