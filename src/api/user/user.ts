@@ -2,6 +2,7 @@ import { defHttp } from '/@/utils/axios';
 import { LoginParams, LoginResultModel } from './model/userModel';
 enum Api {
   Login = '/login',
+  UserInfo = '/userinfo',
 }
 
 /**

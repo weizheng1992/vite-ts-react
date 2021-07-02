@@ -1,3 +1,9 @@
+/*
+ * @Author: zz
+ * @Date: 2021-06-28 17:22:48
+ * @LastEditors: zz
+ * @LastEditTime: 2021-07-02 18:06:56
+ */
 import React from 'react';
 import { Col, Form, Button } from 'antd';
 import { FormActionProps } from '../types/form';
@@ -16,6 +22,7 @@ const FormAction: React.FC<FormActionProps> = (props) => {
     isAdvanced,
     advancedAction,
     advancedButtonOptions,
+    submitAction,
   } = props;
   const renderAdvancedButton = () => {
     return (
@@ -35,7 +42,7 @@ const FormAction: React.FC<FormActionProps> = (props) => {
           </Button>
         )}
         {showSubmitButton && (
-          <Button type="primary" className="mr-2" htmlType="submit" {...submitButtonOptions}>
+          <Button type="primary" className="mr-2" onClick={submitAction} {...submitButtonOptions}>
             {submitButtonOptions && submitButtonOptions.text}
           </Button>
         )}

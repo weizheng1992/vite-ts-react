@@ -9,6 +9,8 @@ const Home = lazy(() => import('/@/pages/Index'));
 const Form = lazy(() => import('/@/pages/demo/form'));
 const Table = lazy(() => import('../pages/demo/Table'));
 const NotFound = lazy(() => import('/@/pages/sys/404'));
+const User = lazy(() => import('/@/pages/sys/user/index'));
+const Menu = lazy(() => import('/@/pages/sys/menu/index'));
 
 const routeList: PartialRouteObject[] = [
   {
@@ -30,6 +32,19 @@ const routeList: PartialRouteObject[] = [
           {
             path: 'table',
             element: <WrapperRouteAuth element={<Table />} auth={true} title="表格" />,
+          },
+        ],
+      },
+      {
+        path: 'sys',
+        children: [
+          {
+            path: 'user',
+            element: <WrapperRouteAuth element={<User />} auth={true} title="用户管理" />,
+          },
+          {
+            path: 'menu',
+            element: <WrapperRouteAuth element={<Menu />} auth={true} title="菜单管理" />,
           },
         ],
       },

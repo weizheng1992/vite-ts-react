@@ -1,3 +1,9 @@
+/*
+ * @Author: zz
+ * @Date: 2021-06-28 17:30:04
+ * @LastEditors: zz
+ * @LastEditTime: 2021-06-30 16:50:40
+ */
 // import { UserInfo } from './../../../../../vite-react-node/src/sqls/user/model/searchModel';
 import { Reducer } from 'redux';
 import produce from 'immer';
@@ -10,8 +16,6 @@ const initState: UserState = {
 };
 
 const login: Reducer<UserState> = (state = initState, action: ActionTypes) => {
-  console.log('state :>> ', state);
-  console.log('action :>> ', action);
   return produce(state, (draft) => {
     switch (action.type) {
       case UserActionTypes.loginSucces:
