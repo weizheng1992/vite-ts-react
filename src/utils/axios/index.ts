@@ -6,7 +6,7 @@ import type { RequestOptions, Result } from './types';
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
 
 import { VAxios } from './Axios';
-// import { checkStatus } from './checkStatus';
+import { checkStatus } from './checkStatus';
 import { message as $message } from 'antd';
 
 import { RequestEnum, ResultEnum, ContentTypeEnum } from './httpEnum';
@@ -131,8 +131,8 @@ const transform: AxiosTransform = {
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
-    const { code, message } = error || {};
-    // const msg: string = response?.data?.error?.message ?? '';
+    const { code, message, response } = error || {};
+    const msg: string = response?.data?.error?.message ?? '';
     const err: string = error?.toString?.() ?? '';
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
@@ -144,7 +144,7 @@ const transform: AxiosTransform = {
     } catch (error: any) {
       throw new Error(error);
     }
-    // checkStatus(error?.response?.status, msg);
+    checkStatus(error?.response?.status, msg);
     return Promise.reject(error);
   },
 };

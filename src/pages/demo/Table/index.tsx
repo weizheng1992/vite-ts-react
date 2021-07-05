@@ -28,57 +28,17 @@ const Test = () => {
       title: '姓名',
       dataIndex: 'username',
       width: 150,
-      // filters: [
-      //   { text: 'Male', value: 'male' },
-      //   { text: 'Female', value: 'female' },
-      // ],
     },
     {
       title: 'nickname',
       dataIndex: 'nickname',
       sorter: true,
-      // children: [
-      //   {
-      //     title: '编号',
-      //     dataIndex: 'no',
-      //     width: 120,
-      //     filters: [
-      //       { text: 'Male', value: 'male', children: [] },
-      //       { text: 'Female', value: 'female', children: [] },
-      //     ],
-      //   },
-
-      //   {
-      //     title: '开始时间',
-      //     dataIndex: 'beginTime',
-      //     width: 120,
-      //   },
-      //   {
-      //     title: '结束时间',
-      //     dataIndex: 'endTime',
-      //     width: 120,
-      //   },
-      // ],
     },
     {
       title: 'email',
       dataIndex: 'email',
       width: 150,
     },
-    // {
-    //   title: 'tags',
-    //   width: 120,
-    //   dataIndex: 'tags',
-    //   render: (tags) => (
-    //     <>
-    //       {tags.map((tag: string) => (
-    //         <Tag color="blue" key={tag}>
-    //           {tag}
-    //         </Tag>
-    //       ))}
-    //     </>
-    //   ),
-    // },
   ];
   return (
     <BasicTable
