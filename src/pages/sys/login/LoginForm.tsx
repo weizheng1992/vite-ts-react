@@ -2,7 +2,7 @@
  * @Author: weizheng
  * @Date: 2021-06-28 16:26:00
  * @LastEditors: zz
- * @LastEditTime: 2021-07-06 17:08:06
+ * @LastEditTime: 2021-07-06 19:32:25
  */
 import React, { useCallback } from 'react';
 import { Checkbox, Form, Input, Row, Col, Button } from 'antd';
@@ -30,6 +30,7 @@ const LoginForm: React.FC<Props> = ({ handleToReg, show }) => {
     },
     [dispatch]
   );
+  console.log('Login____');
   return (
     <div style={{ display: show ? 'block' : 'none' }}>
       <h2 className="font-bold text-2xl xl:text-3xl enter-x text-center xl:text-left mb-6">登录</h2>

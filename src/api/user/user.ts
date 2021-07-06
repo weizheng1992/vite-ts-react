@@ -2,7 +2,7 @@ import { defHttp } from '/@/utils/axios';
 import { LoginParams, LoginResultModel } from './model/userModel';
 enum Api {
   Login = '/login',
-  UserInfo = '/userinfo',
+  Register = '/register',
 }
 
 /**
@@ -19,6 +19,6 @@ export const loginApi = (params: LoginParams) =>
  */
 export const registerApi = (params: LoginParams) =>
   defHttp.post<LoginResultModel>({
-    url: Api.Login,
+    url: Api.Register,
     params,
   });

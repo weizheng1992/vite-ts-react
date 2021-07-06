@@ -2,7 +2,7 @@
  * @Author: zhuoyu
  * @Date: 2021-06-28 17:04:55
  * @LastEditors: weizheng
- * @LastEditTime: 2021-06-28 17:23:12
+ * @LastEditTime: 2021-07-02 15:02:34
  */
 import React, { useCallback } from 'react';
 import { Checkbox, Form, Input, Row, Col, Button } from 'antd';
@@ -29,6 +29,7 @@ const LoginForm: React.FC<Props> = ({ handleToReg, show }) => {
     [dispatch]
   );
 
+  console.log('Register____');
   // const chageLogin = useCallback((value: boolean) => {
   //   setFlag(!value);
   // }, []);

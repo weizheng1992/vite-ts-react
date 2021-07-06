@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.less';
 import '/@/design/index.less';
-import 'virtual:windi.css';
+import '/@/design/tailwind.css';
 import App from './App';
 
 if (import.meta.env.DEV) {

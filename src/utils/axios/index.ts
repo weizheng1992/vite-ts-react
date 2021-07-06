@@ -6,7 +6,7 @@ import type { RequestOptions, Result } from './types';
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
 
 import { VAxios } from './Axios';
-// import { checkStatus } from './checkStatus';
+import { checkStatus } from './checkStatus';
 import { message as $message } from 'antd';
 
 import { RequestEnum, ResultEnum, ContentTypeEnum } from './httpEnum';
@@ -63,7 +63,7 @@ const transform: AxiosTransform = {
     // 接口请求错误，统一提示错误信息
     if (code === ResultEnum.ERROR) {
       if (message) {
-        $message.error(data.message);
+        $message.error(data.msg);
         Promise.reject(new Error(message));
       } else {
         $message.error('请求错误');
@@ -73,8 +73,8 @@ const transform: AxiosTransform = {
     }
     // 登录超时
     if (code === ResultEnum.TIMEOUT) {
-      $message.error('登录超市');
-      Promise.reject(new Error('登录超市'));
+      $message.error('登录超时');
+      Promise.reject(new Error('登录超时'));
       return errorResult;
     }
     return errorResult;
@@ -131,8 +131,8 @@ const transform: AxiosTransform = {
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
-    const { code, message } = error || {};
-    // const msg: string = response?.data?.error?.message ?? '';
+    const { code, message, response } = error || {};
+    const msg: string = response?.data?.error?.message ?? '';
     const err: string = error?.toString?.() ?? '';
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
@@ -141,10 +141,10 @@ const transform: AxiosTransform = {
       if (err?.includes('Network Error')) {
         $message.error('网络异常');
       }
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error);
     }
-    // checkStatus(error?.response?.status, msg);
+    checkStatus(error?.response?.status, msg);
     return Promise.reject(error);
   },
 };

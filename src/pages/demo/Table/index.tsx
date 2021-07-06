@@ -1,113 +1,57 @@
+/*
+ * @Author: weizheng
+ * @Date: 2021-06-29 17:18:09
+ * @LastEditors: weizheng
+ * @LastEditTime: 2021-07-02 14:56:55
+ */
 import React from 'react';
 import { BasicTable } from '/@/components/Table';
 import { ColumnsType } from 'antd/es/table';
 import { TablePaginationConfig } from 'antd/es/table';
+import { demoListApi } from '/@/api/demo/table';
 const title = () => 'Here is title';
 const showHeader = true;
 const footer = () => 'Here is footer';
 const pagination: TablePaginationConfig = { position: ['bottomRight'] };
 const Test = () => {
-  const data = [
-    {
-      key: '1',
-      firstName: 'John',
-      lastName: 'Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      firstName: 'Jim',
-      lastName: 'Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      firstName: 'Joe',
-      lastName: 'Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
   const handleClick = () => {
     console.log('dianjiel ');
   };
   const columns: ColumnsType<Recordable> = [
     {
-      title: 'ID',
+      title: 'id',
       dataIndex: 'id',
       fixed: 'left',
       width: 200,
     },
     {
       title: '姓名',
-      dataIndex: 'name',
+      dataIndex: 'username',
       width: 150,
-      filters: [
-        { text: 'Male', value: 'male' },
-        { text: 'Female', value: 'female' },
-      ],
     },
     {
-      title: '地址',
-      dataIndex: 'address',
+      title: 'nickname',
+      dataIndex: 'nickname',
       sorter: true,
-      children: [
-        {
-          title: '编号',
-          dataIndex: 'no',
-          width: 120,
-          filters: [
-            { text: 'Male', value: 'male', children: [] },
-            { text: 'Female', value: 'female', children: [] },
-          ],
-        },
-
-        {
-          title: '开始时间',
-          dataIndex: 'beginTime',
-          width: 120,
-        },
-        {
-          title: '结束时间',
-          dataIndex: 'endTime',
-          width: 120,
-        },
-      ],
     },
     {
-      title: '编号',
-      dataIndex: 'no',
+      title: 'email',
+      dataIndex: 'email',
       width: 150,
-      sorter: true,
-    },
-    {
-      title: '开始时间',
-      width: 120,
-      sorter: true,
-      dataIndex: 'beginTime',
-    },
-    {
-      title: '结束时间',
-      width: 120,
-      sorter: true,
-      dataIndex: 'endTime',
     },
   ];
   return (
     <BasicTable
       tableProps={{
-        dataSource: data,
         footer: footer,
         title: title,
         showHeader: showHeader,
         pagination: { ...pagination },
       }}
+      api={demoListApi}
+      searchInfo={{ user: 'admin' }}
       columns={columns}
+      rowKey={'id'}
       actions={[
         {
           label: '编辑',
