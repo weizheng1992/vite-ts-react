@@ -10,7 +10,6 @@ import { configVisualizerConfig } from './visualizer';
 // import { configPluginImp } from './pluginImp';
 import { configStyleImportPlugin } from './styleImport';
 // import { configImageminPlugin } from './imagemin';
-import { configWindiCssPlugin } from './windicss';
 import { configHmrPlugin } from './hmr';
 
 export function createVitePlugins(viteEnv: any, isBuild: boolean) {
@@ -33,7 +32,6 @@ export function createVitePlugins(viteEnv: any, isBuild: boolean) {
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));
 
   // vite-plugin-windicss
-  vitePlugins.push(configWindiCssPlugin());
 
   // vite-plugin-style-import
   // vitePlugins.push(configPluginImp());
