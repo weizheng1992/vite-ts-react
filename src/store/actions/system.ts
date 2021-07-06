@@ -1,3 +1,9 @@
+/*
+ * @Author: zz
+ * @Date: 2021-07-02 18:13:58
+ * @LastEditors: zz
+ * @LastEditTime: 2021-07-06 17:08:41
+ */
 import { UserInfoActionTypes, UserSelect, UserInfoRequestType } from '../types/system';
 
 export const UserInfoRequest = (

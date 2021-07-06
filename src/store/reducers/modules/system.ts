@@ -2,7 +2,7 @@
  * @Author: zz
  * @Date: 2021-06-30 10:55:20
  * @LastEditors: zz
- * @LastEditTime: 2021-06-30 17:40:50
+ * @LastEditTime: 2021-07-06 17:32:49
  */
 import { Reducer } from 'redux';
 import produce from 'immer';
@@ -14,7 +14,8 @@ const userInfo: Reducer = (state = initState, action: any) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case UserInfoActionTypes.userInfoSuccess:
-        console.log('action.type :>> ', action.type);
+        const userInfoList: any = action.payload;
+        draft.userInfoList = userInfoList;
         break;
       case UserInfoActionTypes.UserInfoFailure:
         break;
