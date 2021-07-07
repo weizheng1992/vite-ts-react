@@ -6,8 +6,8 @@
  */
 import { put, takeLatest, all } from 'redux-saga/effects';
 import { userInfo } from '/@/api/user/system';
-import { UserInfoRequest, UserInfoSuccess, UserInfoFailure } from '../../actions/system';
-import { UserInfoActionTypes } from '../../types/system';
+import { UserInfoRequest, UserInfoSuccess, UserInfoFailure } from '../../actions/sysUser';
+import { UserInfoActionTypes } from '../../types/sysUser';
 
 type CheckUserInfoRequest = ReturnType<typeof UserInfoRequest>;
 

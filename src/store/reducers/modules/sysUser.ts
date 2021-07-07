@@ -6,7 +6,7 @@
  */
 import { Reducer } from 'redux';
 import produce from 'immer';
-import { UserInfoActionTypes } from '../../types/system';
+import { UserInfoActionTypes } from '../../types/sysUser';
 
 const initState: any = {};
 

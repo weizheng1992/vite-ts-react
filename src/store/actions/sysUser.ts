@@ -4,7 +4,7 @@
  * @LastEditors: zz
  * @LastEditTime: 2021-07-06 17:08:41
  */
-import { UserInfoActionTypes, UserSelect, UserInfoRequestType } from '../types/system';
+import { UserInfoActionTypes, UserSelect, UserInfoRequestType } from '../types/sysUser';
 
 export const UserInfoRequest = (
   payload: UserSelect,

@@ -2,23 +2,23 @@
  * @Author: zz
  * @Date: 2021-06-29 16:26:05
  * @LastEditors: zz
- * @LastEditTime: 2021-07-06 19:17:59
+ * @LastEditTime: 2021-07-06 20:14:36
  */
 import React, { useEffect } from 'react';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
 // import { userInfo } from '/@/api/user/system';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserInfoRequest } from '/@/store/actions/system';
+import { UserInfoRequest } from '../../../store/actions/sysUser';
 import { schemas } from './search';
-import Table from './table';
+import Table from './list';
 
 const User: React.FC = () => {
   // const [title] = useState('用户管理');
   // const [initVal, setInitVal] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userInfoList: any = useSelector((state: any) => state.system.userInfoList);
+  const userInfoList: any = useSelector((state: any) => state.sysUser.userInfoList);
   console.log('data :>> ', userInfoList);
   // const { userId }: LoginResultModel = useSelector<RootState, LoginResultModel>(
   //   (state: RootState) => state.login.userInfo,
