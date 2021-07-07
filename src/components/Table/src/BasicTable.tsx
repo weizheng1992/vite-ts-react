@@ -2,11 +2,12 @@
  * @Author: weizheng
  * @Date: 2021-06-22 20:30:54
  * @LastEditors: weizheng
- * @LastEditTime: 2021-07-02 14:56:43
+ * @LastEditTime: 2021-07-07 19:49:31
  */
-import React, { useState } from 'react';
+import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import { Table, Space } from 'antd';
-import { BasicTableProps, ActionItem } from './types/table';
+import { BasicTableProps, TableRef } from './types/table';
+import { ActionItem } from './types/tableAction';
 // import TableColumn from './compontent/TableColumn';
 // import TableAction from './compontent/TableAction';
 import { ColumnProps, ColumnType, TablePaginationConfig } from 'antd/es/table';
@@ -18,19 +19,26 @@ import { useDataSource } from './hooks/useDataSource';
 
 const { Column, ColumnGroup } = Table;
 
-const BasicTable: React.FC<BasicTableProps> = (props) => {
+const BasicTable: React.ForwardRefRenderFunction<TableRef, BasicTableProps> = (props, ref) => {
   const { actions, columns, tableProps } = props;
   const [loading, setLoading] = useState<boolean | SpinProps | undefined>(props.tableProps.loading);
   const [pagination, setPagination] = useImmer<false | TablePaginationConfig>(
     tableProps.pagination || false
   );
 
-  const { handleTableChange, dataSource, getRowKey } = useDataSource(props, {
+  const { handleTableChange, dataSource, getRowKey, fetch } = useDataSource(props, {
     paginationInfo: pagination,
     setPagination,
     setLoading,
   });
-  console.log('9999999999', dataSource.data);
+
+  useImperativeHandle(ref, () => ({
+    handleSearchFunc,
+  }));
+
+  const handleSearchFunc = (params: Recordable) => {
+    fetch({ searchInfo: params, page: 1 });
+  };
   return (
     <Table
       {...tableProps}
@@ -70,4 +78,4 @@ const BasicTable: React.FC<BasicTableProps> = (props) => {
     </Table>
   );
 };
-export default BasicTable;
+export default forwardRef(BasicTable);

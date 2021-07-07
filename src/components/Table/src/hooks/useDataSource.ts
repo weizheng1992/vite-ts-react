@@ -2,7 +2,7 @@
  * @Author: weizheng
  * @Date: 2021-06-29 16:02:24
  * @LastEditors: weizheng
- * @LastEditTime: 2021-07-02 14:56:28
+ * @LastEditTime: 2021-07-07 16:21:42
  */
 import { useEffect } from 'react';
 import { BasicTableProps, FetchParams } from '../types/table';
@@ -152,5 +152,6 @@ export function useDataSource(
     dataSource,
     handleTableChange,
     getRowKey,
+    fetch,
   };
 }

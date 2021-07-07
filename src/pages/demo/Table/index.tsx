@@ -2,20 +2,24 @@
  * @Author: weizheng
  * @Date: 2021-06-29 17:18:09
  * @LastEditors: weizheng
- * @LastEditTime: 2021-07-02 14:56:55
+ * @LastEditTime: 2021-07-07 19:46:23
  */
-import React from 'react';
-import { BasicTable } from '/@/components/Table';
-import { ColumnsType } from 'antd/es/table';
-import { TablePaginationConfig } from 'antd/es/table';
+import React, { useRef } from 'react';
+import { BasicTable, TableRef } from '/@/components/Table';
+import { ColumnsType, TablePaginationConfig } from 'antd/es/table';
+import { Button } from 'antd';
 import { demoListApi } from '/@/api/demo/table';
 const title = () => 'Here is title';
 const showHeader = true;
 const footer = () => 'Here is footer';
 const pagination: TablePaginationConfig = { position: ['bottomRight'] };
 const Test = () => {
+  const tableRef = useRef<NonNullable<TableRef>>(null);
   const handleClick = () => {
     console.log('dianjiel ');
+  };
+  const handleSearch = () => {
+    tableRef.current?.handleSearchFunc({ serach: 'search' });
   };
   const columns: ColumnsType<Recordable> = [
     {
@@ -40,26 +44,31 @@ const Test = () => {
       width: 150,
     },
   ];
+
   return (
-    <BasicTable
-      tableProps={{
-        footer: footer,
-        title: title,
-        showHeader: showHeader,
-        pagination: { ...pagination },
-      }}
-      api={demoListApi}
-      searchInfo={{ user: 'admin' }}
-      columns={columns}
-      rowKey={'id'}
-      actions={[
-        {
-          label: '编辑',
-          onClick: handleClick,
-        },
-        { label: '删除', onClick: handleClick },
-      ]}
-    />
+    <>
+      <Button onClick={handleSearch}>查询</Button>
+      <BasicTable
+        ref={tableRef}
+        tableProps={{
+          footer: footer,
+          title: title,
+          showHeader: showHeader,
+          pagination: { ...pagination },
+        }}
+        api={demoListApi}
+        searchInfo={{ user: 'admin' }}
+        columns={columns}
+        rowKey={'id'}
+        actions={[
+          {
+            label: '编辑',
+            onClick: handleClick,
+          },
+          { label: '删除', onClick: handleClick },
+        ]}
+      />
+    </>
   );
 };
 export default Test;
