@@ -2,15 +2,15 @@
  * @Author: zz
  * @Date: 2021-07-06 19:41:01
  * @LastEditors: zz
- * @LastEditTime: 2021-07-06 19:53:27
+ * @LastEditTime: 2021-07-07 11:52:20
  */
 
-export interface UserManage {
+export interface UserSys {
   page?: number;
   size?: number;
 }
 
-export interface UserRequestManage {
+export interface UserSysRequest {
   username: string;
   nickname: string;
   email: string;

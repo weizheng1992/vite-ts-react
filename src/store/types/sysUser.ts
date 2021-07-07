@@ -2,23 +2,22 @@
  * @Author: zz
  * @Date: 2021-06-30 10:55:56
  * @LastEditors: zz
- * @LastEditTime: 2021-07-06 20:10:53
+ * @LastEditTime: 2021-07-07 11:55:50
  */
-// import { Action } from './common';
-import type { UserSelect } from '/@/api/user/model/system';
+import type { UserSys } from '/@/api/system/model/userModel';
 
-export enum UserInfoActionTypes {
+export enum UserSysActionTypes {
   userInfoRequest = 'USER_REQUEST',
   userInfoSuccess = 'USER_SUCCESS',
   UserInfoFailure = 'USER_FAILURE',
 }
 
-export { UserSelect };
+export { UserSys };
 
-export type UserInfoRequestType = {
-  type: UserInfoActionTypes.userInfoRequest;
-  payload: UserSelect;
+export type UserSysRequestType = {
+  type: UserSysActionTypes.userInfoRequest;
+  payload: UserSys;
   onSuccess?: () => void;
 };
 
-export type ActionTypes = UserInfoRequestType;
+export type ActionTypes = UserSysRequestType;

@@ -2,17 +2,17 @@
  * @Author: zz
  * @Date: 2021-07-06 19:41:27
  * @LastEditors: zz
- * @LastEditTime: 2021-07-06 20:01:30
+ * @LastEditTime: 2021-07-07 11:54:06
  */
 import { defHttp } from '/@/utils/axios';
-import { UserManage, UserRequestManage } from './model/userModel';
+import { UserSys, UserSysRequest } from './model/userModel';
 
 enum Api {
   SysUserList = '/sysUserList',
 }
 
-export const userManagTable = (params: UserManage) =>
-  defHttp.post<UserRequestManage>({
+export const userSysList = (params: UserSys) =>
+  defHttp.post<UserSysRequest>({
     url: Api.SysUserList,
     params,
   });

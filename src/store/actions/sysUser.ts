@@ -2,25 +2,22 @@
  * @Author: zz
  * @Date: 2021-07-02 18:13:58
  * @LastEditors: zz
- * @LastEditTime: 2021-07-06 17:08:41
+ * @LastEditTime: 2021-07-07 11:54:53
  */
-import { UserInfoActionTypes, UserSelect, UserInfoRequestType } from '../types/sysUser';
+import { UserSysActionTypes, UserSys, UserSysRequestType } from '../types/sysUser';
 
-export const UserInfoRequest = (
-  payload: UserSelect,
-  callback: () => void
-): UserInfoRequestType => ({
-  type: UserInfoActionTypes.userInfoRequest,
+export const UserSysRequest = (payload: UserSys, callback: () => void): UserSysRequestType => ({
+  type: UserSysActionTypes.userInfoRequest,
   payload,
   onSuccess: callback || null,
 });
 
-export const UserInfoSuccess = (payload: any) => ({
-  type: UserInfoActionTypes.userInfoSuccess,
+export const UserSysSuccess = (payload: any) => ({
+  type: UserSysActionTypes.userInfoSuccess,
   payload,
 });
 
-export const UserInfoFailure = (payload: any) => ({
-  type: UserInfoActionTypes.UserInfoFailure,
+export const UserSysFailure = (payload: any) => ({
+  type: UserSysActionTypes.UserInfoFailure,
   payload,
 });

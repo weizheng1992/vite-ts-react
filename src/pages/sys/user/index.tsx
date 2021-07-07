@@ -2,14 +2,14 @@
  * @Author: zz
  * @Date: 2021-06-29 16:26:05
  * @LastEditors: zz
- * @LastEditTime: 2021-07-06 20:14:36
+ * @LastEditTime: 2021-07-07 19:59:34
  */
 import React, { useEffect } from 'react';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
 // import { userInfo } from '/@/api/user/system';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserInfoRequest } from '../../../store/actions/sysUser';
+import { UserSysRequest } from '../../../store/actions/sysUser';
 import { schemas } from './search';
 import Table from './list';
 
@@ -63,7 +63,7 @@ const User: React.FC = () => {
   // };
 
   useEffect(() => {
-    dispatch(UserInfoRequest({ size: 10, page: 1 }, () => navigate('')));
+    dispatch(UserSysRequest({ size: 10, page: 1 }, () => navigate('')));
     // load();
     // const data = userInfo({ size: 10, page: 1 });
     // console.log('data :>> ', data);
