@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginRequest } from '../../../store/actions/user';
 
+// import { useShallowEqualSelector } from '/@/hooks/useRedux';
+// import { LoginResultModel } from '/@/store/types/user';
 interface Props {
   handleToReg: () => void;
   show: boolean;
@@ -20,9 +22,9 @@ const InputPassword = Input.Password;
 const LoginForm: React.FC<Props> = ({ handleToReg, show }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { userId }: LoginResultModel = useSelector<RootState, LoginResultModel>(
-  //   (state: RootState) => state.login.userInfo,
-  //   shallowEqual
+
+  // const { userId }: LoginResultModel = useShallowEqualSelector<LoginResultModel>(
+  //   (state) => state.user.userInfo
   // );
   const onFinish = useCallback(
     (values: any) => {
