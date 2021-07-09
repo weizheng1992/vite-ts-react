@@ -1,3 +1,10 @@
+<!--
+ * @Author: weizheng
+ * @Date: 2021-06-25 15:30:07
+ * @LastEditors: weizheng
+ * @LastEditTime: 2021-07-08 14:46:38
+-->
+
 ## 准备
 
 - [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
@@ -7,11 +14,11 @@
 - [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
 - [React-Router](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) 熟悉 React-router 基本使用
 - [Ant-Design](https://ant.design/components/overview-cn/) - ui 基本使用
-- [Windicss](https://windicss.org/) - css 基本使用
+- [tailwind](https://www.tailwindcss.cn/) - css 基本使用
 
 ## 预览
 
-- [线上地址](http://8.142.136.225/) - 还在部署
+- [线上地址](http://8.142.136.225/) - admin/123456 还在部署
 
 ## 安装使用
 
@@ -91,6 +98,7 @@ yarn build:test 测试线打包
 │   ├── main.tsx #入口文件
 │   ├── pages #页面
 │   ├── router #路由
+│   ├── store #store
 │   └── utils #工具
 └── types
 ```
