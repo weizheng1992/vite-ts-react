@@ -2,7 +2,7 @@
  * @Author: zz
  * @Date: 2021-06-29 16:29:51
  * @LastEditors: zz
- * @LastEditTime: 2021-07-02 18:10:08
+ * @LastEditTime: 2021-07-08 14:34:54
  */
 // import React from 'react';
 // import { Select } from 'antd';
@@ -13,7 +13,7 @@ import { FormSchema } from '/@/components/Form';
 export const schemas: FormSchema[] = [
   {
     field: 'name',
-    label: '文本框',
+    label: '用户名',
     component: 'Input',
     // componentprops: ({ formActionType }) => {
     //   return {
