@@ -2,7 +2,7 @@
  * @Author: weizheng
  * @Date: 2021-06-29 16:02:24
  * @LastEditors: weizheng
- * @LastEditTime: 2021-07-02 14:56:28
+ * @LastEditTime: 2021-07-08 15:01:01
  */
 import { useEffect } from 'react';
 import { BasicTableProps, FetchParams } from '../types/table';
@@ -144,6 +144,9 @@ export function useDataSource(
       setLoading(false);
     }
   }
+  async function reload(opt?: FetchParams) {
+    await fetch(opt);
+  }
   useEffect(() => {
     fetch();
   }, []);
@@ -152,5 +155,7 @@ export function useDataSource(
     dataSource,
     handleTableChange,
     getRowKey,
+    fetch,
+    reload,
   };
 }

@@ -2,8 +2,9 @@
  * @Author: weizheng
  * @Date: 2021-06-15 20:27:04
  * @LastEditors: weizheng
- * @LastEditTime: 2021-07-02 14:56:11
+ * @LastEditTime: 2021-07-07 19:48:32
  */
+import React from 'react';
 import { TableProps, ColumnsType } from 'antd/es/table';
 import { ActionItem } from './tableAction';
 import { SorterResult, FilterValue } from 'antd/es/table/interface';
@@ -39,11 +40,14 @@ export interface BasicTableProps {
   sortFn?: (sortInfo: SorterResult<Recordable> | SorterResult<Recordable>[]) => any;
   // 排序方法
   filterFn?: (data: Partial<Record<string, FilterValue | null>>) => any;
+  ref?: React.RefObject<any>;
 }
-export { ActionItem };
 export interface FetchParams {
   searchInfo?: Recordable;
   page?: number;
   sortInfo?: Recordable;
   filterInfo?: Recordable;
+}
+export interface TableRef {
+  handleSearchFunc: (params: Recordable) => void;
 }
