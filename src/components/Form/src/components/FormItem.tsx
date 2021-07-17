@@ -1,17 +1,32 @@
+/*
+ * @Author: weizheng
+ * @Date: 2021-05-19 18:31:04
+ * @LastEditors: weizheng
+ * @LastEditTime: 2021-07-17 19:11:05
+ */
 import React, { useMemo } from 'react';
 import { Form, Col } from 'antd';
 import { FormSchema } from '../types/form';
 import { FormItemAllProps } from '../types/formItem';
 import { componentMap } from '../componentMap';
-
+import { useItemLabelWidth } from '../hooks/useLabelWidth';
 import { isFunction, isBoolean } from '/@/utils/is';
 
 const FormItem: React.FC<FormItemAllProps> = (props) => {
   const schema = props.schema as FormSchema;
-  const { field, component, componentprops, renderComponentContent, render, valuePropName, label } =
-    schema;
-  const { labelCol, formActionType } = props;
+  const {
+    field,
+    component,
+    componentprops,
+    renderComponentContent,
+    render,
+    valuePropName,
+    label,
+    colProps = {},
+  } = schema;
+  const itemLabelWidthProp = useItemLabelWidth(schema, props);
   const getComponentsProps = () => {
+    const { formActionType } = props;
     if (!isFunction(componentprops)) {
       return componentprops;
     }
@@ -58,22 +73,39 @@ const FormItem: React.FC<FormItemAllProps> = (props) => {
   const getComp = () => {
     return render ? render({ schema, field }) : renderComponent();
   };
+
   const renderItem = () => {
+    const { labelCol, wrapperCol } = itemLabelWidthProp;
     if (render) {
       return (
-        <Form.Item {...props.itemProps} valuePropName={valuePropName} label={label}>
+        <Form.Item
+          {...props.itemProps}
+          labelCol={labelCol}
+          wrapperCol={wrapperCol}
+          valuePropName={valuePropName}
+          label={label}
+        >
           {getComp()}
         </Form.Item>
       );
     }
     return (
-      <Form.Item name={field} {...props.itemProps} valuePropName={valuePropName} label={label}>
+      <Form.Item
+        name={field}
+        {...props.itemProps}
+        labelCol={labelCol}
+        wrapperCol={wrapperCol}
+        valuePropName={valuePropName}
+        label={label}
+      >
         {getComp()}
       </Form.Item>
     );
   };
+  const { baseColProps } = props;
+  const realColProps = { ...baseColProps, ...colProps };
   return (
-    <Col {...labelCol} style={{ display: getShow.isShow ? '' : 'none' }}>
+    <Col {...realColProps} style={{ display: getShow.isShow ? '' : 'none' }}>
       {renderItem()}
     </Col>
   );

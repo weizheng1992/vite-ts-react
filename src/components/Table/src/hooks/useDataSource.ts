@@ -2,7 +2,7 @@
  * @Author: weizheng
  * @Date: 2021-06-29 16:02:24
  * @LastEditors: weizheng
- * @LastEditTime: 2021-07-08 15:01:01
+ * @LastEditTime: 2021-07-17 17:08:56
  */
 import { useEffect } from 'react';
 import { BasicTableProps, FetchParams } from '../types/table';
@@ -68,7 +68,7 @@ export function useDataSource(
   };
   async function fetch(opt?: FetchParams) {
     const { api, searchInfo, fetchSetting, beforeFetch, afterFetch, tableProps } = props;
-    const { pagination } = tableProps;
+    const { pagination } = tableProps || {};
     if (!api || !isFunction(api)) return;
     try {
       setLoading(true);
@@ -127,9 +127,11 @@ export function useDataSource(
           draft.data = resultItems;
         })
       );
-      setPagination((draft) => {
-        draft.total = resultTotal || 0;
-      });
+      if (pagination) {
+        setPagination((draft) => {
+          draft.total = resultTotal || 0;
+        });
+      }
       if (opt && opt.page) {
         setPagination((draft) => {
           draft.current = opt.page || 1;

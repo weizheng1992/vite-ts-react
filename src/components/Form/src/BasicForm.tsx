@@ -87,18 +87,21 @@ const BasicForm: React.FC<FormProps> = (props) => {
     appendSchemaByField,
   };
   const renderItem = () => {
-    const { formItemProps } = getProps;
+    const { formItemProps, labelCol, labelWidth, wrapperCol, baseColProps } = getProps;
     const children: any = [];
     getSchema.map((schema) => {
       children.push(
         <FormItem
           key={schema.field}
           itemProps={formItemProps}
-          labelCol={formItemProps ? formItemProps.labelCol : {}}
+          labelCol={labelCol}
+          labelWidth={labelWidth}
+          wrapperCol={wrapperCol}
           schema={schema}
           formActionType={formActionType}
           showAdvancedButton={showAdvancedButton}
           isAdvancedAction={isAdvanced}
+          baseColProps={baseColProps}
         />
       );
     });
