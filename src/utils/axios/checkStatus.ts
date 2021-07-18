@@ -1,3 +1,9 @@
+/*
+ * @Author: weizheng
+ * @Date: 2021-07-05 11:21:48
+ * @LastEditors: weizheng
+ * @LastEditTime: 2021-07-18 15:12:56
+ */
 import { message as $message } from 'antd';
 // import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +18,7 @@ export function checkStatus(status: number, msg: string): void {
     // Return to the current page after successful login. This step needs to be operated on the login page.
     case 401:
       $message.error('用户没有权限（令牌、用户名、密码错误）!');
+      localStorage.removeItem('token');
       // navigate('/login');
       break;
     case 403:

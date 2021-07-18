@@ -2,7 +2,7 @@
  * @Author: weizheng
  * @Date: 2021-06-29 16:02:24
  * @LastEditors: weizheng
- * @LastEditTime: 2021-07-17 17:08:56
+ * @LastEditTime: 2021-07-18 15:11:00
  */
 import { useEffect } from 'react';
 import { BasicTableProps, FetchParams } from '../types/table';
@@ -139,9 +139,10 @@ export function useDataSource(
       }
     } catch (error) {
       setDataSource({ data: [] });
-      setPagination((draft) => {
-        draft.total = 0;
-      });
+      pagination &&
+        setPagination((draft) => {
+          draft.total = 0;
+        });
     } finally {
       setLoading(false);
     }
