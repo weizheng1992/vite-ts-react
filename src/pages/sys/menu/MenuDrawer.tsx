@@ -6,7 +6,7 @@
  */
 import React from 'react';
 import { Drawer, Button } from 'antd';
-import { BasicForm, FormProps } from '/@/components/Form';
+import { BasicForm, FormProps, useForm } from '/@/components/Form';
 import { formSchema } from './menu';
 interface Props {
   visible: boolean;
@@ -18,6 +18,11 @@ const MenuDrawer: React.FC<Props> = ({ visible }) => {
     schemas: formSchema,
     labelWidth: 100,
     baseColProps: { lg: 12, md: 24 },
+  };
+  const [register, { validateFields }] = useForm();
+  const onOk = async () => {
+    const values = await validateFields();
+    console.log(values);
   };
   return (
     <Drawer
@@ -35,13 +40,13 @@ const MenuDrawer: React.FC<Props> = ({ visible }) => {
           <Button onClick={onClose} style={{ marginRight: 8 }}>
             取消
           </Button>
-          <Button onClick={onClose} type="primary">
+          <Button onClick={onOk} type="primary">
             提交
           </Button>
         </div>
       }
     >
-      <BasicForm {...formProps} />
+      <BasicForm {...formProps} onRegister={register} />
     </Drawer>
   );
 };

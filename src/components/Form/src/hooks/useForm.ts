@@ -46,7 +46,7 @@ export const useForm = (): UseFormReturnType => {
     },
     validateFields: async () => {
       const form = await getForm();
-      form.validateFields();
+      return form.validateFields();
     },
     scrollToField: async (name: NamePath, options: ScrollOptions) => {
       const form = await getForm();

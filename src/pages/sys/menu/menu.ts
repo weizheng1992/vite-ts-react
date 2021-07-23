@@ -41,6 +41,7 @@ export const formSchema: FormSchema[] = [
     component: 'RadioGroup',
     defaultValue: '0',
     componentprops: {
+      optionType: 'button',
       options: [
         { label: '目录', value: '0' },
         { label: '菜单', value: '1' },

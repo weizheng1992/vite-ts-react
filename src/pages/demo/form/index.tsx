@@ -1,3 +1,9 @@
+/*
+ * @Author: weizheng
+ * @Date: 2021-07-05 10:43:15
+ * @LastEditors: weizheng
+ * @LastEditTime: 2021-07-22 02:49:31
+ */
 import React, { useEffect } from 'react';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
 import { Button, Space } from 'antd';
@@ -7,9 +13,8 @@ const Index: React.FC = () => {
   const formProps: FormProps = {
     showAdvancedButton: true,
     schemas: schemas,
-    formItemProps: {
-      labelCol: { span: 8 },
-    },
+    labelWidth: 100,
+    baseColProps: { lg: 12, md: 24 },
     formActionProps: {
       actionColOpt: { span: 24 },
       colStyle: { textAlign: 'right' },
@@ -35,9 +40,7 @@ const Index: React.FC = () => {
 
   const handleChangeLayout = async () => {
     await setProps({
-      formItemProps: {
-        labelCol: { span: 12 },
-      },
+      baseColProps: { lg: 8, md: 24 },
     });
   };
   const handleChangeLabel = async () => {
