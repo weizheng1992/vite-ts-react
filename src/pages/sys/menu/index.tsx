@@ -19,6 +19,9 @@ const Menu: React.FC = () => {
     console.log(record);
     setVisible(true);
   };
+  const onClose = () => {
+    setVisible(false);
+  };
   return (
     <div>
       <BasicTable
@@ -36,7 +39,7 @@ const Menu: React.FC = () => {
           { label: '删除', onClick: handleClick },
         ]}
       />
-      <MenuDrawer visible={visible} />
+      <MenuDrawer visible={visible} onClose={onClose} />
     </div>
   );
 };

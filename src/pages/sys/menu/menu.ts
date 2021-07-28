@@ -34,6 +34,10 @@ export const cloumns: ColumnsType<Recordable> = [
   },
 ];
 
+const isDir = (type: string) => type === '0';
+const isMenu = (type: string) => type === '1';
+const isButton = (type: string) => type === '2';
+
 export const formSchema: FormSchema[] = [
   {
     field: 'type',
@@ -79,22 +83,26 @@ export const formSchema: FormSchema[] = [
     field: 'icon',
     label: '图标',
     component: 'Input',
+    show: ({ values }) => !isButton(values.type),
   },
 
   {
     field: 'routePath',
     label: '路由地址',
     component: 'Input',
+    show: ({ values }) => !isButton(values.type),
   },
   {
     field: 'component',
     label: '组件路径',
     component: 'Input',
+    show: ({ values }) => isMenu(values.type),
   },
   {
     field: 'permission',
     label: '权限标识',
     component: 'Input',
+    show: ({ values }) => !isDir(values.type),
   },
   {
     field: 'status',

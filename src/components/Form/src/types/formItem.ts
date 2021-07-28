@@ -16,4 +16,10 @@ export interface FormItemAllProps {
   showAdvancedButton?: boolean;
   isAdvancedAction?: boolean;
   baseColProps?: Partial<ColProps>;
+  formModel?: Recordable;
+  allDefaultValues?: Recordable;
+  setFormModel?: (key: string, value: any) => void;
+  size?: 'default' | 'small' | 'large';
+  // Placeholder is set automatically
+  autoSetPlaceHolder?: boolean;
 }

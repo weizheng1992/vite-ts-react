@@ -5,11 +5,15 @@ import type { ComponentType } from './index';
 import type { ButtonProps } from 'antd/es/button/button';
 import type { ColProps } from 'antd/lib/grid/col';
 
+export type FieldMapToTime = [string, [string, string], string?][];
+
 export type Rule = RuleObject & {
   trigger?: 'blur' | 'change' | ['change', 'blur'];
 };
 export interface RenderCallbackParams {
   schema: FormSchema;
+  values: Recordable;
+  model: Recordable;
   field: string;
 }
 export interface FormSchema {
@@ -26,7 +30,11 @@ export interface FormSchema {
   component: ComponentType;
   // Component parameters
   componentprops?:
-    | ((opt: { schema: FormSchema; formActionType: FormActionType }) => Recordable)
+    | ((opt: {
+        schema: FormSchema;
+        formModel: Recordable;
+        formActionType: FormActionType;
+      }) => Recordable)
     | object;
   renderComponentContent?: ((renderCallbackParams: RenderCallbackParams) => any) | string;
 
@@ -71,6 +79,13 @@ export interface FormProps {
   labelCol?: Partial<ColProps>;
   wrapperCol?: Partial<ColProps>;
   baseColProps?: ColProps;
+  transformDateFunc?: (date: any) => string;
+  // Time interval fields are mapped into multiple
+  fieldMapToTime?: FieldMapToTime;
+  submitOnReset?: boolean;
+  size?: 'default' | 'small' | 'large';
+  // Placeholder is set automatically
+  autoSetPlaceHolder?: boolean;
 }
 
 export type ButtonOptions = ButtonProps & { text?: string };
@@ -87,6 +102,7 @@ export interface FormActionProps {
   submitAction?: () => void;
   resetAction?: () => void;
   advancedAction?: () => void;
+  setFormModel?: (key: string, value: any) => void;
 }
 
 export interface FormActionType {

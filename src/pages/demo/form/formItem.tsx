@@ -46,9 +46,10 @@ export const schemas: FormSchema[] = [
     field: 'CheckboxGroup',
     label: '多选组',
     component: 'CheckboxGroup',
+    valuePropName: 'checked',
     componentprops: {
       options: [
-        { label: 'label', value: 1 },
+        { label: 'label', value: '1' },
         { label: 'label2', value: 2 },
       ],
     },

@@ -10,10 +10,10 @@ import { BasicForm, FormProps, useForm } from '/@/components/Form';
 import { formSchema } from './menu';
 interface Props {
   visible: boolean;
+  onClose: () => void;
 }
 
-const MenuDrawer: React.FC<Props> = ({ visible }) => {
-  const onClose = () => {};
+const MenuDrawer: React.FC<Props> = ({ visible, onClose }) => {
   const formProps: FormProps = {
     schemas: formSchema,
     labelWidth: 100,

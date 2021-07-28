@@ -11,7 +11,7 @@ import { schemas } from './formItem';
 
 const Index: React.FC = () => {
   const formProps: FormProps = {
-    showAdvancedButton: true,
+    showAdvancedButton: false,
     schemas: schemas,
     labelWidth: 100,
     baseColProps: { lg: 12, md: 24 },
