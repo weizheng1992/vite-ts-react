@@ -67,7 +67,7 @@ const FormItem: React.FC<FormItemAllProps> = (props) => {
     }
     isShow = isShow && itemIsAdvanced;
     return { isShow, isIfShow };
-  }, [schema, props.isAdvancedAction]);
+  }, [schema, props.isAdvancedAction, getValues]);
   const renderComponent = () => {
     const { setFormModel = () => {}, formModel = {} } = props;
     const {
@@ -120,7 +120,6 @@ const FormItem: React.FC<FormItemAllProps> = (props) => {
       ...on,
       ...bindValue,
     };
-    console.log('object', compAttr);
     if (!renderComponentContent) {
       return <Comp {...compAttr} />;
     }
