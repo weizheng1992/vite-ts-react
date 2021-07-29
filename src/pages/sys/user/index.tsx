@@ -2,7 +2,7 @@
  * @Author: zz
  * @Date: 2021-06-29 16:26:05
  * @LastEditors: zz
- * @LastEditTime: 2021-07-09 18:08:32
+ * @LastEditTime: 2021-07-13 15:00:10
  */
 import React, { useEffect } from 'react';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserSysRequest } from '../../../store/actions/sysUser';
 import { schemas } from './search';
-import Table from './list';
+import List from './list';
 
 const User: React.FC = () => {
   // const [title] = useState('用户管理');
@@ -19,6 +19,8 @@ const User: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userSysList: any = useSelector((state: any) => state.sysUser.userInfoList);
+  const pagination: any = useSelector((state: any) => state.sysUser.pagination);
+  console.log('userSysList 8888:>> ', userSysList);
   // const { userId }: LoginResultModel = useSelector<RootState, LoginResultModel>(
   //   (state: RootState) => state.login.userInfo,
   //   shallowEqual
@@ -65,7 +67,7 @@ const User: React.FC = () => {
   return (
     <>
       <BasicForm {...formProps} onRegister={register} />
-      <Table userInfoList={userSysList} />
+      <List userInfoList={userSysList} pagination={pagination} />
     </>
   );
 };
