@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "bootstrap": "yarn install",
-    "dev": "cross-env --max_old_space_size=4096 vite  --mode development",
-    "test": "cross-env --max_old_space_size=4096 vite --mode test",
+    "dev": "vite  --mode development",
+    "test": "vite --mode test",
     "build": "vite build",
     "serve": "vite preview",
     "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
