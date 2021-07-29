@@ -1,3 +1,9 @@
+/*
+ * @Author: weizheng
+ * @Date: 2021-07-05 10:43:15
+ * @LastEditors: zz
+ * @LastEditTime: 2021-07-29 17:34:22
+ */
 import React, { lazy, FC } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { PartialRouteObject } from 'react-router';
@@ -8,9 +14,9 @@ import Login from '../pages/sys/login';
 const Home = lazy(() => import('/@/pages/Index'));
 const Form = lazy(() => import('/@/pages/demo/form'));
 const Table = lazy(() => import('../pages/demo/Table'));
+const Menu = lazy(() => import('../pages/sys/menu'));
 const NotFound = lazy(() => import('/@/pages/sys/404'));
 const User = lazy(() => import('/@/pages/sys/user/index'));
-const Menu = lazy(() => import('/@/pages/sys/menu/index'));
 
 const routeList: PartialRouteObject[] = [
   {

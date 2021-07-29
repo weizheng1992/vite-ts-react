@@ -2,7 +2,7 @@
  * @Author: weizheng
  * @Date: 2021-06-15 20:27:04
  * @LastEditors: weizheng
- * @LastEditTime: 2021-07-07 19:48:32
+ * @LastEditTime: 2021-07-17 16:07:23
  */
 import React from 'react';
 import { TableProps, ColumnsType } from 'antd/es/table';
@@ -21,6 +21,7 @@ export interface FetchSetting {
 export interface BasicTableProps {
   columns: ColumnsType<Recordable>;
   actions: ActionItem[];
+  actionWidth?: string | number;
   rowKey?: string | ((record: Recordable) => string);
   // 接口请求对象
   api?: (...arg: any) => Promise<any>;
@@ -35,7 +36,7 @@ export interface BasicTableProps {
   // 额外的请求参数
   searchInfo?: Recordable;
   // 表格配置
-  tableProps: TableProps<Recordable>;
+  tableProps?: TableProps<Recordable>;
   // 自定义排序方法
   sortFn?: (sortInfo: SorterResult<Recordable> | SorterResult<Recordable>[]) => any;
   // 排序方法

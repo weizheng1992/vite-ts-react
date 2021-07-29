@@ -1,14 +1,19 @@
 import type { ReactNode } from 'react';
 import type { NamePath } from 'antd/lib/form/interface';
 import type { RuleObject, FormProps as BasicFormProps, FormItemProps } from 'antd/lib/form';
-import type { ColEx, ComponentType } from './index';
+import type { ComponentType } from './index';
 import type { ButtonProps } from 'antd/es/button/button';
+import type { ColProps } from 'antd/lib/grid/col';
+
+export type FieldMapToTime = [string, [string, string], string?][];
 
 export type Rule = RuleObject & {
   trigger?: 'blur' | 'change' | ['change', 'blur'];
 };
 export interface RenderCallbackParams {
   schema: FormSchema;
+  values: Recordable;
+  model: Recordable;
   field: string;
 }
 export interface FormSchema {
@@ -20,11 +25,16 @@ export interface FormSchema {
   label: string;
   // Label width, if it is passed, the labelCol and WrapperCol configured by itemProps will be invalid
   labelWidth?: string | number;
+  disabledLabelWidth?: boolean;
   // render component
   component: ComponentType;
   // Component parameters
   componentprops?:
-    | ((opt: { schema: FormSchema; formActionType: FormActionType }) => Recordable)
+    | ((opt: {
+        schema: FormSchema;
+        formModel: Recordable;
+        formActionType: FormActionType;
+      }) => Recordable)
     | object;
   renderComponentContent?: ((renderCallbackParams: RenderCallbackParams) => any) | string;
 
@@ -32,8 +42,9 @@ export interface FormSchema {
   rules?: Rule[];
 
   // col configuration outside formModelItem
-  colProps?: Partial<ColEx>;
-
+  labelCol?: ColProps;
+  wrapperCol?: ColProps;
+  colProps?: ColProps;
   // 默认值
   defaultValue?: any;
   isAdvanced?: boolean;
@@ -53,7 +64,6 @@ export interface FormSchema {
 
 export interface BasicFormItemProps extends FormItemProps {
   schema?: FormSchema;
-  labelCol?: ColEx;
 }
 export interface FormProps {
   resetFunc?: () => Promise<void>;
@@ -65,6 +75,17 @@ export interface FormProps {
   showAdvancedButton?: boolean;
   actionSpan?: number;
   onRegister?: (form: FormActionType) => void;
+  labelWidth?: number | string;
+  labelCol?: Partial<ColProps>;
+  wrapperCol?: Partial<ColProps>;
+  baseColProps?: ColProps;
+  transformDateFunc?: (date: any) => string;
+  // Time interval fields are mapped into multiple
+  fieldMapToTime?: FieldMapToTime;
+  submitOnReset?: boolean;
+  size?: 'default' | 'small' | 'large';
+  // Placeholder is set automatically
+  autoSetPlaceHolder?: boolean;
 }
 
 export type ButtonOptions = ButtonProps & { text?: string };
@@ -77,10 +98,11 @@ export interface FormActionProps {
   resetButtonOptions?: ButtonOptions;
   submitButtonOptions?: ButtonOptions;
   advancedButtonOptions?: object;
-  actionColOpt?: ColEx;
+  actionColOpt?: ColProps;
   submitAction?: () => void;
   resetAction?: () => void;
   advancedAction?: () => void;
+  setFormModel?: (key: string, value: any) => void;
 }
 
 export interface FormActionType {

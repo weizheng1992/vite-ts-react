@@ -1,14 +1,102 @@
-import type { FormSchema } from '../types/form';
-import { isArray, isObject, isString } from '/@/utils/is';
+import type { FormSchema, FormProps } from '../types/form';
+import { isArray, isObject, isString, isFunction } from '/@/utils/is';
 import { deepMerge } from '/@/utils';
+import { dateUtil } from '/@/utils/dateUtil';
+import { dateItemType, handleInputNumberValue } from '../helper';
 import { cloneDeep, uniqBy } from 'lodash-es';
 
 interface UseFormActionContext {
-  // getProps: FormProps;
+  getProps: FormProps;
   getSchema: FormSchema[];
+  formModalVal: Recordable;
+  defaultValue: Recordable;
   setSchemaState: Fn;
+  handleFormValues: Fn;
+  setFormModalVal: Fn;
+  validateFields: Fn;
+  submit: Fn;
+  setFieldsValueForm: Fn;
 }
-export function useFormEvents({ getSchema, setSchemaState }: UseFormActionContext) {
+export function useFormEvents({
+  getSchema,
+  setSchemaState,
+  getProps,
+  formModalVal,
+  defaultValue,
+  submit,
+  handleFormValues,
+  validateFields,
+  setFormModalVal,
+  setFieldsValueForm,
+}: UseFormActionContext) {
+  async function resetFields(): Promise<void> {
+    const { resetFunc, submitOnReset } = getProps;
+    resetFunc && isFunction(resetFunc) && (await resetFunc());
+
+    Object.keys(formModalVal).forEach((key) => {
+      formModalVal[key] = defaultValue[key];
+    });
+    validateFields();
+    // emit('reset', toRaw(formModel));
+    submitOnReset && handleSubmit();
+  }
+
+  /**
+   * @description: Set form value
+   */
+  async function setFieldsValue(values: Recordable): Promise<void> {
+    const fields = getSchema.map((item) => item.field).filter(Boolean);
+
+    const validKeys: string[] = [];
+    Object.keys(values).forEach((key) => {
+      const schema = getSchema.find((item) => item.field === key);
+      let value = values[key];
+
+      const hasKey = Reflect.has(values, key);
+
+      value = handleInputNumberValue(schema?.component, value);
+      // 0| '' is allow
+      if (hasKey && fields.includes(key)) {
+        // time type
+        if (itemIsDateType(key)) {
+          if (Array.isArray(value)) {
+            const arr: any[] = [];
+            for (const ele of value) {
+              arr.push(ele ? dateUtil(ele) : null);
+            }
+            setFormModalVal((preState) => {
+              preState[key] = arr;
+              return { ...preState };
+            });
+          } else {
+            const { componentprops } = schema || {};
+            let _props = componentprops as any;
+            if (typeof componentprops === 'function') {
+              _props = _props({ formModalVal });
+            }
+            setFormModalVal((preState) => {
+              preState[key] = value ? (_props?.valueFormat ? value : dateUtil(value)) : null;
+              return { ...preState };
+            });
+          }
+        } else {
+          setFormModalVal((preState) => {
+            preState[key] = value;
+            return { ...preState };
+          });
+        }
+        validKeys.push(key);
+      }
+      setFieldsValueForm(values);
+    });
+    validateFields(validKeys);
+  }
+  function itemIsDateType(key: string) {
+    return getSchema.some((item) => {
+      return item.field === key ? dateItemType.includes(item.component) : false;
+    });
+  }
+
   async function updateSchema(data: Partial<FormSchema> | Partial<FormSchema>[]) {
     let updateData: Partial<FormSchema>[] = [];
     if (isObject(data)) {
@@ -91,5 +179,26 @@ export function useFormEvents({ getSchema, setSchemaState }: UseFormActionContex
     }
     setSchemaState(schemaList);
   }
-  return { updateSchema, removeSchemaByFiled, appendSchemaByField };
+  /**
+   * @description: Form submission
+   */
+  async function handleSubmit(e?: Event): Promise<void> {
+    e && e.preventDefault();
+    const { submitFunc } = getProps;
+
+    try {
+      const values = await validateFields();
+      const res = handleFormValues(values);
+      if (submitFunc && isFunction(submitFunc)) {
+        await submitFunc(res);
+        return;
+      } else {
+        submit(res);
+      }
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+
+  return { updateSchema, removeSchemaByFiled, appendSchemaByField, resetFields, setFieldsValue };
 }

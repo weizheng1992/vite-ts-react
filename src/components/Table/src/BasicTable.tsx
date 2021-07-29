@@ -2,7 +2,7 @@
  * @Author: weizheng
  * @Date: 2021-06-22 20:30:54
  * @LastEditors: weizheng
- * @LastEditTime: 2021-07-07 19:49:31
+ * @LastEditTime: 2021-07-17 17:42:17
  */
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import { Table, Space } from 'antd';
@@ -20,10 +20,12 @@ import { useDataSource } from './hooks/useDataSource';
 const { Column, ColumnGroup } = Table;
 
 const BasicTable: React.ForwardRefRenderFunction<TableRef, BasicTableProps> = (props, ref) => {
-  const { actions, columns, tableProps } = props;
-  const [loading, setLoading] = useState<boolean | SpinProps | undefined>(props.tableProps.loading);
+  const { actions, columns, tableProps, actionWidth } = props;
+  const [loading, setLoading] = useState<boolean | SpinProps | undefined>(
+    props?.tableProps?.loading
+  );
   const [pagination, setPagination] = useImmer<false | TablePaginationConfig>(
-    tableProps.pagination || false
+    tableProps?.pagination || false
   );
 
   const { handleTableChange, dataSource, getRowKey, fetch } = useDataSource(props, {
@@ -65,11 +67,12 @@ const BasicTable: React.ForwardRefRenderFunction<TableRef, BasicTableProps> = (p
       <Column
         title="Action"
         key="action"
+        width={actionWidth}
         render={(...params) => (
           <Space size="middle">
             {actions.map((item: ActionItem) => (
               <a key={item.label} onClick={() => item.onClick && item.onClick(...params)}>
-                Invite {item.label}
+                {item.label}
               </a>
             ))}
           </Space>

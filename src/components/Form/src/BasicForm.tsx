@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+// import { useImmer } from 'use-immer';
 import { Form, Row } from 'antd';
 import { FormProps, FormActionType, FormSchema } from './types/form';
 import FormItem from './components/FormItem';
@@ -9,25 +10,23 @@ import { dateItemType } from './helper';
 import { dateUtil } from '/@/utils/dateUtil';
 
 import { useFormEvents } from './hooks/useFormEvents';
+import { useFormValues } from './hooks/useFormValues';
 
 const BasicForm: React.FC<FormProps> = (props) => {
   const [isAdvanced, setAsAdvanced] = useState<boolean>(false);
   const [schemaState, setSchemaState] = useState<Nullable<FormSchema[]>>(null);
   const [allProps, setAllprops] = useState<FormProps>({});
+  const [formModalVal, setFormModalVal] = useState<Recordable>({});
+  const [defaultValue, setDefaultValue] = useState<Recordable>({});
   const [form] = Form.useForm();
   const {
     scrollToField,
     submit,
-    setFieldsValue,
-    resetFields,
     getFieldValue,
     getFieldsValue,
     validateFields,
+    setFieldsValue: setFieldsValueForm,
   } = form;
-
-  useEffect(() => {
-    onRegister && onRegister(formActionType);
-  }, []);
 
   const setProps = async (formProps: FormProps): Promise<void> => {
     const obj = deepMerge(allProps, formProps);
@@ -69,10 +68,34 @@ const BasicForm: React.FC<FormProps> = (props) => {
     return schemasList as FormSchema[];
   }, [schemas, schemaState]);
 
-  const { updateSchema, removeSchemaByFiled, appendSchemaByField } = useFormEvents({
+  const { handleFormValues, initDefault } = useFormValues({
+    getProps,
+    setDefaultValue,
     getSchema,
-    setSchemaState,
+    setFormModalVal,
   });
+
+  const { updateSchema, removeSchemaByFiled, appendSchemaByField, resetFields, setFieldsValue } =
+    useFormEvents({
+      getProps,
+      getSchema,
+      setSchemaState,
+      handleFormValues,
+      formModalVal,
+      setFormModalVal,
+      defaultValue,
+      validateFields,
+      submit,
+      setFieldsValueForm,
+    });
+
+  function setFormModel(key: string, value: any) {
+    setFormModalVal((preState) => {
+      preState[key] = value;
+      return { ...preState };
+    });
+  }
+
   const formActionType: FormActionType = {
     scrollToField,
     submit,
@@ -86,19 +109,40 @@ const BasicForm: React.FC<FormProps> = (props) => {
     removeSchemaByFiled,
     appendSchemaByField,
   };
+
+  useEffect(() => {
+    initDefault();
+    onRegister && onRegister(formActionType);
+  }, []);
   const renderItem = () => {
-    const { formItemProps } = getProps;
+    const {
+      formItemProps,
+      labelCol,
+      labelWidth,
+      wrapperCol,
+      baseColProps,
+      size,
+      autoSetPlaceHolder,
+    } = getProps;
     const children: any = [];
     getSchema.map((schema) => {
       children.push(
         <FormItem
           key={schema.field}
           itemProps={formItemProps}
-          labelCol={formItemProps ? formItemProps.labelCol : {}}
+          labelCol={labelCol}
+          labelWidth={labelWidth}
+          wrapperCol={wrapperCol}
           schema={schema}
           formActionType={formActionType}
           showAdvancedButton={showAdvancedButton}
           isAdvancedAction={isAdvanced}
+          baseColProps={baseColProps}
+          formModel={formModalVal}
+          allDefaultValues={defaultValue}
+          setFormModel={setFormModel}
+          size={size}
+          autoSetPlaceHolder={autoSetPlaceHolder}
         />
       );
     });
