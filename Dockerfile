@@ -37,4 +37,4 @@ RUN yarn install --frozen-lockfile
 EXPOSE 8077
 
 # 启动node应用
-CMD ["yarn","prod"]
+CMD ["yarn","build"]
