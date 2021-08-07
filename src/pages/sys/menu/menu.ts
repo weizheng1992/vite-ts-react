@@ -12,6 +12,7 @@ export const cloumns: ColumnsType<Recordable> = [
     title: '菜单名称',
     dataIndex: 'name',
     width: 200,
+    align: 'left',
   },
   {
     title: '图标',

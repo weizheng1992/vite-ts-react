@@ -1,5 +1,5 @@
 
-FROM node:14-alpine AS BUILD_IMAGE
+FROM node:14-alpine AS builder
 
 RUN mkdir -p /home/react-app/vite-react
 
@@ -32,6 +32,8 @@ RUN yarn install --frozen-lockfile
 # # RUN yarn install --production=false
 # COPY --from=builder /home/node-app/node-react ./node_modules
 # # 拷贝所有源代码到工作目录
+
+COPY --from=builder /home/react-app/vite-react /home/webserver/static/jenkins/dist
 
 # 暴露容器端口
 EXPOSE 8077

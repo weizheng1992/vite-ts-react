@@ -22,6 +22,7 @@ export interface BasicTableProps {
   columns: ColumnsType<Recordable>;
   actions: ActionItem[];
   actionWidth?: string | number;
+  actionLabel?: string;
   rowKey?: string | ((record: Recordable) => string);
   // 接口请求对象
   api?: (...arg: any) => Promise<any>;

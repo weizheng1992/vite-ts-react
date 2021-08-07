@@ -5,11 +5,10 @@
  * @LastEditTime: 2021-07-17 17:42:17
  */
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
-import { Table, Space } from 'antd';
+import { Table } from 'antd';
 import { BasicTableProps, TableRef } from './types/table';
-import { ActionItem } from './types/tableAction';
 // import TableColumn from './compontent/TableColumn';
-// import TableAction from './compontent/TableAction';
+import TableAction from './compontent/TableAction';
 import { ColumnProps, ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { SpinProps } from 'antd/es/spin';
 
@@ -20,7 +19,7 @@ import { useDataSource } from './hooks/useDataSource';
 const { Column, ColumnGroup } = Table;
 
 const BasicTable: React.ForwardRefRenderFunction<TableRef, BasicTableProps> = (props, ref) => {
-  const { actions, columns, tableProps, actionWidth } = props;
+  const { actions, columns, tableProps, actionWidth, actionLabel = '操作' } = props;
   const [loading, setLoading] = useState<boolean | SpinProps | undefined>(
     props?.tableProps?.loading
   );
@@ -56,27 +55,29 @@ const BasicTable: React.ForwardRefRenderFunction<TableRef, BasicTableProps> = (p
           return (
             <ColumnGroup title={item.title} key={index}>
               {list.map((child: ColumnType<Recordable>, key) => (
-                <Column {...child} key={key} />
+                <Column {...child} align={child.align ? child.align : 'center'} key={key} />
               ))}
             </ColumnGroup>
           );
         } else {
-          return <Column {...item} key={index} />;
+          return <Column {...item} align={item.align ? item.align : 'center'} key={index} />;
         }
       })}
       <Column
-        title="Action"
+        title={actionLabel}
         key="action"
         width={actionWidth}
-        render={(...params) => (
-          <Space size="middle">
-            {actions.map((item: ActionItem) => (
-              <a key={item.label} onClick={() => item.onClick && item.onClick(...params)}>
-                {item.label}
-              </a>
-            ))}
-          </Space>
-        )}
+        align={'center'}
+        render={(...params) => <TableAction actions={actions} params={params} />}
+        // render={(...params) => (
+        //   <Space size="middle">
+        //     {actions.map((item: ActionItem) => (
+        //       <a key={item.label} onClick={() => item.onClick && item.onClick(...params)}>
+        //         {item.label}
+        //       </a>
+        //     ))}
+        //   </Space>
+        // )}
       />
     </Table>
   );

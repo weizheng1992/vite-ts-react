@@ -14,7 +14,9 @@ const Menu: React.FC = () => {
   const tableRef = useRef<NonNullable<TableRef>>(null);
   const [visible, setVisible] = useState<boolean>(false);
 
-  const handleClick = () => {};
+  const handleClick = (...params) => {
+    console.log('del', params);
+  };
   const handleEdit = (record: Recordable) => {
     console.log(record);
     setVisible(true);
@@ -30,13 +32,14 @@ const Menu: React.FC = () => {
         tableProps={{ pagination: false }}
         columns={cloumns}
         rowKey={'menuId'}
-        actionWidth={100}
+        actionWidth={200}
         actions={[
           {
             label: '编辑',
             onClick: handleEdit,
+            ifShow: (record) => record.orderNum === 1,
           },
-          { label: '删除', onClick: handleClick },
+          { label: '删除', popConfirm: { title: '是否删除？', confirm: handleClick } },
         ]}
       />
       <MenuDrawer visible={visible} onClose={onClose} />
