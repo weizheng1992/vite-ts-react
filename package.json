@@ -18,7 +18,7 @@
     "postinstall": "npm run install:husky"
   },
   "dependencies": {
-    "antd": "^4.15.0",
+    "antd": "^4.16.10",
     "axios": "^0.21.1",
     "history": "^5.0.0",
     "immer": "^9.0.3",

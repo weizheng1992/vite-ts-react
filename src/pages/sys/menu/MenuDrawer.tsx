@@ -4,22 +4,34 @@
  * @LastEditors: weizheng
  * @LastEditTime: 2021-07-17 19:13:28
  */
-import React from 'react';
+import React, { memo, useEffect } from 'react';
 import { Drawer, Button } from 'antd';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
 import { formSchema } from './menu';
+import type { MenuListItem } from '/@/api/sys/model/menuModel';
 interface Props {
   visible: boolean;
   onClose: () => void;
+  isUpdate: boolean;
+  record: MenuListItem;
 }
 
-const MenuDrawer: React.FC<Props> = ({ visible, onClose }) => {
+const MenuDrawer: React.FC<Props> = ({ visible, onClose, isUpdate, record }) => {
   const formProps: FormProps = {
     schemas: formSchema,
     labelWidth: 100,
     baseColProps: { lg: 12, md: 24 },
   };
-  const [register, { validateFields }] = useForm();
+
+  const [register, { validateFields, setFieldsValue }] = useForm();
+
+  useEffect(() => {
+    if (isUpdate) {
+      console.log(record);
+      setFieldsValue(record);
+    }
+  }, [isUpdate]);
+
   const onOk = async () => {
     const values = await validateFields();
     console.log(values);
@@ -50,4 +62,4 @@ const MenuDrawer: React.FC<Props> = ({ visible, onClose }) => {
     </Drawer>
   );
 };
-export default MenuDrawer;
+export default memo(MenuDrawer);

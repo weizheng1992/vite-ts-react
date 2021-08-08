@@ -45,18 +45,20 @@ export const formSchema: FormSchema[] = [
     label: '菜单类型',
     component: 'RadioGroup',
     defaultValue: '0',
+    valuePropName: 'check',
     componentprops: {
       optionType: 'button',
+      buttonStyle: 'solid',
       options: [
-        { label: '目录', value: '0' },
-        { label: '菜单', value: '1' },
-        { label: '按钮', value: '2' },
+        { label: '目录', value: 0 },
+        { label: '菜单', value: 1 },
+        { label: '按钮', value: 2 },
       ],
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    field: 'menuName',
+    field: 'name',
     label: '菜单名称',
     component: 'Input',
   },
@@ -76,7 +78,7 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'orderNo',
+    field: 'orderNum',
     label: '排序',
     component: 'InputNumber',
   },
@@ -88,7 +90,7 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'routePath',
+    field: 'url',
     label: '路由地址',
     component: 'Input',
     show: ({ values }) => !isButton(values.type),
@@ -109,11 +111,14 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioGroup',
-    defaultValue: '0',
+    defaultValue: 0,
+    valuePropName: 'check',
     componentprops: {
+      optionType: 'button',
+      buttonStyle: 'solid',
       options: [
-        { label: '启用', value: '0' },
-        { label: '禁用', value: '1' },
+        { label: '启用', value: 0 },
+        { label: '禁用', value: 1 },
       ],
     },
   },
