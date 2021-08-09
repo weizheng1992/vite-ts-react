@@ -1,22 +1,29 @@
 /*
  * @Author: zz
  * @Date: 2021-06-30 10:55:56
- * @LastEditors: zz
- * @LastEditTime: 2021-07-12 19:57:58
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-09 20:12:50
  */
-import type { UserSys } from '/@/api/system/model/userModel';
+import type { UserSys, UserId } from '/@/api/system/model/userModel';
 
 export enum UserSysActionTypes {
   userInfoRequest = 'USER_REQUEST',
+  userInfoDelete = 'USER_DELETE',
   userInfoSuccess = 'USER_SUCCESS',
   UserInfoFailure = 'USER_FAILURE',
 }
 
-export { UserSys };
+export { UserSys, UserId };
 
 export type UserSysRequestType = {
   type: UserSysActionTypes.userInfoRequest;
   payload: UserSys;
+  onSuccess?: () => void;
+};
+
+export type UserSysDeleteType = {
+  type: UserSysActionTypes.userInfoDelete;
+  payload: UserId;
   onSuccess?: () => void;
 };
 

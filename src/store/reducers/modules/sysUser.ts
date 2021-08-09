@@ -2,7 +2,7 @@
  * @Author: zz
  * @Date: 2021-06-30 10:55:20
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-09 15:18:49
+ * @LastEditTime: 2021-08-09 19:38:01
  */
 import { Reducer } from 'redux';
 import produce from 'immer';
@@ -28,6 +28,9 @@ const userInfo: Reducer = (state = initState, action: any) => {
         };
         draft.pagination = Pagination;
         draft.userInfoList = userInfoList;
+        break;
+      case UserSysActionTypes.userInfoDelete:
+        console.log('action.payload 88888888:>> ', action.payload);
         break;
       case UserSysActionTypes.UserInfoFailure:
         break;

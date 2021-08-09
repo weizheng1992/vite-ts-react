@@ -2,16 +2,19 @@
  * @Author: zz
  * @Date: 2021-06-29 16:26:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-09 16:36:45
+ * @LastEditTime: 2021-08-09 20:09:31
  */
 import React, { useEffect, useState } from 'react';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
+import { Modal } from 'antd';
 // import { userInfo } from '/@/api/user/system';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserSysRequest } from '../../../store/actions/sysUser';
+import { UserSysRequest, UserSysDel } from '../../../store/actions/sysUser';
 import { schemas } from './search';
 import List from './list';
+
+const { confirm } = Modal;
 
 const User: React.FC = () => {
   // const [title] = useState('用户管理');
@@ -21,6 +24,7 @@ const User: React.FC = () => {
   const dispatch = useDispatch();
   const userSysList: any = useSelector((state: any) => state.sysUser.userInfoList);
   const pagination: any = useSelector((state: any) => state.sysUser.pagination);
+  console.log('userSysList :>> ', userSysList);
   // const { userId }: LoginResultModel = useSelector<RootState, LoginResultModel>(
   //   (state: RootState) => state.login.userInfo,
   //   shallowEqual
@@ -60,13 +64,32 @@ const User: React.FC = () => {
     },
   };
 
+  const userListDel = (record: any) => {
+    confirm({
+      title: '你确定要删除吗?',
+      onOk() {
+        console.log('record :>> ', record);
+        console.log(777);
+        dispatch(UserSysDel({ id: record.user_id }, () => navigate('')));
+      },
+      onCancel() {
+        console.log(6666);
+      },
+    });
+  };
+
   useEffect(() => {
     searchList();
   }, [page]);
   return (
     <>
       <BasicForm {...formProps} onRegister={register} />
-      <List userInfoList={userSysList} pagination={pagination} setPage={setPage} />
+      <List
+        userInfoList={userSysList}
+        pagination={pagination}
+        setPage={setPage}
+        userListDel={userListDel}
+      />
     </>
   );
 };
