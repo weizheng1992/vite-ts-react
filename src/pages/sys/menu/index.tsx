@@ -37,9 +37,13 @@ const Menu: React.FC = () => {
   };
   const memoModleInfo = useMemo(() => {
     return { ...tableItem };
-  }, [tableItem]);
+  }, [tableItem.isUpdate]);
   const onClose = useCallback(() => {
     setVisible(false);
+    setTableItem((draft) => {
+      draft.isUpdate = false;
+      draft.record = {} as MenuListItem;
+    });
   }, []);
   return (
     <div>
@@ -54,7 +58,7 @@ const Menu: React.FC = () => {
           {
             label: '编辑',
             onClick: handleEdit,
-            ifShow: (record) => record.orderNum === 1,
+            ifShow: (record) => record.orderNum !== 1,
           },
           { label: '删除', popConfirm: { title: '是否删除？', confirm: handleClick } },
         ]}

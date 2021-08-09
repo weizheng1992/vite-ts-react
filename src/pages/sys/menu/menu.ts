@@ -35,9 +35,9 @@ export const cloumns: ColumnsType<Recordable> = [
   },
 ];
 
-const isDir = (type: string) => type === '0';
-const isMenu = (type: string) => type === '1';
-const isButton = (type: string) => type === '2';
+const isDir = (type: number) => type === 0;
+const isMenu = (type: number) => type === 1;
+const isButton = (type: number) => type === 2;
 
 export const formSchema: FormSchema[] = [
   {
@@ -63,19 +63,19 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
   },
 
-  {
-    field: 'parentMenu',
-    label: '上级菜单',
-    component: 'TreeSelect',
-    componentprops: {
-      treeDataSimpleMode: {
-        title: 'menuName',
-        key: 'id',
-        value: 'id',
-      },
-      getPopupContainer: () => document.body,
-    },
-  },
+  // {
+  //   field: 'parentMenu',
+  //   label: '上级菜单',
+  //   component: 'TreeSelect',
+  //   componentprops: {
+  //     treeDataSimpleMode: {
+  //       title: 'menuName',
+  //       key: 'id',
+  //       value: 'id',
+  //     },
+  //     getPopupContainer: () => document.body,
+  //   },
+  // },
 
   {
     field: 'orderNum',
