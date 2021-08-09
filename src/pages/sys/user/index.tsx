@@ -1,10 +1,10 @@
 /*
  * @Author: zz
  * @Date: 2021-06-29 16:26:05
- * @LastEditors: zz
- * @LastEditTime: 2021-07-13 15:00:10
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-09 16:36:45
  */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
 // import { userInfo } from '/@/api/user/system';
 import { useNavigate } from 'react-router-dom';
@@ -16,11 +16,11 @@ import List from './list';
 const User: React.FC = () => {
   // const [title] = useState('用户管理');
   // const [initVal, setInitVal] = useState('');
+  const [page, setPage] = useState({ page: 1, size: 10 });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userSysList: any = useSelector((state: any) => state.sysUser.userInfoList);
   const pagination: any = useSelector((state: any) => state.sysUser.pagination);
-  console.log('userSysList 8888:>> ', userSysList);
   // const { userId }: LoginResultModel = useSelector<RootState, LoginResultModel>(
   //   (state: RootState) => state.login.userInfo,
   //   shallowEqual
@@ -31,7 +31,7 @@ const User: React.FC = () => {
 
   const searchList = async () => {
     const ser = await getFieldsValue();
-    dispatch(UserSysRequest({ ...ser }, () => navigate('')));
+    dispatch(UserSysRequest({ ...ser, ...page }, () => navigate('')));
   };
 
   const formProps: FormProps = {
@@ -62,12 +62,11 @@ const User: React.FC = () => {
 
   useEffect(() => {
     searchList();
-  }, []);
-
+  }, [page]);
   return (
     <>
       <BasicForm {...formProps} onRegister={register} />
-      <List userInfoList={userSysList} pagination={pagination} />
+      <List userInfoList={userSysList} pagination={pagination} setPage={setPage} />
     </>
   );
 };

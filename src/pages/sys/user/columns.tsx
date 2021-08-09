@@ -1,9 +1,25 @@
 /*
  * @Author: zz
  * @Date: 2021-07-06 14:32:52
- * @LastEditors: zz
- * @LastEditTime: 2021-07-06 19:20:37
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-09 16:27:15
  */
+import React from 'react';
+import { Button, Modal } from 'antd';
+const { confirm } = Modal;
+
+const showDeleteConfirm = (record) => {
+  confirm({
+    title: '你确定要删除吗?',
+    onOk() {
+      console.log('record :>> ', record);
+      console.log(777);
+    },
+    onCancel() {
+      console.log(6666);
+    },
+  });
+};
 
 const columns = [
   {
@@ -45,12 +61,17 @@ const columns = [
   {
     title: 'Action',
     key: 'action',
-    // render: (text, record) => (
-    //   <Space size="middle">
-    //     <a>Invite {record.name}</a>
-    //     <a>Delete</a>
-    //   </Space>
-    // ),
+    render: (text, record) => (
+      <Button
+        type="primary"
+        danger
+        onClick={() => {
+          showDeleteConfirm(record);
+        }}
+      >
+        删除
+      </Button>
+    ),
   },
 ];
 

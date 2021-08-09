@@ -1,8 +1,8 @@
 /*
  * @Author: zz
  * @Date: 2021-06-30 10:55:20
- * @LastEditors: zz
- * @LastEditTime: 2021-07-13 14:55:34
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-09 15:18:49
  */
 import { Reducer } from 'redux';
 import produce from 'immer';
@@ -14,13 +14,13 @@ const userInfo: Reducer = (state = initState, action: any) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case UserSysActionTypes.userInfoSuccess:
-        const { data, total } = action.payload;
+        const { data, total, current, pageSize } = action.payload;
         // 用户列表
         const userInfoList: any = data;
         // 用户分页
         const Pagination = {
-          current: userInfoList.current || 1,
-          pageSize: userInfoList.pageSize || 20,
+          current: current || 1,
+          pageSize: pageSize || 10,
           total: total,
           showSizeChanger: true,
           showQuickJumper: true,
