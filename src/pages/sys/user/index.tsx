@@ -2,7 +2,7 @@
  * @Author: zz
  * @Date: 2021-06-29 16:26:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-09 20:09:31
+ * @LastEditTime: 2021-08-10 17:33:53
  */
 import React, { useEffect, useState } from 'react';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
@@ -57,6 +57,8 @@ const User: React.FC = () => {
         searchList();
       },
       resetAction: () => {
+        console.log('9999999999 :>> ', 9999999999);
+        console.log('resetFields :>> ', resetFields);
         resetFields();
         searchList();
       },
@@ -68,13 +70,11 @@ const User: React.FC = () => {
     confirm({
       title: '你确定要删除吗?',
       onOk() {
-        console.log('record :>> ', record);
-        console.log(777);
         dispatch(UserSysDel({ id: record.user_id }, () => navigate('')));
       },
-      onCancel() {
-        console.log(6666);
-      },
+      // onCancel() {
+      //   console.log(6666);
+      // },
     });
   };
 

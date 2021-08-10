@@ -2,7 +2,7 @@
  * @Author: zz
  * @Date: 2021-06-29 16:30:00
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-09 19:54:19
+ * @LastEditTime: 2021-08-10 17:12:59
  */
 import React from 'react';
 import { Table } from 'antd';
@@ -25,7 +25,7 @@ const Tables: React.FC<Props> = ({ userInfoList, pagination, setPage, userListDe
     <>
       <Table
         columns={columnsFun(userListDel)}
-        rowKey={(record) => record.id}
+        rowKey={(record) => record.user_id}
         dataSource={userInfoList}
         pagination={{ ...pagination }}
         onChange={onChangeTable}
