@@ -23,7 +23,14 @@ const TableAction: React.FC<Props> = ({ actions, params }) => {
       return isIfShow;
     }
     if (popConfirm && isIfShow()) {
-      const { title, confirm, cancel, cancelText = '否', okText = '是', icon } = popConfirm;
+      const {
+        title,
+        confirm,
+        cancel,
+        cancelText = '否',
+        okText = '是',
+        icon: popIcon,
+      } = popConfirm;
       return (
         <Popconfirm
           key={item.label}
@@ -32,11 +39,13 @@ const TableAction: React.FC<Props> = ({ actions, params }) => {
           onCancel={cancel}
           cancelText={cancelText}
           okText={okText}
-          icon={icon}
+          icon={popIcon}
           className={className}
           style={style}
         >
-          <Button type="link"> {label}</Button>
+          <Button type="link" icon={icon}>
+            {label}
+          </Button>
         </Popconfirm>
       );
     } else {

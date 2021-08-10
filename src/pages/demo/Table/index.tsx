@@ -60,6 +60,7 @@ const Test = () => {
         searchInfo={{ user: 'admin' }}
         columns={columns}
         rowKey={'id'}
+        actionProps={{ title: '操作', width: 200, fixed: 'right' }}
         actions={[
           {
             label: '编辑',

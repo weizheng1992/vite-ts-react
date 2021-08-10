@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react';
+
 export interface ActionItem {
   onClick?: Fn;
   label: string;
-  icon?: string;
+  icon?: ReactNode;
   style?: React.CSSProperties;
   className?: string;
   popConfirm?: PopConfirm;
@@ -19,5 +21,5 @@ export interface PopConfirm {
   cancelText?: string;
   confirm: Fn;
   cancel?: Fn;
-  icon?: string;
+  icon?: ReactNode;
 }

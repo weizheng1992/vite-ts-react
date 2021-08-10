@@ -6,6 +6,7 @@
  */
 import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { BasicTable, TableRef } from '/@/components/Table';
+import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import { menuListApi } from '/@/api/sys/menu';
 import type { MenuListItem } from '/@/api/sys/model/menuModel';
 import { cloumns } from './menu';
@@ -53,14 +54,19 @@ const Menu: React.FC = () => {
         tableProps={{ pagination: false }}
         columns={cloumns}
         rowKey={'menuId'}
-        actionWidth={200}
+        actionProps={{ title: '操作', width: 200, fixed: 'right' }}
         actions={[
           {
-            label: '编辑',
+            label: '',
+            icon: <FormOutlined />,
             onClick: handleEdit,
             ifShow: (record) => record.orderNum !== 1,
           },
-          { label: '删除', popConfirm: { title: '是否删除？', confirm: handleClick } },
+          {
+            label: '',
+            icon: <DeleteOutlined style={{ color: 'red' }} />,
+            popConfirm: { title: '是否删除？', confirm: handleClick },
+          },
         ]}
       />
       <MenuDrawer visible={visible} onClose={onClose} {...memoModleInfo} />
