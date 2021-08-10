@@ -4,24 +4,48 @@
  * @LastEditors: zz
  * @LastEditTime: 2021-07-29 17:33:36
  */
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { BasicTable, TableRef } from '/@/components/Table';
+import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import { menuListApi } from '/@/api/sys/menu';
+import type { MenuListItem } from '/@/api/sys/model/menuModel';
 import { cloumns } from './menu';
 import MenuDrawer from './MenuDrawer';
+import { useImmer } from 'use-immer';
+
+export interface ModalInfo {
+  record: MenuListItem;
+  isUpdate: boolean;
+}
 
 const Menu: React.FC = () => {
   const tableRef = useRef<NonNullable<TableRef>>(null);
   const [visible, setVisible] = useState<boolean>(false);
+  const [tableItem, setTableItem] = useImmer<ModalInfo>({
+    isUpdate: false,
+    record: {} as MenuListItem,
+  });
 
-  const handleClick = () => {};
-  const handleEdit = (record: Recordable) => {
-    console.log(record);
+  const handleClick = (...params) => {
+    console.log('del', params);
+  };
+  const handleEdit = (record: any) => {
     setVisible(true);
+    setTableItem((draft) => {
+      draft.isUpdate = true;
+      draft.record = record;
+    });
   };
-  const onClose = () => {
+  const memoModleInfo = useMemo(() => {
+    return { ...tableItem };
+  }, [tableItem.isUpdate]);
+  const onClose = useCallback(() => {
     setVisible(false);
-  };
+    setTableItem((draft) => {
+      draft.isUpdate = false;
+      draft.record = {} as MenuListItem;
+    });
+  }, []);
   return (
     <div>
       <BasicTable
@@ -30,16 +54,22 @@ const Menu: React.FC = () => {
         tableProps={{ pagination: false }}
         columns={cloumns}
         rowKey={'menuId'}
-        actionWidth={100}
+        actionProps={{ title: '操作', width: 200, fixed: 'right' }}
         actions={[
           {
-            label: '编辑',
+            label: '',
+            icon: <FormOutlined />,
             onClick: handleEdit,
+            ifShow: (record) => record.orderNum !== 1,
           },
-          { label: '删除', onClick: handleClick },
+          {
+            label: '',
+            icon: <DeleteOutlined style={{ color: 'red' }} />,
+            popConfirm: { title: '是否删除？', confirm: handleClick },
+          },
         ]}
       />
-      <MenuDrawer visible={visible} onClose={onClose} />
+      <MenuDrawer visible={visible} onClose={onClose} {...memoModleInfo} />
     </div>
   );
 };

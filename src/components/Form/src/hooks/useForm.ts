@@ -16,7 +16,7 @@ export const useForm = (): UseFormReturnType => {
   async function getForm() {
     const form = formRef.current;
     if (!form) {
-      console.log(
+      console.error(
         'The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!'
       );
     }

@@ -4,31 +4,51 @@
  * @LastEditors: weizheng
  * @LastEditTime: 2021-07-17 19:13:28
  */
-import React from 'react';
-import { Drawer, Button } from 'antd';
+import React, { memo, useEffect } from 'react';
+import { Drawer, Button, message } from 'antd';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
 import { formSchema } from './menu';
+import type { MenuListItem } from '/@/api/sys/model/menuModel';
+import { menuUpdateApi } from '/@/api/sys/menu';
 interface Props {
   visible: boolean;
   onClose: () => void;
+  isUpdate: boolean;
+  record: MenuListItem;
 }
 
-const MenuDrawer: React.FC<Props> = ({ visible, onClose }) => {
+const MenuDrawer: React.FC<Props> = ({ visible, onClose, isUpdate, record }) => {
   const formProps: FormProps = {
     schemas: formSchema,
     labelWidth: 100,
     baseColProps: { lg: 12, md: 24 },
   };
-  const [register, { validateFields }] = useForm();
+
+  const [register, { validateFields, setFieldsValue }] = useForm();
+
+  useEffect(() => {
+    if (isUpdate) {
+      setFieldsValue(record);
+    }
+  }, [isUpdate]);
+
   const onOk = async () => {
-    const values = await validateFields();
-    console.log(values);
+    const values: any = await validateFields();
+    console.log('ssss', values);
+    values.menuId = record.menuId;
+    const data: any = await menuUpdateApi(values);
+    if (!data) {
+      message.success('修改成功');
+    }
+  };
+  const handleClose = async () => {
+    onClose();
   };
   return (
     <Drawer
       title="Create a new account"
       width={720}
-      onClose={onClose}
+      onClose={handleClose}
       visible={visible}
       bodyStyle={{ paddingBottom: 80 }}
       footer={
@@ -50,4 +70,4 @@ const MenuDrawer: React.FC<Props> = ({ visible, onClose }) => {
     </Drawer>
   );
 };
-export default MenuDrawer;
+export default memo(MenuDrawer);

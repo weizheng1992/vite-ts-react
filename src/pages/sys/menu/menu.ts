@@ -12,6 +12,7 @@ export const cloumns: ColumnsType<Recordable> = [
     title: '菜单名称',
     dataIndex: 'name',
     width: 200,
+    align: 'left',
   },
   {
     title: '图标',
@@ -34,9 +35,9 @@ export const cloumns: ColumnsType<Recordable> = [
   },
 ];
 
-const isDir = (type: string) => type === '0';
-const isMenu = (type: string) => type === '1';
-const isButton = (type: string) => type === '2';
+const isDir = (type: number) => type === 0;
+const isMenu = (type: number) => type === 1;
+const isButton = (type: number) => type === 2;
 
 export const formSchema: FormSchema[] = [
   {
@@ -44,38 +45,40 @@ export const formSchema: FormSchema[] = [
     label: '菜单类型',
     component: 'RadioGroup',
     defaultValue: '0',
+    valuePropName: 'check',
     componentprops: {
       optionType: 'button',
+      buttonStyle: 'solid',
       options: [
-        { label: '目录', value: '0' },
-        { label: '菜单', value: '1' },
-        { label: '按钮', value: '2' },
+        { label: '目录', value: 0 },
+        { label: '菜单', value: 1 },
+        { label: '按钮', value: 2 },
       ],
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    field: 'menuName',
+    field: 'name',
     label: '菜单名称',
     component: 'Input',
   },
 
-  {
-    field: 'parentMenu',
-    label: '上级菜单',
-    component: 'TreeSelect',
-    componentprops: {
-      treeDataSimpleMode: {
-        title: 'menuName',
-        key: 'id',
-        value: 'id',
-      },
-      getPopupContainer: () => document.body,
-    },
-  },
+  // {
+  //   field: 'parentMenu',
+  //   label: '上级菜单',
+  //   component: 'TreeSelect',
+  //   componentprops: {
+  //     treeDataSimpleMode: {
+  //       title: 'menuName',
+  //       key: 'id',
+  //       value: 'id',
+  //     },
+  //     getPopupContainer: () => document.body,
+  //   },
+  // },
 
   {
-    field: 'orderNo',
+    field: 'orderNum',
     label: '排序',
     component: 'InputNumber',
   },
@@ -87,7 +90,7 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'routePath',
+    field: 'url',
     label: '路由地址',
     component: 'Input',
     show: ({ values }) => !isButton(values.type),
@@ -108,11 +111,14 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioGroup',
-    defaultValue: '0',
+    defaultValue: 0,
+    valuePropName: 'check',
     componentprops: {
+      optionType: 'button',
+      buttonStyle: 'solid',
       options: [
-        { label: '启用', value: '0' },
-        { label: '禁用', value: '1' },
+        { label: '启用', value: 0 },
+        { label: '禁用', value: 1 },
       ],
     },
   },
