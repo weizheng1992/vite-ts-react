@@ -10,7 +10,10 @@ const index: MenuModule = {
   menu: {
     path: 'sys',
     name: '系统管理',
-    children: [{ path: 'menu', name: '菜单管理' }],
+    children: [
+      { path: 'user', name: '账户管理' },
+      { path: 'menu', name: '菜单管理' },
+    ],
   },
 };
 export default index;
