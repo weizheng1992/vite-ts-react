@@ -2,7 +2,7 @@
  * @Author: zz
  * @Date: 2021-06-29 16:26:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-10 17:33:53
+ * @LastEditTime: 2021-08-13 19:10:57
  */
 import React, { useEffect, useState } from 'react';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
@@ -11,20 +11,27 @@ import { Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserSysRequest, UserSysDel } from '../../../store/actions/sysUser';
+import { Pagination } from '/@/store/types/sysUser';
+import { UserLists } from '/@/api/system/model/userModel';
 import { schemas } from './search';
 import List from './list';
+
+export interface Page {
+  size: number;
+  page: number;
+}
 
 const { confirm } = Modal;
 
 const User: React.FC = () => {
   // const [title] = useState('用户管理');
   // const [initVal, setInitVal] = useState('');
-  const [page, setPage] = useState({ page: 1, size: 10 });
+  const [page, setPage] = useState<Page>({ page: 1, size: 10 });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userSysList: any = useSelector((state: any) => state.sysUser.userInfoList);
-  const pagination: any = useSelector((state: any) => state.sysUser.pagination);
-  console.log('userSysList :>> ', userSysList);
+  const userSysList: UserLists[] = useSelector((state: any) => state.sysUser.userInfoList);
+  const pagination: Pagination = useSelector((state: any) => state.sysUser.pagination);
+  console.log('userSysList 99999999:>> ', userSysList);
   // const { userId }: LoginResultModel = useSelector<RootState, LoginResultModel>(
   //   (state: RootState) => state.login.userInfo,
   //   shallowEqual
@@ -66,7 +73,7 @@ const User: React.FC = () => {
     },
   };
 
-  const userListDel = (record: any) => {
+  const userListDel = (record: UserLists) => {
     confirm({
       title: '你确定要删除吗?',
       onOk() {

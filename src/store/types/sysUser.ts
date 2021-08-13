@@ -2,7 +2,7 @@
  * @Author: zz
  * @Date: 2021-06-30 10:55:56
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-09 20:12:50
+ * @LastEditTime: 2021-08-13 19:10:01
  */
 import type { UserSys, UserId } from '/@/api/system/model/userModel';
 
@@ -33,7 +33,7 @@ export type Pagination = {
   total: number;
   showSizeChanger: boolean;
   showQuickJumper: boolean;
-  showTotal?: (total: number) => void;
+  showTotal?: (total: number) => number;
 };
 
 export type SysState = {

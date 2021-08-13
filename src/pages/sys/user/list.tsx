@@ -2,17 +2,20 @@
  * @Author: zz
  * @Date: 2021-06-29 16:30:00
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-10 17:12:59
+ * @LastEditTime: 2021-08-13 17:41:44
  */
 import React from 'react';
 import { Table } from 'antd';
 import columnsFun from './columns';
+import { Pagination } from '/@/store/types/sysUser';
+import { UserLists } from '/@/api/system/model/userModel';
+import { Page } from './index';
 
 interface Props {
-  userInfoList: any;
-  pagination: any;
-  setPage: any;
-  userListDel: (val: any) => any;
+  userInfoList: UserLists[];
+  pagination: Pagination;
+  setPage: (val: Page) => any;
+  userListDel: (val: UserLists) => any;
 }
 
 const Tables: React.FC<Props> = ({ userInfoList, pagination, setPage, userListDel }) => {
