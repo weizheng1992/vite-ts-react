@@ -1,8 +1,8 @@
 /*
  * @Author: weizheng
  * @Date: 2021-06-28 16:26:00
- * @LastEditors: weizheng
- * @LastEditTime: 2021-06-28 17:22:58
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-28 18:32:13
  */
 import React, { useState } from 'react';
 import LoginForm from './LoginForm';
@@ -11,8 +11,14 @@ import './index.less';
 
 const Login: React.FC = () => {
   const [loginPage, setLoginPage] = useState<boolean>(true);
+  const [isPwd, setIsPwd] = useState<boolean>(false);
   const handleToReg = () => {
     setLoginPage(!loginPage);
+  };
+
+  // 选择密码还是非密码登录
+  const changeLoginType = (val) => {
+    setIsPwd(!val);
   };
   return (
     <div className={`login relative w-full h-full px-4`}>
@@ -38,7 +44,12 @@ const Login: React.FC = () => {
               className={`login-form my-auto mx-auto xl:ml-20 xl:bg-transparent px-5 py-8 sm:px-8 xl:p-4 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto enter-x relative`}
             >
               <LoginForm handleToReg={handleToReg} show={loginPage} />
-              <RegisterForm handleToReg={handleToReg} show={loginPage} />
+              <RegisterForm
+                handleToReg={handleToReg}
+                changeLoginType={changeLoginType}
+                show={loginPage}
+                showPwd={isPwd}
+              />
             </div>
           </div>
         </div>
