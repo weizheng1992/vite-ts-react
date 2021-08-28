@@ -16,7 +16,7 @@ COPY ./react-front.conf /etc/nginx/conf.d
 
 
 # 暴露容器内部访问端口，根据项目变动
-EXPOSE 8090
+EXPOSE 80
 
 ## 如果是Vue CLi，则换成 yarn serve
 # CMD ["yarn", "dev"]
