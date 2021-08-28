@@ -2,7 +2,7 @@
  * @Author: zz
  * @Date: 2021-06-29 16:26:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-13 19:10:57
+ * @LastEditTime: 2021-08-28 16:39:50
  */
 import React, { useEffect, useState } from 'react';
 import { BasicForm, FormProps, useForm } from '/@/components/Form';
@@ -31,7 +31,6 @@ const User: React.FC = () => {
   const dispatch = useDispatch();
   const userSysList: UserLists[] = useSelector((state: any) => state.sysUser.userInfoList);
   const pagination: Pagination = useSelector((state: any) => state.sysUser.pagination);
-  console.log('userSysList 99999999:>> ', userSysList);
   // const { userId }: LoginResultModel = useSelector<RootState, LoginResultModel>(
   //   (state: RootState) => state.login.userInfo,
   //   shallowEqual
@@ -64,8 +63,6 @@ const User: React.FC = () => {
         searchList();
       },
       resetAction: () => {
-        console.log('9999999999 :>> ', 9999999999);
-        console.log('resetFields :>> ', resetFields);
         resetFields();
         searchList();
       },
