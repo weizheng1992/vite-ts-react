@@ -21,12 +21,12 @@ const Login: React.FC = () => {
           <div className="hidden xl:flex xl:flex-col xl:w-6/12 min-h-full mr-4 pl-4">
             <div className="login-app-logo collapsed-show-title">
               <img src="/@/assets/svg/logo.svg" />
-              <div className="ml-2 md:opacity-100 title">项目名</div>
+              <div className="ml-2 md:opacity-100 title">docker项目名</div>
             </div>
             <div className="my-auto">
               <img src="/@/assets/svg/login-box-bg.svg" className="-mt-16 w-1/2 -enter-x" />
               <div className="font-medium mt-10 text-white -enter-x">
-                <span className="mt-4 text-3xl inline-block"> 啊你个头</span>
+                <span className="mt-4 text-3xl inline-block"> docker实时更新</span>
               </div>
               <div className="font-normal mt-5 text-md text-white dark:text-gray-500 -enter-x">
                 三生三世

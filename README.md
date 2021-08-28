@@ -28,6 +28,19 @@
 git clone https://github.com/weizheng1992/vite-ts-react.git
 ```
 
+- docker 运行进入项目根目录
+
+```bash
+  # 编译容器服务
+  docker-compose build
+  # 生成一个React应用程序 并查看内容
+  docker-compose run vite_react ls
+  # 启动容器
+  docker-compose up
+  # 浏览器访问
+  http://localhost:3001
+```
+
 - 安装依赖
 
 ```bash

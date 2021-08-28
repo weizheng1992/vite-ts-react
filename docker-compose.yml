@@ -1,30 +1,15 @@
-version: '3'
-
+version: '3.8'
 services:
-  # node_nginx:
-  #   image: nginx       # 指定服务镜像
-  #   container_name: node_nginx    # 容器名称
-  #   restart: always                 # 重启方式
-  #   ports:                          # 映射端口
-  #     - "8099:8099"
-  #   volumes:                        # 挂载数据卷
-  #     - /home/nginx/conf.d/:/etc/nginx/conf.d
-  #     - /home/nginx/logs:/var/log/nginx
-  #   depends_on:                     # 启动顺序
-  #     - nodejs
-  #   networks:                       # 加入指定网络
-  #     - app-network
-
-  nodejs:
+  vite_react:
+    container_name: vite_react # 容器名称
     build: # 这里指的是我们刚刚撸的 Dockerfile 文件
       context: .
       dockerfile: Dockerfile
-    image: vite_react # 镜像名称
-    container_name: vite_react # 容器名称
-    restart: always # 重启方式
-    # depends_on:                     # 启动顺序
-    #   - node_mysql
+
+    volumes:
+      - '.:/web'
+      - /web/node_modules
+    command: sh -c "yarn dev"
     ports:
-      - '8077:8077'
-    # links:                          # 容器连接
-    #   - mysql
+      - '3001:3001'
+    stdin_open: true
