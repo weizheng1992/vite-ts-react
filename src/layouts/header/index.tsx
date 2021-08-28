@@ -50,7 +50,7 @@ const LayoutHeader: React.FC<HeaderProps> = ({ collapsed, toggle }) => {
               </Menu>
             }
           >
-            <span className="drop-title">姓名333</span>
+            <span className="drop-title">姓名4444</span>
           </Dropdown>
         </div>
       </div>
