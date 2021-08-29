@@ -1,25 +1,25 @@
 
 
-FROM node:14-alpine AS BUILD_IMAGE
-WORKDIR /app
-COPY package*.json ./
-# 安装依赖
-RUN  yarn config set registry https://registry.npm.taobao.org \
-     &&yarn install
-COPY . .
-RUN yarn build
+# FROM node:14-alpine AS BUILD_IMAGE
+# WORKDIR /app
+# COPY package*.json ./
+# # 安装依赖
+# RUN  yarn config set registry https://registry.npm.taobao.org \
+#      &&yarn install
+# COPY . .
+# RUN yarn build
 
 
 
 
-FROM nginx:stable-alpine as production-stage
+FROM nginx:latest
 
 LABEL name = "react-front"
 LABEL version = "1.0"
 
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY dist/ /usr/share/nginx/html/
 
-COPY /app/react-front.conf /etc/nginx/conf.d/
+COPY react-front.conf /etc/nginx/conf.d
 
 # WORKDIR /app
 
