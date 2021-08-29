@@ -1,5 +1,5 @@
 
-FROM nginx
+FROM node:14-alpine AS BUILD_IMAGE
 
 LABEL name = "react-front"
 LABEL version = "1.0"
