@@ -1,12 +1,25 @@
 
+
 FROM node:14-alpine AS BUILD_IMAGE
+WORKDIR /app
+COPY package*.json ./
+# 安装依赖
+RUN  yarn config set registry https://registry.npm.taobao.org \
+     &&yarn install
+COPY . .
+RUN yarn build
+
+
+
+
+FROM nginx:stable-alpine as production-stage
 
 LABEL name = "react-front"
 LABEL version = "1.0"
 
-COPY ./dist /usr/share/nginx/html/
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-COPY ./react-front.conf /etc/nginx/conf.d/
+COPY /app/react-front.conf /etc/nginx/conf.d/
 
 # WORKDIR /app
 
@@ -20,3 +33,5 @@ EXPOSE 80
 
 ## 如果是Vue CLi，则换成 yarn serve
 # CMD ["yarn", "dev"]
+CMD ["nginx", "-g", "daemon off;"]
+
