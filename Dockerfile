@@ -33,5 +33,4 @@ EXPOSE 80
 
 ## 如果是Vue CLi，则换成 yarn serve
 # CMD ["yarn", "dev"]
-CMD ["nginx", "-g", "daemon off;"]
 

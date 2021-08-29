@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  vite_react:
+    container_name: vite_react # 容器名称
+    build: # 这里指的是我们刚刚撸的 Dockerfile 文件
+      context: .
+      dockerfile: Dockerfile
+
+    volumes:
+      - '.:/web'
+      - /web/node_modules
+    command: sh -c "yarn dev"
+    ports:
+      - '3001:3001'
+    stdin_open: true
