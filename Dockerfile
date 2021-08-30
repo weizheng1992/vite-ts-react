@@ -17,9 +17,9 @@ FROM nginx:latest
 LABEL name = "react-front"
 LABEL version = "1.0"
 
-COPY ./dist /usr/share/nginx/html
+COPY dist/ /usr/share/nginx/html/
 
-COPY ./react-front.conf /etc/nginx/conf.d
+COPY react-front.conf /etc/nginx/conf.d
 
 # WORKDIR /app
 
@@ -29,7 +29,7 @@ COPY ./react-front.conf /etc/nginx/conf.d
 
 
 # 暴露容器内部访问端口，根据项目变动
-EXPOSE 80
+# EXPOSE 80
 
 ## 如果是Vue CLi，则换成 yarn serve
 # CMD ["yarn", "dev"]
