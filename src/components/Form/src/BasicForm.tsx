@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, memo } from 'react';
 // import { useImmer } from 'use-immer';
 import { Form, Row } from 'antd';
 import { FormProps, FormActionType, FormSchema } from './types/form';
@@ -165,7 +165,7 @@ const BasicForm: React.FC<FormProps> = (props) => {
       form.resetFields();
     }
   };
-  console.log('getSchema', getSchema);
+  console.log('getSchema', getProps.formProps);
   return (
     <Form {...getProps.formProps} form={form} onFinish={onFinish}>
       <Row gutter={24}>
@@ -182,4 +182,4 @@ const BasicForm: React.FC<FormProps> = (props) => {
   );
 };
 
-export default BasicForm;
+export default memo(BasicForm);

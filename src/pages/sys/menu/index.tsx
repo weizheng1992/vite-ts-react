@@ -4,50 +4,50 @@
  * @LastEditors: zz
  * @LastEditTime: 2021-07-29 17:33:36
  */
-import React, { useRef, useState, useCallback, useMemo } from 'react';
-import { BasicTable, TableRef } from '/@/components/Table';
+import React, { useRef, useState, useCallback } from 'react';
+import { message, Button } from 'antd';
 import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
-import { menuListApi } from '/@/api/sys/menu';
+import { BasicTable, TableRef } from '/@/components/Table';
+import { menuListApi, menuUpdateApi } from '/@/api/sys/menu';
 import type { MenuListItem } from '/@/api/sys/model/menuModel';
 import { cloumns } from './menu';
 import MenuDrawer from './MenuDrawer';
-import { useImmer } from 'use-immer';
-
-export interface ModalInfo {
-  record: MenuListItem;
-  isUpdate: boolean;
-}
 
 const Menu: React.FC = () => {
   const tableRef = useRef<NonNullable<TableRef>>(null);
   const [visible, setVisible] = useState<boolean>(false);
-  const [tableItem, setTableItem] = useImmer<ModalInfo>({
-    isUpdate: false,
-    record: {} as MenuListItem,
-  });
+  const [tableItem, setTableItem] = useState<Nullable<MenuListItem>>(null);
 
   const handleClick = (...params) => {
     console.log('del', params);
   };
   const handleEdit = (record: any) => {
     setVisible(true);
-    setTableItem((draft) => {
-      draft.isUpdate = true;
-      draft.record = record;
-    });
+    setTableItem({ ...record });
   };
-  const memoModleInfo = useMemo(() => {
-    return { ...tableItem };
-  }, [tableItem.isUpdate]);
+
+  const onok = useCallback(async (values) => {
+    const data: any = await menuUpdateApi(values);
+    if (!data) {
+      message.success('修改成功');
+      onClose();
+    }
+  }, []);
   const onClose = useCallback(() => {
     setVisible(false);
-    setTableItem((draft) => {
-      draft.isUpdate = false;
-      draft.record = {} as MenuListItem;
-    });
   }, []);
+
+  const handleAddMenu = () => {
+    setVisible(true);
+    setTableItem(null);
+  };
   return (
     <div>
+      <div className="text-right mb-4">
+        <Button type="primary" onClick={handleAddMenu}>
+          新增
+        </Button>
+      </div>
       <BasicTable
         ref={tableRef}
         api={menuListApi}
@@ -69,7 +69,7 @@ const Menu: React.FC = () => {
           },
         ]}
       />
-      <MenuDrawer visible={visible} onClose={onClose} {...memoModleInfo} />
+      <MenuDrawer visible={visible} onClose={onClose} record={tableItem} onok={onok} />
     </div>
   );
 };

@@ -56,11 +56,13 @@ export const formSchema: FormSchema[] = [
       ],
     },
     colProps: { lg: 24, md: 24 },
+    rules: [{ required: true, message: '请选择类型' }],
   },
   {
     field: 'name',
     label: '菜单名称',
     component: 'Input',
+    rules: [{ required: true, message: '请选择类型' }],
   },
 
   // {

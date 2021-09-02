@@ -2,6 +2,7 @@ import type { Plugin } from 'vite';
 
 import legacy from '@vitejs/plugin-legacy';
 import reactRefresh from '@vitejs/plugin-react-refresh';
+import windiCSS from 'vite-plugin-windicss';
 
 import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
@@ -22,6 +23,8 @@ export function createVitePlugins(viteEnv: any, isBuild: boolean) {
 
   const vitePlugins: (Plugin | Plugin[])[] = [reactRefresh()];
 
+  // vite-plugin-windicss
+  vitePlugins.push(windiCSS());
   // TODO
   !isBuild && vitePlugins.push(configHmrPlugin());
 

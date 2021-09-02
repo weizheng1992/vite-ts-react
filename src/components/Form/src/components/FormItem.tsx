@@ -135,13 +135,14 @@ const FormItem: React.FC<FormItemAllProps> = (props) => {
 
   const renderItem = () => {
     const { labelCol, wrapperCol } = itemLabelWidthProp;
-    const { render, label, field } = schema;
+    const { render, label, field, rules } = schema;
     if (render) {
       return (
         <Form.Item
           {...props.itemProps}
           labelCol={labelCol}
           wrapperCol={wrapperCol}
+          rules={rules}
           // valuePropName={valuePropName}
           label={label}
         >
@@ -155,6 +156,7 @@ const FormItem: React.FC<FormItemAllProps> = (props) => {
         {...props.itemProps}
         labelCol={labelCol}
         wrapperCol={wrapperCol}
+        rules={rules}
         // valuePropName={valuePropName}
         label={label}
       >
