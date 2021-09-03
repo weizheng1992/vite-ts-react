@@ -47,8 +47,7 @@ const MenuDrawer: React.FC<Props> = ({ visible, onClose, onok, record }) => {
   const onOk = async () => {
     try {
       const values: any = await validateFields();
-      console.log('ssss', values);
-      values.menuId = record?.menuId;
+
       onok(values);
     } catch (error) {}
   };
