@@ -26,6 +26,7 @@ const BasicForm: React.FC<FormProps> = (props) => {
     getFieldsValue,
     validateFields,
     setFieldsValue: setFieldsValueForm,
+    resetFields: resetFieldsForm,
   } = form;
 
   const setProps = async (formProps: FormProps): Promise<void> => {
@@ -87,6 +88,7 @@ const BasicForm: React.FC<FormProps> = (props) => {
       validateFields,
       submit,
       setFieldsValueForm,
+      resetFieldsForm,
     });
 
   function setFormModel(key: string, value: any) {

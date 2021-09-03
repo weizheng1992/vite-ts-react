@@ -16,6 +16,7 @@ interface UseFormActionContext {
   validateFields: Fn;
   submit: Fn;
   setFieldsValueForm: Fn;
+  resetFieldsForm: Fn;
 }
 export function useFormEvents({
   getSchema,
@@ -28,15 +29,18 @@ export function useFormEvents({
   validateFields,
   setFormModalVal,
   setFieldsValueForm,
+  resetFieldsForm,
 }: UseFormActionContext) {
   async function resetFields(): Promise<void> {
     const { resetFunc, submitOnReset } = getProps;
-    resetFunc && isFunction(resetFunc) && (await resetFunc());
-
-    Object.keys(formModalVal).forEach((key) => {
-      formModalVal[key] = defaultValue[key];
-    });
-    validateFields();
+    if (resetFunc && isFunction(resetFunc)) {
+      resetFieldsForm();
+      await resetFunc();
+    } else {
+      resetFieldsForm();
+    }
+    setFormModalVal({ ...defaultValue });
+    // validateFields();
     // emit('reset', toRaw(formModel));
     submitOnReset && handleSubmit();
   }
