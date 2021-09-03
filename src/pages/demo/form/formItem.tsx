@@ -13,7 +13,6 @@ export const schemas: FormSchema[] = [
       return {
         onChange: async (e) => {
           const { setFieldsValue } = formActionType;
-          console.log('sss', e);
           await setFieldsValue({ Input2: e.target.value });
         },
       };

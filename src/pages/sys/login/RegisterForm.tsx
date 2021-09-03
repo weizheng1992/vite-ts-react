@@ -29,7 +29,6 @@ const LoginForm: React.FC<Props> = ({ handleToReg, show }) => {
     [dispatch]
   );
 
-  console.log('Register____');
   // const chageLogin = useCallback((value: boolean) => {
   //   setFlag(!value);
   // }, []);

@@ -23,7 +23,6 @@ const LayoutHeader: React.FC<HeaderProps> = ({ collapsed, toggle }) => {
     },
     [dispatch]
   );
-  console.log('logout____');
   return (
     <Header className="site-layout-background layout-page-header px-2">
       <div className="flex justify-between">

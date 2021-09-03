@@ -32,7 +32,6 @@ const FormAction: React.FC<FormActionProps> = (props) => {
       </Button>
     );
   };
-  console.log('Form.Action');
   return (
     <Col {...actionColOpt} style={colStyle}>
       <Form.Item>

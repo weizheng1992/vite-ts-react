@@ -52,8 +52,7 @@ const MenuDrawer: React.FC<Props> = ({ visible, onClose, onok, record }) => {
     } catch (error) {}
   };
   const handleClose = async () => {
-    await resetFields();
-    console.log('endnednendnendn');
+    resetFields();
     onClose();
   };
   return (

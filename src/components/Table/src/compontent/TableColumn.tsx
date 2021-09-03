@@ -8,7 +8,6 @@ interface Props {
   columns: ColumnsType<Recordable>;
 }
 const TableColumn: React.FC<Props> = ({ columns }) => {
-  console.log(columns);
   const getComList = () => {
     const compList: React.ReactElement[] = [];
     columns.map((item: ColumnProps<Recordable>, index: number) => {
@@ -24,7 +23,6 @@ const TableColumn: React.FC<Props> = ({ columns }) => {
       }
     });
   };
-  console.log(getComList());
   return <>{getComList()}</>;
 };
 export default TableColumn;

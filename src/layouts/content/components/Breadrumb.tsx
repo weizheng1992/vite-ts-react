@@ -41,8 +41,7 @@ const Bread: React.FC = () => {
   );
 };
 
-function itemRender(route, params, routes) {
-  console.log(params)
+function itemRender(route, _, routes) {
   const last = routes.indexOf(route) === routes.length - 1;
 
   return last ? <span>{route.name}</span> : <span>{route.name}</span>;

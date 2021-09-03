@@ -32,7 +32,6 @@ const LoginForm: React.FC<Props> = ({ handleToReg, show }) => {
     },
     [dispatch]
   );
-  console.log('Login____');
   return (
     <div style={{ display: show ? 'block' : 'none' }}>
       <h2 className="font-bold text-2xl xl:text-3xl enter-x text-center xl:text-left mb-6">登录</h2>

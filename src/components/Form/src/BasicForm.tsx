@@ -167,7 +167,6 @@ const BasicForm: React.FC<FormProps> = (props) => {
       form.resetFields();
     }
   };
-  console.log('getSchema', getProps.formProps);
   return (
     <Form {...getProps.formProps} form={form} onFinish={onFinish}>
       <Row gutter={24}>
