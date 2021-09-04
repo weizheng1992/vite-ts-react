@@ -22,20 +22,9 @@ const MenuDrawer: React.FC<Props> = ({ visible, onClose, onok, record }) => {
       schemas: formSchema,
       labelWidth: 100,
       baseColProps: { lg: 12, md: 24 },
-      // formProps: {
-      //   preserve: false,
-      // },
     }),
     []
   );
-  // const formProps: FormProps = {
-  //   schemas: formSchema,
-  //   labelWidth: 100,
-  //   baseColProps: { lg: 12, md: 24 },
-  //   formProps: {
-  //     preserve: false,
-  //   },
-  // };
 
   const [register, { validateFields, setFieldsValue, resetFields }] = useForm();
 

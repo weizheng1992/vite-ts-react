@@ -12,6 +12,7 @@ import { menuListApi, menuUpdateApi } from '/@/api/sys/menu';
 import type { MenuListItem } from '/@/api/sys/model/menuModel';
 import { cloumns } from './menu';
 import MenuDrawer from './MenuDrawer';
+import Icon from '/@/components/Icon';
 
 const Menu: React.FC = () => {
   const tableRef = useRef<NonNullable<TableRef>>(null);
@@ -49,6 +50,8 @@ const Menu: React.FC = () => {
           新增
         </Button>
       </div>
+
+      <Icon icon="ant-design:account-book-filled" />
       <BasicTable
         ref={tableRef}
         api={menuListApi}

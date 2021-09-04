@@ -3,6 +3,7 @@ import type { Plugin } from 'vite';
 import legacy from '@vitejs/plugin-legacy';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import windiCSS from 'vite-plugin-windicss';
+import purgeIcons from 'vite-plugin-purge-icons';
 
 import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
@@ -34,7 +35,8 @@ export function createVitePlugins(viteEnv: any, isBuild: boolean) {
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));
 
-  // vite-plugin-windicss
+  // vite-plugin-icon
+  vitePlugins.push(purgeIcons());
 
   // vite-plugin-style-import
   // vitePlugins.push(configPluginImp());
