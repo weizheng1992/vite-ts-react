@@ -13,10 +13,10 @@ interface Props {
   visible: boolean;
   onClose: () => void;
   onok: (values: any) => Promise<void>;
-  record: Nullable<MenuListItem>;
+  tableItem: Nullable<MenuListItem>;
 }
 
-const MenuDrawer: React.FC<Props> = ({ visible, onClose, onok, record }) => {
+const MenuDrawer: React.FC<Props> = ({ visible, onClose, onok, tableItem }) => {
   const formProps: FormProps = useMemo(
     () => ({
       schemas: formSchema,
@@ -30,7 +30,7 @@ const MenuDrawer: React.FC<Props> = ({ visible, onClose, onok, record }) => {
 
   useEffect(() => {
     resetFields();
-    visible && setFieldsValue({ ...record });
+    visible && setFieldsValue({ ...tableItem });
   }, [visible]);
 
   const onOk = async () => {

@@ -4,29 +4,41 @@
  * @LastEditors: zz
  * @LastEditTime: 2021-07-29 17:33:36
  */
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { message, Button } from 'antd';
 import { BasicTable, TableRef } from '/@/components/Table';
 import { menuListApi, menuUpdateApi } from '/@/api/sys/menu';
 import type { MenuListItem } from '/@/api/sys/model/menuModel';
 import { cloumns } from './menu';
 import MenuDrawer from './MenuDrawer';
+import { useImmer } from 'use-immer';
+
+interface State {
+  visible: boolean;
+  tableItem: Nullable<MenuListItem>;
+}
 
 const Menu: React.FC = () => {
   const tableRef = useRef<NonNullable<TableRef>>(null);
-  const [visible, setVisible] = useState<boolean>(false);
-  const [tableItem, setTableItem] = useState<Nullable<MenuListItem>>(null);
+  const [state, setState] = useImmer<State>({
+    visible: false,
+    tableItem: null,
+  });
+  // const [visible, setVisible] = useState<boolean>(false);
+  // const [tableItem, setTableItem] = useState<Nullable<MenuListItem>>(null);
 
   const handleClick = (...params) => {
     console.log('del', params);
   };
   const handleEdit = (record: any) => {
-    setVisible(true);
-    setTableItem({ ...record });
+    setState((draft) => {
+      draft.visible = true;
+      draft.tableItem = { ...record };
+    });
   };
 
   const onok = useCallback(async (values) => {
-    values.menuId = tableItem?.menuId;
+    values.menuId = state.tableItem?.menuId;
     const data: any = await menuUpdateApi(values);
     if (!data) {
       message.success('修改成功');
@@ -34,12 +46,17 @@ const Menu: React.FC = () => {
     }
   }, []);
   const onClose = useCallback(() => {
-    setVisible(false);
+    // setVisible(false);
+    setState((draft) => {
+      draft.visible = false;
+    });
   }, []);
 
   const handleAddMenu = () => {
-    setVisible(true);
-    setTableItem(null);
+    setState((draft) => {
+      draft.visible = true;
+      draft.tableItem = null;
+    });
   };
   return (
     <div>
@@ -70,7 +87,7 @@ const Menu: React.FC = () => {
           },
         ]}
       />
-      <MenuDrawer visible={visible} onClose={onClose} record={tableItem} onok={onok} />
+      <MenuDrawer {...state} onClose={onClose} onok={onok} />
     </div>
   );
 };
