@@ -8,10 +8,9 @@ interface Props {
   color?: string;
   size?: string | number;
 }
-const Icon: React.FC<Props> = ({ icon, color, size = 15 }: Props) => {
+const Icon: React.FC<Props> = ({ icon, color, size }: Props) => {
   const elRef = useRef<HTMLSpanElement>(null);
   const getIcon = useCallback(() => {
-    console.log('jjjjjjjjjjjj', icon);
     const el = elRef.current;
     if (!el) return;
 

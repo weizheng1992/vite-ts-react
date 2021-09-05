@@ -2,6 +2,7 @@ import React from 'react';
 import { Space, Popconfirm, Button } from 'antd';
 import { ActionItem } from '../types/tableAction';
 import { isBoolean, isFunction } from '/@/utils/is';
+import Icon from '/@/components/Icon';
 
 interface Props {
   actions: ActionItem[];
@@ -10,7 +11,7 @@ interface Props {
 
 const TableAction: React.FC<Props> = ({ actions, params }) => {
   const renderAcItem = (item: ActionItem) => {
-    const { popConfirm, label, className, style, icon, onClick, ifShow } = item;
+    const { popConfirm, label, className, style, icon, onClick, ifShow, color } = item;
     function isIfShow() {
       let isIfShow = true;
 
@@ -23,14 +24,7 @@ const TableAction: React.FC<Props> = ({ actions, params }) => {
       return isIfShow;
     }
     if (popConfirm && isIfShow()) {
-      const {
-        title,
-        confirm,
-        cancel,
-        cancelText = '否',
-        okText = '是',
-        icon: popIcon,
-      } = popConfirm;
+      const { title, confirm, cancel, cancelText = '否', okText = '是' } = popConfirm;
       return (
         <Popconfirm
           key={item.label}
@@ -39,11 +33,11 @@ const TableAction: React.FC<Props> = ({ actions, params }) => {
           onCancel={cancel}
           cancelText={cancelText}
           okText={okText}
-          icon={popIcon}
           className={className}
           style={style}
         >
-          <Button type="link" icon={icon}>
+          <Button type="link">
+            {icon && <Icon icon={icon} color={'red'} />}
             {label}
           </Button>
         </Popconfirm>
@@ -55,11 +49,10 @@ const TableAction: React.FC<Props> = ({ actions, params }) => {
             key={item.label}
             className={className}
             style={style}
-            icon={icon}
             type="link"
             onClick={() => onClick && onClick(...params)}
           >
-            {label}
+            {icon && <Icon icon={icon} color={color} />} {label}
           </Button>
         )
       );

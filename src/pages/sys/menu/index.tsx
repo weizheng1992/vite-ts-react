@@ -6,13 +6,11 @@
  */
 import React, { useRef, useState, useCallback } from 'react';
 import { message, Button } from 'antd';
-import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import { BasicTable, TableRef } from '/@/components/Table';
 import { menuListApi, menuUpdateApi } from '/@/api/sys/menu';
 import type { MenuListItem } from '/@/api/sys/model/menuModel';
 import { cloumns } from './menu';
 import MenuDrawer from './MenuDrawer';
-import Icon from '/@/components/Icon';
 
 const Menu: React.FC = () => {
   const tableRef = useRef<NonNullable<TableRef>>(null);
@@ -50,8 +48,6 @@ const Menu: React.FC = () => {
           新增
         </Button>
       </div>
-
-      <Icon icon="ant-design:account-book-filled" />
       <BasicTable
         ref={tableRef}
         api={menuListApi}
@@ -62,13 +58,14 @@ const Menu: React.FC = () => {
         actions={[
           {
             label: '',
-            icon: <FormOutlined />,
+            icon: 'clarity:note-edit-line',
             onClick: handleEdit,
             ifShow: (record) => record.orderNum !== 1,
           },
           {
             label: '',
-            icon: <DeleteOutlined style={{ color: 'red' }} />,
+            icon: 'ant-design:delete-outlined',
+            color: 'error',
             popConfirm: { title: '是否删除？', confirm: handleClick },
           },
         ]}
