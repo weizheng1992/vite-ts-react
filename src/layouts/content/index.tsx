@@ -10,7 +10,7 @@ const LayoutContent: React.FC = () => {
   return (
     <Content className="site-layout" style={{ padding: '0 30px' }}>
       <Breadrumb />
-      <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
+      <div className="site-layout-background" style={{ minHeight: 380 }}>
         <Suspense
           fallback={
             <SuspendFallbackLoading

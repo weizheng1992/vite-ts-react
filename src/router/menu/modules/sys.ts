@@ -12,6 +12,7 @@ const index: MenuModule = {
     name: '系统管理',
     children: [
       { path: 'user', name: '账户管理' },
+      { path: 'dept', name: '部门管理' },
       { path: 'menu', name: '菜单管理' },
     ],
   },

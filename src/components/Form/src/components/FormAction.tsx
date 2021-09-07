@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-07-02 18:28:05
  */
 import React from 'react';
-import { Col, Form, Button } from 'antd';
+import { Col, Form, Button, Space } from 'antd';
 import { FormActionProps } from '../types/form';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
@@ -35,17 +35,19 @@ const FormAction: React.FC<FormActionProps> = (props) => {
   return (
     <Col {...actionColOpt} style={colStyle}>
       <Form.Item>
-        {showResetButton && (
-          <Button type="default" className="mr-2" onClick={resetAction} {...resetButtonOptions}>
-            {resetButtonOptions && resetButtonOptions.text}
-          </Button>
-        )}
-        {showSubmitButton && (
-          <Button type="primary" className="mr-2" onClick={submitAction} {...submitButtonOptions}>
-            {submitButtonOptions && submitButtonOptions.text}
-          </Button>
-        )}
-        {showAdvancedButton && renderAdvancedButton()}
+        <Space>
+          {showResetButton && (
+            <Button type="default" onClick={resetAction} {...resetButtonOptions}>
+              {resetButtonOptions && resetButtonOptions.text}
+            </Button>
+          )}
+          {showSubmitButton && (
+            <Button type="primary" onClick={submitAction} {...submitButtonOptions}>
+              {submitButtonOptions && submitButtonOptions.text}
+            </Button>
+          )}
+          {showAdvancedButton && renderAdvancedButton()}
+        </Space>
       </Form.Item>
     </Col>
   );
