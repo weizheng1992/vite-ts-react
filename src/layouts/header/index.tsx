@@ -24,7 +24,7 @@ const LayoutHeader: React.FC<HeaderProps> = ({ collapsed, toggle }) => {
     [dispatch]
   );
   return (
-    <Header className="site-layout-background layout-page-header px-2">
+    <Header className=" bg-white layout-page-header px-2">
       <div className="flex justify-between">
         <div onClick={toggle}>
           <span id="sidebar-trigger">

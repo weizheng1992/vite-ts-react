@@ -1137,12 +1137,17 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/iconify@>=2.0.0-rc.6":
+"@iconify/iconify@>=2.0.0-rc.6", "@iconify/iconify@^2.0.4":
   version "2.0.4"
   resolved "https://registry.nlark.com/@iconify/iconify/download/@iconify/iconify-2.0.4.tgz#72bff5fe1e7c71a2ac6bd7a2f74f933b3920526c"
   integrity sha1-cr/1/h58caKsa9ei90+TOzkgUmw=
   dependencies:
     cross-fetch "^3.0.6"
+
+"@iconify/json@^1.1.398":
+  version "1.1.398"
+  resolved "https://registry.nlark.com/@iconify/json/download/@iconify/json-1.1.398.tgz?cache=0&sync_timestamp=1630905949895&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40iconify%2Fjson%2Fdownload%2F%40iconify%2Fjson-1.1.398.tgz#a77526dfb358bb67731d2f609db568abff144589"
+  integrity sha1-p3Um37NYu2dzHS9gnbVoq/8URYk=
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"

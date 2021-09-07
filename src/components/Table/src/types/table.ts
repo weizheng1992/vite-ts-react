@@ -43,6 +43,8 @@ export interface BasicTableProps {
   filterFn?: (data: Partial<Record<string, FilterValue | null>>) => any;
   ref?: React.RefObject<any>;
   actionProps?: ColumnType<Recordable>;
+  actionLabel?: string;
+  actionWidth?: string | number;
 }
 export interface FetchParams {
   searchInfo?: Recordable;

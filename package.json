@@ -18,6 +18,7 @@
     "postinstall": "npm run install:husky"
   },
   "dependencies": {
+    "@iconify/iconify": "^2.0.4",
     "antd": "^4.16.10",
     "axios": "^0.21.1",
     "history": "^5.0.0",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
+    "@iconify/json": "^1.1.398",
     "@purge-icons/generated": "^0.7.0",
     "@types/http-proxy": "^1.17.5",
     "@types/lodash-es": "^4.17.4",

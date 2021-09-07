@@ -37,7 +37,7 @@ const TableAction: React.FC<Props> = ({ actions, params }) => {
           style={style}
         >
           <Button type="link">
-            {icon && <Icon icon={icon} color={'red'} />}
+            {icon && <Icon icon={icon} color={'red'} size={18} />}
             {label}
           </Button>
         </Popconfirm>
@@ -52,7 +52,7 @@ const TableAction: React.FC<Props> = ({ actions, params }) => {
             type="link"
             onClick={() => onClick && onClick(...params)}
           >
-            {icon && <Icon icon={icon} color={color} />} {label}
+            {icon && <Icon icon={icon} color={color} size={18} />} {label}
           </Button>
         )
       );
