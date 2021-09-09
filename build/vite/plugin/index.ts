@@ -11,6 +11,7 @@ import { configCompressPlugin } from './compress';
 import { configVisualizerConfig } from './visualizer';
 // import { configPluginImp } from './pluginImp';
 import { configStyleImportPlugin } from './styleImport';
+import { configSvgIconsPlugin } from './svgSprite';
 // import { configImageminPlugin } from './imagemin';
 import { configHmrPlugin } from './hmr';
 
@@ -37,6 +38,9 @@ export function createVitePlugins(viteEnv: any, isBuild: boolean) {
 
   // vite-plugin-icon
   vitePlugins.push(purgeIcons());
+
+  // vite-plugin-svg-icons
+  vitePlugins.push(configSvgIconsPlugin(isBuild));
 
   // vite-plugin-style-import
   // vitePlugins.push(configPluginImp());

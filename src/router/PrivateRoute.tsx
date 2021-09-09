@@ -1,31 +1,11 @@
 import React, { FC } from 'react';
-import { Route, useNavigate } from 'react-router-dom';
-import { Result, Button } from 'antd';
-import { RouteProps, useLocation } from 'react-router';
+import { Route } from 'react-router-dom';
+import { RouteProps } from 'react-router';
+import Auth from '/@/pages/sys/403';
 
 const PrivateRoute: FC<RouteProps> = (props) => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const logged = localStorage.getItem('token');
-  return logged ? (
-    <Route {...props} />
-  ) : (
-    <Result
-      status="403"
-      title="403"
-      subTitle={'未登录'}
-      extra={
-        <Button
-          type="primary"
-          onClick={() =>
-            navigate(`/login${'?from=' + encodeURIComponent(location.pathname)}`, { replace: true })
-          }
-        >
-          去登陆
-        </Button>
-      }
-    />
-  );
+  return logged ? <Route {...props} /> : <Auth />;
 };
 
 export default PrivateRoute;
