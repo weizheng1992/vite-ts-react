@@ -9,7 +9,7 @@ import { VAxios } from './Axios';
 import { checkStatus } from './checkStatus';
 import { message as $message } from 'antd';
 
-import { RequestEnum, ResultEnum, ContentTypeEnum } from './httpEnum';
+import { RequestEnum, ContentTypeEnum } from './httpEnum';
 
 import { isString } from '/@/utils/is';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
@@ -26,7 +26,7 @@ const transform: AxiosTransform = {
    * @description: 处理请求数据
    */
   transformRequestHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
-    const { isTransformRequestResult } = options;
+    const { isTransformRequestResult, gqlKey } = options;
     // 不进行任何处理，直接返回
     // 用于页面代码可能需要直接获取code，data，message这些信息时开启
     if (!isTransformRequestResult) {
@@ -39,45 +39,53 @@ const transform: AxiosTransform = {
       return errorResult;
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, data: result, msg: message } = data;
+    const { data: result } = data;
 
-    // 这里逻辑可以根据项目进行修改
-    const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
-    if (!hasSuccess) {
-      if (message) {
-        // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
-        if (options.errorMessageMode === 'modal') {
-          $message.error(message);
-        } else if (options.errorMessageMode === 'message') {
-          $message.error(message);
-        }
-      }
-      Promise.reject(new Error(message));
+    if (data && Reflect.has(data, 'errors')) {
+      const { errors } = data;
+      errors.forEach((item) => {
+        $message.error(item.message);
+      });
       return errorResult;
     }
+
+    // 这里逻辑可以根据项目进行修改
+    // const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
+    // if (!hasSuccess) {
+    //   if (message) {
+    //     // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
+    //     if (options.errorMessageMode === 'modal') {
+    //       $message.error(message);
+    //     } else if (options.errorMessageMode === 'message') {
+    //       $message.error(message);
+    //     }
+    //   }
+    //   Promise.reject(new Error(message));
+    //   return errorResult;
+    // }
 
     // 接口请求成功，直接返回结果
-    if (code === ResultEnum.SUCCESS) {
-      return result;
-    }
+    // if (code === ResultEnum.SUCCESS) {
+    return gqlKey ? result[gqlKey] : result;
+    // }
     // 接口请求错误，统一提示错误信息
-    if (code === ResultEnum.ERROR) {
-      if (message) {
-        $message.error(data.msg);
-        Promise.reject(new Error(message));
-      } else {
-        $message.error('请求错误');
-        Promise.reject(new Error('error'));
-      }
-      return errorResult;
-    }
+    // if (code === ResultEnum.ERROR) {
+    //   if (message) {
+    //     $message.error(data.msg);
+    //     Promise.reject(new Error(message));
+    //   } else {
+    //     $message.error('请求错误');
+    //     Promise.reject(new Error('error'));
+    //   }
+    //   return errorResult;
+    // }
     // 登录超时
-    if (code === ResultEnum.TIMEOUT) {
-      $message.error('登录超时');
-      Promise.reject(new Error('登录超时'));
-      return errorResult;
-    }
-    return errorResult;
+    // if (code === ResultEnum.TIMEOUT) {
+    //   $message.error('登录超时');
+    //   Promise.reject(new Error('登录超时'));
+    //   return errorResult;
+    // }
+    // return errorResult;
   },
 
   // 请求之前处理config
@@ -171,7 +179,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // post请求的时候添加参数到url
           joinParamsToUrl: false,
           // 格式化提交参数时间
-          formatDate: true,
+          formatDate: false,
           // 消息提示类型
           errorMessageMode: 'message',
           // 接口地址

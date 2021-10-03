@@ -5,29 +5,66 @@
  * @LastEditTime: 2021-07-17 16:52:26
  */
 import { defHttp } from '/@/utils/axios';
-import { MenuListItem, MenuParams } from './model/menuModel';
-enum Api {
-  MENU_LIST = '/menu/list',
-  MENU_UPDATE = '/menu/update',
-}
+import { MenuListItem, MenuUpdateResultModel } from './model/menuModel';
+
+const getMenu = `query{
+  getMenus{
+    id
+    parentId
+    name
+    path
+    url
+    perms
+    type
+    icon
+    sort
+  }
+}`;
+
+const updateMenu = ({
+  id,
+  parentId,
+  name,
+  path,
+  url,
+  perms,
+  type,
+  icon,
+  sort,
+}: MenuListItem) => `mutation{
+  updateMenu(id: ${id}, parentId: ${parentId}, name: "${name}", path: ${path}, url: "${url}", perms: "${perms}", type: ${type}, icon: "${icon}, sort: ${sort}){
+    success
+    message
+  }
+}`;
 
 // 菜单列表
-export const menuListApi = (params: MenuParams) =>
-  defHttp.post<MenuListItem[]>({
-    url: Api.MENU_LIST,
-    params,
-    headers: {
-      ignoreCancelToken: true,
+export const menuListApi = () =>
+  defHttp.post<MenuListItem[]>(
+    {
+      // url: Api.MENU_LIST,
+      params: { query: getMenu },
+      headers: {
+        ignoreCancelToken: true,
+      },
     },
-  });
+    {
+      gqlKey: 'getMenus',
+    }
+  );
 
 // 更新菜单
 export const menuUpdateApi = (params: MenuListItem) => {
-  defHttp.post<any>({
-    url: Api.MENU_UPDATE,
-    params,
-    headers: {
-      ignoreCancelToken: true,
+  defHttp.post<MenuUpdateResultModel>(
+    {
+      // url: Api.MENU_UPDATE,
+      params: { query: updateMenu(params) },
+      headers: {
+        ignoreCancelToken: true,
+      },
     },
-  });
+    {
+      gqlKey: 'updateMenu',
+    }
+  );
 };

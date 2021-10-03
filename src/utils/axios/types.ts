@@ -16,6 +16,12 @@ export interface RequestOptions {
   // Whether to add a timestamp
   joinTime?: boolean;
   ignoreCancelToken?: boolean;
+  // galgetData
+  gqlKey?: string;
+}
+interface errorItem {
+  message: string;
+  code: number;
 }
 
 export interface Result<T = any> {
@@ -23,6 +29,7 @@ export interface Result<T = any> {
   type: 'success' | 'error' | 'warning';
   msg: string;
   data: T;
+  errors: errorItem[];
 }
 
 // multipart/form-data: upload file

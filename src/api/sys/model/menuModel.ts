@@ -8,11 +8,18 @@
 export type MenuParams = { menuName?: string; status?: number };
 
 export interface MenuListItem {
-  menuId: string;
+  parentId: string;
+  path?: string;
   name: string;
-  url: string;
-  icon: number;
+  url?: string;
+  icon?: number;
   perms?: string;
-  orderNum: number;
+  type?: number;
+  sort: number;
   children?: MenuListItem[];
+  id?: number;
+}
+export interface MenuUpdateResultModel {
+  success: boolean;
+  message: string;
 }

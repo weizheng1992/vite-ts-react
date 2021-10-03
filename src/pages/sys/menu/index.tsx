@@ -38,7 +38,7 @@ const Menu: React.FC = () => {
   };
 
   const onok = useCallback(async (values) => {
-    values.menuId = state.tableItem?.menuId;
+    values.menuId = state.tableItem?.id;
     const data: any = await menuUpdateApi(values);
     if (!data) {
       message.success('修改成功');
