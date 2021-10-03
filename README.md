@@ -15,10 +15,15 @@
 - [React-Router](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) 熟悉 React-router 基本使用
 - [Ant-Design](https://ant.design/components/overview-cn/) - ui 基本使用
 - [tailwind](https://www.tailwindcss.cn/) - css 基本使用
+- [graphql](https://graphql.cn/) - gql 语法
 
 ## 预览
 
 - [线上地址](http://8.142.136.225/) - admin/123456 还在部署
+
+## 后端
+
+- [git 地址](https://github.com/weizheng1992/vite-react-node) - nodejs express graphql
 
 ## 安装使用
 
@@ -26,19 +31,6 @@
 
 ```bash
 git clone https://github.com/weizheng1992/vite-ts-react.git
-```
-
-- docker 运行进入项目根目录
-
-```bash
-  # 编译容器服务
-  docker-compose build
-  # 生成一个React应用程序 并查看内容
-  docker-compose run vite_react ls
-  # 启动容器
-  docker-compose up
-  # 浏览器访问
-  http://localhost:3001
 ```
 
 - 安装依赖

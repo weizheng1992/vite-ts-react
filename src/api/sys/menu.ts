@@ -42,7 +42,7 @@ const updateMenu = ({
 export const menuListApi = () =>
   defHttp.post<MenuListItem[]>(
     {
-      // url: Api.MENU_LIST,
+      url: '',
       params: { query: getMenu },
       headers: {
         ignoreCancelToken: true,
@@ -57,6 +57,7 @@ export const menuListApi = () =>
 export const menuUpdateApi = (params: MenuListItem) => {
   defHttp.post<MenuUpdateResultModel>(
     {
+      url: '',
       // url: Api.MENU_UPDATE,
       params: { query: updateMenu(params) },
       headers: {
