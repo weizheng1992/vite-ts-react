@@ -1,25 +1,26 @@
-import React, { FC } from 'react';
-import { Route } from 'react-router-dom';
+import React from 'react';
 import { RouteProps } from 'react-router';
 import PrivateRoute from './PrivateRoute';
+import { useTitle } from 'react-use';
 
 export interface WrapperRouteProps extends RouteProps {
   /** document title locale id */
   title: string;
   /** authorization？ */
   auth?: boolean;
+  element: React.ReactElement;
 }
 
-const WrapperRouteComponent: FC<WrapperRouteProps> = ({
+const WrapperRouteComponent: React.FC<WrapperRouteProps> = ({
   title,
   auth,
-  ...props
+  element,
 }: WrapperRouteProps) => {
-  const WitchRoute = auth ? PrivateRoute : Route;
-  if (title) {
-    document.title = title;
+  useTitle(title);
+  if (auth) {
+    return <PrivateRoute>{element}</PrivateRoute>;
   }
-  return <WitchRoute {...props} />;
+  return element;
 };
 
 export default WrapperRouteComponent;

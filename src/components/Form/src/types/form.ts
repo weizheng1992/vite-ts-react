@@ -90,14 +90,14 @@ export interface FormProps {
 
 export type ButtonOptions = ButtonProps & { text?: string };
 export interface FormActionProps {
-  colStyle?: object;
+  colStyle?: Recordable;
   isAdvanced?: boolean;
   showResetButton?: boolean;
   showSubmitButton?: boolean;
   showAdvancedButton?: boolean;
   resetButtonOptions?: ButtonOptions;
   submitButtonOptions?: ButtonOptions;
-  advancedButtonOptions?: object;
+  advancedButtonOptions?: Recordable;
   actionColOpt?: ColProps;
   submitAction?: () => void;
   resetAction?: () => void;

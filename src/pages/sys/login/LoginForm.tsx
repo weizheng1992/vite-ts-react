@@ -36,10 +36,10 @@ const LoginForm: React.FC<Props> = ({ handleToReg, show }) => {
     <div style={{ display: show ? 'block' : 'none' }}>
       <h2 className="font-bold text-2xl xl:text-3xl enter-x text-center xl:text-left mb-6">登录</h2>
       <Form className="p-4 enter-x" name="login" onFinish={(values) => onFinish(values)}>
-        <FormItem name="username" className="enter-x">
+        <FormItem name="username" className="enter-x mb-4">
           <Input size="large" placeholder="邮箱" />
         </FormItem>
-        <FormItem name="password" className="enter-x">
+        <FormItem name="password" className="enter-x mb-4">
           <InputPassword size="large" placeholder="密码" />
         </FormItem>
 
@@ -57,9 +57,9 @@ const LoginForm: React.FC<Props> = ({ handleToReg, show }) => {
           </Button>
         </FormItem>
       </Form>
-      <Row>
+      <Row className="p-4">
         <Col span={12}>
-          <Button block onClick={handleToReg}>
+          <Button block onClick={handleToReg} size="large">
             注册
           </Button>
         </Col>

@@ -6,7 +6,7 @@
  */
 import React, { lazy, FC } from 'react';
 import { useRoutes } from 'react-router-dom';
-import { PartialRouteObject } from 'react-router';
+import { RouteObject } from 'react-router';
 import WrapperRouteAuth from './RouteAuth';
 
 import LayoutPage from '/@/layouts';
@@ -19,9 +19,9 @@ const NotFound = lazy(() => import('/@/pages/sys/404'));
 const User = lazy(() => import('/@/pages/sys/user/index'));
 const Dept = lazy(() => import('/@/pages/sys/dept'));
 
-const routeList: PartialRouteObject[] = [
+const routeList: RouteObject[] = [
   {
-    path: 'login',
+    path: '/login',
     element: <WrapperRouteAuth element={<Login />} title="登录" />,
   },
   {

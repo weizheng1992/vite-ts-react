@@ -1,11 +1,13 @@
-import React, { FC } from 'react';
-import { Route } from 'react-router-dom';
-import { RouteProps } from 'react-router';
+import React from 'react';
 import Auth from '/@/pages/sys/403';
 
-const PrivateRoute: FC<RouteProps> = (props) => {
+const PrivateRoute = ({ children }) => {
   const logged = localStorage.getItem('token');
-  return logged ? <Route {...props} /> : <Auth />;
+  if (!logged) {
+    return <Auth />;
+  } else {
+    return children;
+  }
 };
 
 export default PrivateRoute;

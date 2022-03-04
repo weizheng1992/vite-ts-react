@@ -1,16 +1,16 @@
 import { defHttp } from '/@/utils/axios';
 import { LoginParams, LoginResultModel } from './model/userModel';
+import gql from '/@/utils/gql';
 
-const Login = ({
-  username,
-  password,
-}: LoginParams) => `query {login (username: "${username}", password: "${password}"){
+const Login = ({ username, password }: LoginParams) =>
+  gql(`query {login (username: "${username}", password: "${password}"){
      id
     token
   }
-}`;
+}`);
 
-const Register = ({ username, password }: LoginParams) => `mutation{
+const Register = ({ username, password }: LoginParams) =>
+  gql(`mutation{
   createUser(name: "${username}", username: "${username}", password: "${password}"){
     id
     name
@@ -18,7 +18,7 @@ const Register = ({ username, password }: LoginParams) => `mutation{
     mobile
     password
   }
-}`;
+}`);
 
 /**
  * @description: 用户登录

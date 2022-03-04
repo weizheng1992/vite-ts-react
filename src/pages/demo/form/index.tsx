@@ -11,7 +11,8 @@ import { schemas } from './formItem';
 
 const Index: React.FC = () => {
   const formProps: FormProps = {
-    showAdvancedButton: false,
+    showAdvancedButton: true,
+    actionSpan: 3,
     schemas: schemas,
     labelWidth: 100,
     baseColProps: { lg: 12, md: 24 },
@@ -25,6 +26,10 @@ const Index: React.FC = () => {
         text: '确定',
       },
       advancedButtonOptions: { style: { fontSize: 12 } },
+      submitAction: async () => {
+        const aaa = await getFieldsValue();
+        console.log('submit', aaa);
+      },
     },
   };
 

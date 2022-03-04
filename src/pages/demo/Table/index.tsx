@@ -8,7 +8,7 @@ import React, { useRef } from 'react';
 import { BasicTable, TableRef } from '/@/components/Table';
 import { ColumnsType, TablePaginationConfig } from 'antd/es/table';
 import { Button } from 'antd';
-import { demoListApi } from '/@/api/demo/table';
+import { menuListApi } from '/@/api/sys/menu';
 const title = () => 'Here is title';
 const showHeader = true;
 const footer = () => 'Here is footer';
@@ -56,7 +56,7 @@ const Test = () => {
           showHeader: showHeader,
           pagination: { ...pagination },
         }}
-        api={demoListApi}
+        api={menuListApi}
         searchInfo={{ user: 'admin' }}
         columns={columns}
         rowKey={'id'}

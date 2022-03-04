@@ -168,7 +168,7 @@ const FormItem: React.FC<FormItemAllProps> = (props) => {
   const { colProps } = schema;
   const realColProps = { ...baseColProps, ...colProps };
   return (
-    <Col {...realColProps} style={{ display: getShow.isShow ? '' : 'none' }}>
+    <Col {...realColProps} className="mb-4" style={{ display: getShow.isShow ? '' : 'none' }}>
       {renderItem()}
     </Col>
   );
