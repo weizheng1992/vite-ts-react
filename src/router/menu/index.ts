@@ -1,7 +1,9 @@
+import type { MenuProps } from 'antd';
 import { MenuList, MenuModule, MenuItem } from './type';
 import { isUrl } from '/@/utils/is';
 
-const modules = import.meta.globEager('./modules/**/*.ts');
+type AntdMenuItem = Required<MenuProps>['items'][number];
+const modules: any = import.meta.globEager('./modules/**/*.ts');
 
 const menuModules: MenuModule[] = [];
 
@@ -15,6 +17,7 @@ menuModules.sort((a, b) => {
 });
 
 const staticMenus: MenuList = [];
+const antdMenu: MenuProps['items'] = [];
 (() => {
   menuModules.sort((a, b) => {
     return (a.orderNo || 0) - (b.orderNo || 0);
@@ -23,9 +26,39 @@ const staticMenus: MenuList = [];
   for (const menu of menuModules) {
     staticMenus.push(transformMenuModule(menu));
   }
+
+  for (const menu of staticMenus) {
+    if (menu.children && menu.children.length > 0) {
+      const child: MenuItem[] = menu.children;
+
+      const childArr: MenuProps['items'] = [];
+      for (const c of child) {
+        childArr.push(getItem(c.name, c.path, null));
+      }
+
+      antdMenu.push(getItem(menu.name, menu.path, null, childArr));
+    } else {
+      antdMenu.push(getItem(menu.name, menu.path, null));
+    }
+  }
 })();
 
-export { menuModules, staticMenus };
+export { menuModules, staticMenus, antdMenu };
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: AntdMenuItem[]
+): AntdMenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+  } as AntdMenuItem;
+}
+
 function transformMenuModule(menuModule: MenuModule): MenuItem {
   const { menu } = menuModule;
 

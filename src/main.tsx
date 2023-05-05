@@ -8,11 +8,6 @@ import 'virtual:windi-components.css';
 import 'virtual:windi-utilities.css';
 import App from './App';
 
-if (import.meta.env.DEV) {
-  import('antd/dist/antd.less');
-  // import('../mock');
-}
-
 ReactDOM.render(
   // <React.StrictMode>
   <App />,

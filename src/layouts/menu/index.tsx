@@ -3,10 +3,10 @@ import { Layout, Menu } from 'antd';
 import { MenuItem } from '/@/router/menu/type';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { staticMenus } from '/@/router/menu';
+import { antdMenu } from '/@/router/menu';
+import type { MenuProps } from 'antd';
 
 const { Sider } = Layout;
-const { SubMenu } = Menu;
 
 interface Props {
   collapsed: boolean;
@@ -25,11 +25,12 @@ const LayoutMenu: React.FC<Props> = ({ collapsed }) => {
     setOpenkeys(['/' + pathname.split('/')[1]]);
   }, [pathname]);
 
-  const onMenuClick = (menu: MenuItem) => {
-    const { path } = menu;
-    if (path === pathname) return;
-    setSelectedKeys([path]);
-    navigate(path);
+  const onMenuClick: MenuProps['onClick'] = (menu) => {
+    console.log(menu);
+    const { key } = menu;
+    if (key === pathname) return;
+    setSelectedKeys([key]);
+    navigate(key);
   };
 
   const onOpenChange = (keys: string[]) => {
@@ -37,6 +38,8 @@ const LayoutMenu: React.FC<Props> = ({ collapsed }) => {
 
     setOpenkeys(key ? [key] : []);
   };
+
+  console.log(antdMenu);
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
       <div className="logo" />
@@ -47,8 +50,10 @@ const LayoutMenu: React.FC<Props> = ({ collapsed }) => {
         selectedKeys={selectedKeys}
         openKeys={openKeys}
         onOpenChange={onOpenChange}
-      >
-        {staticMenus?.map((menu) =>
+        items={antdMenu}
+        onClick={onMenuClick}
+      />
+      {/* {staticMenus?.map((menu) =>
           menu.children && menu.children.length > 0 ? (
             <SubMenu key={menu.path} title={menu.name}>
               {menu.children.map((child) => (
@@ -63,7 +68,7 @@ const LayoutMenu: React.FC<Props> = ({ collapsed }) => {
             </Menu.Item>
           )
         )}
-      </Menu>
+      </Menu> */}
     </Sider>
   );
 };

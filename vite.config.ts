@@ -29,6 +29,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     build: {
       target: 'es2015',
       outDir: OUTPUT_DIR,
+      minify: 'terser',
       terserOptions: {
         compress: {
           keep_infinity: true,
@@ -37,7 +38,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
       },
       // Turning off brotliSize display can slightly reduce packaging time
-      brotliSize: false,
       chunkSizeWarningLimit: 1200,
     },
     plugins: createVitePlugins(viteEnv, isBuild),
